@@ -5,16 +5,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="floating">Usuario</ion-label>
-    <br>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-button color="primary">Iniciar sesión</ion-button>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <br>
+        <ion-input type="text" name="username" [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input name="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-button type="submit" color="primary">Iniciar sesión</ion-button>
+  </form>
 
 
 </ion-content>
