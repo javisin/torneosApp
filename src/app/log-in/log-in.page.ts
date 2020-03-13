@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from '../app.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -6,10 +8,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
-
-  constructor() { }
+  private username: string;
+  private password: string;
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('token') === '2') {
+        this.router.navigate(['./inicio']);
+    }
+    this.username = '';
+    this.password = '';
+  }
+
+  onSubmit() {
+    this.appService.logIn(this.username, this.password).subscribe(
+        response => {
+            if (response.login === 'ok') {
+                localStorage.setItem('token', '1');
+                localStorage.setItem('usuario', response.body);
+                this.router.navigate(['./inicio']);
+            } else {
+                console.log('usuario incorrectoo');
+            }
+          // console.log(localStorage.getItem('pwd'));
+        },
+        error => console.log(error)
+    );
   }
 
 }
