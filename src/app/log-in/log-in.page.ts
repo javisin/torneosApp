@@ -13,7 +13,7 @@ export class LogInPage implements OnInit {
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token') === '1') {
+    if (localStorage.getItem('token') === '2') {
         this.router.navigate(['./torneos']);
     }
     this.username = '';
