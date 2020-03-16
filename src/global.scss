@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+.nav{
+  background-color: #2E3F5F
+}
+p{
+  font-size: 14px;
+}
+.light{
+  p,th{
+    color: #ffffff;
+  }
+}
+thead{
+  background-color: var(--ion-color-secondary);
+}
+tbody{
+  background-color: #ffffff;
+}
+.arrow{
+  color: #8C9706 ;
+}

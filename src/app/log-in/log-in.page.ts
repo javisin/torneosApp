@@ -13,8 +13,8 @@ export class LogInPage implements OnInit {
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token') === '2') {
-        this.router.navigate(['./inicio']);
+    if (localStorage.getItem('token') === '1') {
+        this.router.navigate(['./torneos']);
     }
     this.username = '';
     this.password = '';
@@ -26,7 +26,7 @@ export class LogInPage implements OnInit {
             if (response.login === 'ok') {
                 localStorage.setItem('token', '1');
                 localStorage.setItem('usuario', response.body);
-                this.router.navigate(['./inicio']);
+                this.router.navigate(['./torneos']);
             } else {
                 console.log('usuario incorrectoo');
             }
