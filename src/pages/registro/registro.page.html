@@ -1,0 +1,30 @@
+<app-bar></app-bar>
+<ion-content>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Nombre</ion-label>
+      <br>
+      <ion-input type="text" name="Nombre" formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Apellidos</ion-label>
+      <br>
+      <ion-input type="text" name="Nombre" formControlName="apellidos"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Email</ion-label>
+      <br>
+      <ion-input type="text" name="mail" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Contraseña</ion-label>
+      <ion-input name="password" formControlName="contraseña"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="tertiary" position="floating">Nombre de usuario</ion-label>
+      <ion-input name="nick" formControlName="nick"></ion-input>
+    </ion-item>
+    <ion-button type="submit" color="primary">Registrarme</ion-button>
+  </form>
+
+</ion-content>
