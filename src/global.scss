@@ -39,7 +39,7 @@ thead{
 tbody{
   background-color: #ffffff;
 }
-.arrow{
+.color-tertiary{
   color: #8C9706 ;
 }
 .size-14{
@@ -69,4 +69,11 @@ tbody{
   border-top: 0;
 }.no-border, .no-border th{
   border: 0 !important;
+}
+h3{
+ color: #7488B2;
+}
+.active{
+ color: #FFFFFF;
+ border-bottom: 1px solid #FFFFFF;
 }
