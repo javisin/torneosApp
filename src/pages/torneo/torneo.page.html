@@ -1,0 +1,33 @@
+<app-bar></app-bar>
+<ion-content color="light">
+  <div class="nav light">
+    <ion-grid class="ion-text-center">
+      <ion-row>
+        <ion-col>
+          <p class="ion-text-center ion-no-margin ion-padding">Liga masculina</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-around text-light size-14">
+        <ion-col>
+          <a routerLink="/torneo/partidos" routerLinkActive="active" class="text-white">
+            PARTIDOS
+          </a>
+        </ion-col>
+        <ion-col>
+          <a routerLink="/torneo/mis-partidos" routerLinkActive="active" class="text-white">
+            MIS PARTIDOS
+          </a>
+        </ion-col>
+        <ion-col>
+          <a routerLink="/torneo/clasificacion" routerLinkActive="active" class="text-white">
+            CLASIFICACIÓN
+          </a>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-grid class="ion-text-center ion-margin">
+    <router-outlet></router-outlet>
+  </ion-grid>
+</ion-content>
+
