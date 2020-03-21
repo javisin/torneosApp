@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-torneos',
-  templateUrl: './torneos.page.html',
-  styleUrls: ['./torneos.page.scss'],
+  templateUrl: './torneo.page.html',
+  styleUrls: ['./torneo.page.scss'],
 })
-export class TorneosPage implements OnInit {
+export class TorneoPage implements OnInit {
 
   constructor() { }
 

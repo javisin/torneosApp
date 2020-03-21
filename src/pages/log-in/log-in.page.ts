@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppService} from '../app.service';
+import {AppService} from '../../services/app.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class LogInPage implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('token') === '2') {
-        this.router.navigate(['./torneos']);
+        this.router.navigate(['./torneo']);
     }
     this.username = '';
     this.password = '';
@@ -26,7 +26,7 @@ export class LogInPage implements OnInit {
             if (response.login === 'ok') {
                 localStorage.setItem('token', '1');
                 localStorage.setItem('usuario', response.body);
-                this.router.navigate(['./torneos']);
+                this.router.navigate(['./torneo']);
             } else {
                 console.log('usuario incorrectoo');
             }
