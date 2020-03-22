@@ -3,28 +3,31 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AppService {
-  private url: string;
+    private url: string;
 
-  constructor(private http: HttpClient) {
-    this.url = 'https://www.todotorneos.com/wsapp06';
-  }
-
-  logIn(username, password): Observable<any> {
-    const form = new FormData();
-    form.append('user', username);
-    form.append('password', password);
-    return this.http.post(`${this.url}/identificate.php`, form);
-  }
-  registerUser(registerForm): Observable<any> {
-    const form = new FormData();
-    for (const key in registerForm) {
-      if (registerForm.hasOwnProperty(key)) {
-        form.append(key, registerForm[key]);
-      }
+    constructor(private http: HttpClient) {
+        this.url = 'https://www.todotorneos.com/wsapp06';
     }
-    return this.http.post(`${this.url}/registra421.php`, form);
-  }
+
+    logIn(username, password): Observable<any> {
+        const form = new FormData();
+        form.append('user', username);
+        form.append('password', password);
+        return this.http.post(`${this.url}/identificate.php`, form);
+    }
+    registerUser(registerForm): Observable<any> {
+        const form = new FormData();
+        for (const key in registerForm) {
+            if (registerForm.hasOwnProperty(key)) {
+                form.append(key, registerForm[key]);
+            }
+        }
+        return this.http.post(`${this.url}/registra421.php`, form);
+    }
+    getTorneos(idUser): Observable<any> {
+        return this.http.get(`${this.url}/listatorneos.php?user=${idUser}`);
+    }
 }
