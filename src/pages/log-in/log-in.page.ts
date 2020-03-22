@@ -25,10 +25,10 @@ export class LogInPage implements OnInit {
         response => {
             if (response.login === 'ok') {
                 localStorage.setItem('token', '1');
-                localStorage.setItem('usuario', response.body);
+                // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
                 this.router.navigate(['./torneo']);
             } else {
-                console.log('usuario incorrectoo');
+                console.log('usuario incorrecto');
             }
           // console.log(localStorage.getItem('pwd'));
         },

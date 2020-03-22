@@ -12,7 +12,6 @@ export class MenuUsuarioComponent implements OnInit {
 
   ngOnInit() {}
   logOut() {
-    console.log('aa');
     localStorage.clear();
     this.router.navigate(['/log-in']);
   }
