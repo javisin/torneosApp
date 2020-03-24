@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {Router} from '@angular/router';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-log-in',
@@ -8,25 +9,29 @@ import {Router} from '@angular/router';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
-  private username: string;
-  private password: string;
-  constructor(private appService: AppService, private router: Router) { }
+  private loginForm;
+  constructor(
+      private appService: AppService,
+      private router: Router,
+      private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     if (localStorage.getItem('token') === '2') {
         this.router.navigate(['./torneo']);
     }
-    this.username = '';
-    this.password = '';
+    this.loginForm = this.formBuilder.group({
+        user: '',
+        password: ''
+    });
   }
 
-  onSubmit() {
-    this.appService.logIn(this.username, this.password).subscribe(
+  onSubmit(form) {
+    this.appService.logIn(form).subscribe(
         response => {
             if (response.login === 'ok') {
                 localStorage.setItem('token', '1');
                 // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
-                this.router.navigate(['./torneo']);
+                this.router.navigate(['./torneos']);
             } else {
                 console.log('usuario incorrecto');
             }

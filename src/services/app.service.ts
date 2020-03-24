@@ -11,11 +11,13 @@ export class AppService {
     constructor(private http: HttpClient) {
         this.url = 'https://www.todotorneos.com/wsapp06';
     }
-
-    logIn(username, password): Observable<any> {
+    logIn(loginForm): Observable<any> {
         const form = new FormData();
-        form.append('user', username);
-        form.append('password', password);
+        for (const key in loginForm) {
+            if (loginForm.hasOwnProperty(key)) {
+                form.append(key, loginForm[key]);
+            }
+        }
         return this.http.post(`${this.url}/identificate.php`, form);
     }
     registerUser(registerForm): Observable<any> {
