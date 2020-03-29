@@ -1,12 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary" class="d-flex">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="presentPopover($event)">
         <ion-icon name="person-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-
-    <ion-title text-center>
+    <ion-title>
       <ion-img src="../assets/images/logo.png"></ion-img>
     </ion-title>
   </ion-toolbar>
