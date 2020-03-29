@@ -1,16 +1,21 @@
 <app-bar></app-bar>
-
 <ion-content color="light">
-
     <h3 class="ion-margin">Mis competiciones</h3>
-    <div class="mx-3 my-5" *ngFor="let torneo of torneos">
-      <div style="background-color: var(--ion-color-secondary)" class="d-block py-2">
-        <div class="d-flex">
-          <span class="col-12 text-left text-white">{{torneo.nombretorneo}}</span>
-<!--          <span class="col-5 text-right text-white">{{torneo.fecha}}</span>-->
-        </div>
-      </div>
-      <span class="py-1 bg-white ion-text-center d-block color-tertiary">visitar</span>
-    </div>
-
+    <ion-grid>
+        <ion-list>
+            <ion-item routerLink="/torneos/torneo" *ngFor="let torneo of torneos">
+                <ion-label >{{torneo.nombretorneo}}</ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-grid>
 </ion-content>
+
+<!--    <div class="mx-3 my-5" *ngFor="let torneo of torneos">-->
+<!--      <div style="background-color: var(&#45;&#45;ion-color-secondary)" class="d-block py-2">-->
+<!--        <div class="d-flex">-->
+<!--          <span class="col-12 text-left text-white">{{torneo.nombretorneo}}</span>-->
+<!--&lt;!&ndash;          <span class="col-5 text-right text-white">{{torneo.fecha}}</span>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <a routerLink="/torneos/torneo" class="py-1 bg-white ion-text-center d-block color-tertiary">visitar</a>-->
+<!--    </div>-->
