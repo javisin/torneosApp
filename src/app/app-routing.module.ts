@@ -16,17 +16,17 @@ const routes: Routes = [
     loadChildren: () => import('../pages/inicio/inicio.module').then(m => m.InicioPageModule),
   },
   {
-    path: 'torneo',
+    path: 'torneos',
+    loadChildren: () => import('../pages/torneos/torneos.module').then(m => m.TorneosPageModule)
+  },
+  {
+    path: 'torneos/torneo',
     loadChildren: () => import('../pages/torneo/torneo.module').then(m => m.TorneosPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'registro',
     loadChildren: () => import('../pages/registro/registro.module').then(m => m.RegistroPageModule)
-  },
-  {
-    path: 'torneos',
-    loadChildren: () => import('../pages/torneos/torneos.module').then(m => m.TorneosPageModule)
   }
 ];
 @NgModule({
