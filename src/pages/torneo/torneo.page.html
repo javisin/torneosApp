@@ -1,33 +1,56 @@
-<app-bar></app-bar>
-<ion-content color="light">
-  <div class="nav light">
-    <ion-grid class="ion-text-center">
-      <ion-row>
-        <ion-col>
-          <p class="ion-text-center ion-no-margin ion-padding">Liga masculina</p>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-justify-content-around text-light size-14">
-        <ion-col>
-          <a routerLink="/torneo/partidos" routerLinkActive="active" class="text-white">
-            PARTIDOS
-          </a>
-        </ion-col>
-        <ion-col>
-          <a routerLink="/torneo/mis-partidos" routerLinkActive="active" class="text-white">
-            MIS PARTIDOS
-          </a>
-        </ion-col>
-        <ion-col>
-          <a routerLink="/torneo/clasificacion" routerLinkActive="active" class="text-white">
-            CLASIFICACIÓN
-          </a>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+<div #nav>
+  <app-bar></app-bar>
+  <div class="nav light ion-text-center d-block ion-padding">
+    <p class="ion-no-margin">Liga masculina</p>
   </div>
-  <ion-grid class="ion-text-center ion-margin">
-    <router-outlet></router-outlet>
+</div>
+
+<div class="nav light">
+  <ion-grid class="ion-text-center">
+    <ion-row class="ion-justify-content-around size-14 text-white">
+      <ion-col>
+        <span (click)="changeSlide(0)" [class.active]="navIndex === 0" >
+          RESULTADOS
+        </span>
+      </ion-col>
+      <ion-col>
+        <span (click)="changeSlide(1)" [class.active]="navIndex === 1">
+          MIS PARTIDOS
+        </span>
+      </ion-col>
+      <ion-col>
+        <span (click)="changeSlide(2)" [class.active]="navIndex === 2">
+          CLASIFICACIÓN
+        </span>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-</ion-content>
+</div>
+
+  <ion-content scroll-y="false" color="light">
+    <ion-slides [options]="{initialSlide: 1}" (ionSlideDidChange)="changeSlideIndex()">
+
+      <ion-slide >
+        <div class="scrollable mx-2" appHideHeader [nav]="nav">
+          <app-resultados></app-resultados>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="scrollable mx-2" appHideHeader [nav]="nav">
+          <app-mis-resultados></app-mis-resultados>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="scrollable mx-2" appHideHeader [nav]="nav">
+          <app-clasificacion ></app-clasificacion>
+        </div>
+      </ion-slide>
+
+    </ion-slides>
+  </ion-content>
+
+
+<!--appHideHeader [nav]="nav" [slides]="slides" [content]="content" class="scrollable"-->
 
