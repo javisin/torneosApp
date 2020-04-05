@@ -1,8 +1,9 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.example.capapp",
   "appName": "TTapp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh"
 }
