@@ -10,10 +10,11 @@ export class AuthGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.chekLogin();
+    return this.checkLogin();
   }
-  chekLogin(): boolean {
-    if (localStorage.getItem('token') === '1') {
+  checkLogin(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.token !== null) {
       return true;
     } else {
       this.router.navigate(['./log-in']);

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {Router} from '@angular/router';
 import {FormBuilder} from '@angular/forms';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-log-in',
@@ -10,35 +11,42 @@ import {FormBuilder} from '@angular/forms';
 })
 export class LogInPage implements OnInit {
   private loginForm;
-  constructor(
-      private appService: AppService,
-      private router: Router,
-      private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
-    if (localStorage.getItem('token') === '2') {
-        this.router.navigate(['./torneo']);
+  constructor(
+    private appService: AppService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    public alertController: AlertController) {
+  }
+
+  async ngOnInit() {
+    if (localStorage.getItem('token') === '1') {
+      await this.router.navigate(['./torneos']);
     }
     this.loginForm = this.formBuilder.group({
-        user: '',
-        password: ''
+      user: '',
+      password: ''
     });
   }
 
-  onSubmit(form) {
+  async onSubmit(form) {
     this.appService.logIn(form).subscribe(
-        response => {
-            if (response.login === 'ok') {
-                localStorage.setItem('token', '1');
-                // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
-                this.router.navigate(['./torneos']);
-            } else {
-                console.log('usuario incorrecto');
-            }
-          // console.log(localStorage.getItem('pwd'));
-        },
-        error => console.log(error)
+      async response => {
+        if (response.login === 'ok') {
+          localStorage.setItem('user', JSON.stringify(response));
+          console.log('hola');
+          // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
+          await this.router.navigate(['./torneos']);
+        } else {
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: 'El usuario o la contraseña son incorrectos.',
+            buttons: ['OK'],
+            translucent: true,
+          });
+          await alert.present();
+        }
+      },
     );
   }
-
 }
