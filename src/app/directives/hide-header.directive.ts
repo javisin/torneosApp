@@ -27,7 +27,6 @@ export class HideHeaderDirective implements OnInit {
   }
 
   @HostListener('scroll') onScroll() {
-    console.log('dentro');
     if (this.el.nativeElement.scrollTop > this.currentScroll) {
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
