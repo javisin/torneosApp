@@ -17,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'torneos',
-    loadChildren: () => import('../pages/torneos/torneos.module').then(m => m.TorneosPageModule)
+    loadChildren: () => import('../pages/torneos/torneos.module').then(m => m.TorneosPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'torneos/torneo',
