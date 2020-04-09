@@ -1,4 +1,17 @@
-.logo {
-  width: 50%;
-  height: 50%;
+.nav{
+  background-color: #2E3F5F
+}
+.active{
+  color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+div.scrollable {
+  position: relative;
+  overflow: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-y: scroll;
+  height: calc(100vh - 45px);
+  width: inherit;
 }

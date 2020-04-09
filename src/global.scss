@@ -23,25 +23,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
+/* Bootstrap */
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
-.nav{
-  background-color: #2E3F5F
-}
+
 [type="submit"] {
   -webkit-appearance: none;
-}
-.light{
-  p{
-    color: #ffffff;
-  }
-}
-.back-light{
-  background-color: #f2f2f2;
-}
-thead{
-  background-color: white;
-  color: var(--ion-color-secondary);
 }
 tbody{
   background-color: #ffffff;
@@ -54,9 +40,6 @@ tbody{
 }
 .size-14{
   font-size: 14px ;
-}
-.border-width-2{
-  border: 3px solid;
 }
 .local-team{
   width: 40%;
@@ -73,6 +56,7 @@ span{
   width: 20%;
   text-align: center;
   span{
+    background-color: #f2f2f2;
     font-size: 20px;
   }
 }
@@ -80,43 +64,12 @@ span{
   width: 20%;
   text-align: center;
 }
-.jornada{
-  padding-top: 5px !important;
-  padding-bottom: 0 !important;
-  text-align: left;
-}
-.no-border-top td{
-  border-top: 0;
-}.no-border, .no-border th{
-  border: 0 !important;
-}
-h3{
- color: #7488B2;
-}
-.active{
- color: #FFFFFF;
- border-bottom: 1px solid #FFFFFF;
-}
-
-div.scrollable {
-  position: relative;
-  overflow: hidden;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  overflow-y: scroll;
-  height: calc(100vh - 41px);
-  width: inherit;
-}
 .resultadosSet {
   color: #777;
   border: 1px solid #CCC;
   border-radius: 44px;
   font-weight: bold;
   background: linear-gradient(#f6f6f6, #e6e6e6);
-}
-.border-set{
-  border-top: 1px solid #dee2e6;
 }
 .logo{
   margin-left: auto;
@@ -128,19 +81,6 @@ div.scrollable {
 .logo[size=small]{
   width: 50vw;
 }
-
-.bg-transparent {
-  background-color: transparent !important;
-}
-.login-content{
+.blue-gradient-content{
   --background: linear-gradient(to right, rgb(83, 114, 172), rgb(46, 63, 95));
-}
-.login-footer{
-  background-image: linear-gradient(to right, rgb(83, 114, 172), rgb(46, 63, 95));
-}
-.ml-20{
-  margin-left:20px
-}
-.bg-ion-light{
-  background-color: #f2f2f2;
 }
