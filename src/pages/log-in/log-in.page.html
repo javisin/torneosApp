@@ -1,9 +1,8 @@
-<ion-content class="login-content" scroll-y="false">
+<ion-content class="blue-gradient-content" scroll-y="false">
   <div style="margin-top: 30vh">
     <ion-img size="big" class="logo" src="../assets/images/logo.png"></ion-img>
   </div>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <ion-list class="my-4 bg-transparent">
+  <form class="my-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <ion-item class="text-white" color="none">
         <ion-icon name="mail-outline"></ion-icon>
         <ion-input placeholder="Email" type="text" name="username" formControlName="user"></ion-input>
@@ -11,15 +10,14 @@
 
       <ion-item class="text-white" color="none">
         <ion-icon name="lock-closed-outline"></ion-icon>
-        <ion-input placeholder="Contraseña" name="password" formControlName="password">
+        <ion-input placeholder="Contraseña" type="password" name="password" formControlName="password">
         </ion-input>
       </ion-item>
-    </ion-list>
     <ion-button expand="block" class="ion-margin" type="submit" color="tertiary">Iniciar sesión</ion-button>
   </form>
 </ion-content>
 
-<ion-footer class="login-footer">
+<ion-footer class="bg-blue-gradient">
   <div class="ion-text-center ion-margin">
     <span class="text-white">
       ¿No tienes cuenta?

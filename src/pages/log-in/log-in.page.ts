@@ -29,7 +29,7 @@ export class LogInPage implements OnInit {
     });
   }
 
-  async onSubmit(form) {
+  onSubmit(form) {
     this.appService.logIn(form).subscribe(
       async response => {
         if (response.login === 'ok') {

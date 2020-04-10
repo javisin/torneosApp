@@ -1,30 +1,109 @@
-<app-bar></app-bar>
-<ion-content>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Nombre</ion-label>
-      <br>
-      <ion-input type="text" name="Nombre" formControlName="nombre"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Apellidos</ion-label>
-      <br>
-      <ion-input type="text" name="Nombre" formControlName="apellidos"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Email</ion-label>
-      <br>
-      <ion-input type="text" name="mail" formControlName="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Contraseña</ion-label>
-      <ion-input name="password" formControlName="contraseña"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="tertiary" position="floating">Nombre de usuario</ion-label>
-      <ion-input name="nick" formControlName="nick"></ion-input>
-    </ion-item>
-    <ion-button type="submit" color="primary">Registrarme</ion-button>
-  </form>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="blue-gradient-content">
+    <ion-buttons slot="start">
+      <ion-back-button text="" color="light" defaultHref="/log-in"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content class="blue-gradient-content" scroll-y="false">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)" class="my-4">
+    <ion-row>
+      <ion-col size="6">
+        <ion-item color="none" class="text-white">
+          <ion-input placeholder="Nombre" type="text" name="nombre" formControlName="nombre"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item color="none" class="text-white">
+          <ion-input placeholder="Apellidos" type="text" name="apellidos" formControlName="apellidos"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <div class="ml-20" *ngIf="FormControl.nombre.invalid && FormControl.nombre.touched">
+          <small class="text-danger" *ngIf="FormControl.nombre.errors.required">
+            Este campo es obligatorio.
+          </small>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="ml-20" *ngIf="FormControl.apellidos.invalid && FormControl.apellidos.touched">
+          <small class="text-danger" *ngIf="FormControl.apellidos.errors.required">
+            Este campo es obligatorio.
+          </small>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+      <ion-item color="none" class="text-white">
+        <ion-input placeholder="Email" type="text" name="email" formControlName="email"></ion-input>
+      </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+      <div class="ml-20" *ngIf="FormControl.email.invalid && FormControl.email.touched">
+        <small class="text-danger" *ngIf="FormControl.email.errors.required">
+          Este campo es obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="FormControl.email.errors.email">
+          Debes introducir un email válido.
+        </small>
+      </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item color="none" class="text-white">
+          <ion-input placeholder="Nombre de usuario" name="nick" formControlName="nick"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="ml-20" *ngIf="FormControl.nick.invalid && FormControl.nick.touched">
+            <small class="text-danger" *ngIf="FormControl.nick.errors.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item color="none" class="text-white">
+          <ion-input placeholder="Contraseña" [type]="getSeePassword() ? 'text' : 'password'" name="password" formControlName="password"></ion-input>
+          <ion-icon (click)="toggleSeePassword()" slot="end"
+                    [name]="getSeePassword() ? 'eye-off-outline' : 'eye-outline'">
+          </ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="ml-20" *ngIf="FormControl.password.invalid && FormControl.password.touched">
+          <small class="text-danger" *ngIf="FormControl.password.errors.required">
+            Este campo es obligatorio.
+          </small>
+          <small class="text-danger" *ngIf="FormControl.password.errors.minlength">
+            La contraseña debe tener al menos 6 caracteres.
+          </small>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-button expand="block" class="ion-margin" type="submit" color="tertiary">Registrarme</ion-button>
+  </form>
 </ion-content>
