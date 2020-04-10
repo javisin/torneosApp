@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
-    private url: string;
+    private readonly url: string;
 
     constructor(private http: HttpClient) {
         this.url = 'https://www.todotorneos.com/wsapp06';
@@ -18,7 +18,7 @@ export class AppService {
                 form.append(key, loginForm[key]);
             }
         }
-        return this.http.post(`${this.url}/identificate.php`, form);
+        return this.http.post(`${this.url}/solologin.php`, form);
     }
     registerUser(registerForm): Observable<any> {
         const form = new FormData();
@@ -29,7 +29,12 @@ export class AppService {
         }
         return this.http.post(`${this.url}/registra421.php`, form);
     }
-    getTorneos(idUser): Observable<any> {
-        return this.http.get(`${this.url}/listatorneos.php?user=${idUser}`);
+    getTorneos(idUser, token): Observable<any> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: 'my-auth-token'
+            })
+        };
+        return this.http.get(`${this.url}/gettorneoslist.php?user=${idUser}&token=${token}`);
     }
 }
