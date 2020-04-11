@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { IonContent, IonSlides} from '@ionic/angular';
-import {HideHeaderDirective} from '../../app/directives/hide-header.directive';
+import { IonSlides} from '@ionic/angular';
 
 @Component({
   selector: 'app-torneos',
@@ -8,18 +7,18 @@ import {HideHeaderDirective} from '../../app/directives/hide-header.directive';
   styleUrls: ['./torneo.page.scss'],
 })
 export class TorneoPage implements OnInit {
-  @ViewChild(IonContent, {static: true}) content: IonContent;
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
-  // @ViewChild('point', {static: false}) div: ElementRef;
+  @ViewChild('scroll', {static: true}) scroll: ElementRef;
   public navIndex: number;
   constructor() {
     this.navIndex = 1;
   }
+  ionViewWillEnter() {
+    this.scroll.nativeElement.scrollTop = document.getElementById('aqui').offsetTop;
+  }
+
   ngOnInit() {
   }
-  // ionViewWillEnter() {
-  //   this.div.nativeElement.scrollTop = 200;;
-  // }
 
   changeSlideIndex() {
     this.slides.getActiveIndex().then(index => {

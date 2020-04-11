@@ -10,8 +10,8 @@ import { TorneoPage } from './torneo.page';
 import {ResultadosComponent} from './resultados/resultados.component';
 import {MisResultadosComponent} from './mis-resultados/mis-resultados.component';
 import {ClasificacionComponent} from './clasificacion/clasificacion.component';
-import {ComponentsModule} from '../../app/components/components.module';
-import {HideHeaderDirective} from '../../app/directives/hide-header.directive';
+import {ComponentsModule} from '../../components/components.module';
+import {HideHeaderDirective} from '../../directives/hide-header.directive';
 
 @NgModule({
   imports: [

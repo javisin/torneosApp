@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TorneosPageRoutingModule } from './torneos-routing.module';
 
 import { TorneosPage } from './torneos.page';
-import {ComponentsModule} from '../../app/components/components.module';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
   imports: [
