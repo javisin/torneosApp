@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {Router} from '@angular/router';
 import {FormBuilder} from '@angular/forms';
@@ -20,8 +20,8 @@ export class LogInPage implements OnInit {
   }
 
   async ngOnInit() {
-    if (localStorage.getItem('token') === '1') {
-      await this.router.navigate(['./torneos']);
+    if (localStorage.getItem('user') !== null) {
+      this.router.navigate(['./torneos']);
     }
     this.loginForm = this.formBuilder.group({
       user: '',
@@ -34,7 +34,6 @@ export class LogInPage implements OnInit {
       async response => {
         if (response.login === 'ok') {
           localStorage.setItem('user', JSON.stringify(response));
-          console.log('hola');
           // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
           await this.router.navigate(['./torneos']);
         } else {
