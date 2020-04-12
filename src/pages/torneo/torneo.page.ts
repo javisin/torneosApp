@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { IonSlides} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-torneos',
@@ -25,8 +26,8 @@ export class TorneoPage implements OnInit {
       this.navIndex = index;
     });
   }
-  changeSlide(index: number) {
-    this.slides.slideTo(index);
+  async changeSlide(index: number) {
+    await this.slides.slideTo(index);
   }
 
 }
