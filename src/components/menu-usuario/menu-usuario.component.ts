@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { PopoverController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-menu-usuario',
@@ -10,11 +11,13 @@ import { PopoverController} from '@ionic/angular';
 export class MenuUsuarioComponent implements OnInit {
 
   constructor(private router: Router,
-              public popoverController: PopoverController) { }
+              private popoverController: PopoverController,
+              private storage: Storage) { }
 
   ngOnInit() {}
-  logOut() {
-    localStorage.clear();
-    this.popoverController.dismiss().then(() => this.router.navigate(['/log-in']));
+  async logOut() {
+    await this.storage.remove('user');
+    await this.popoverController.dismiss();
+    await this.router.navigate(['/log-in']);
   }
 }

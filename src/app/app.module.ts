@@ -11,11 +11,18 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ComponentsModule} from '../components/components.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ComponentsModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    ComponentsModule,
+    IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
