@@ -1,8 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {Router} from '@angular/router';
 import {FormBuilder} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-log-in',
@@ -16,13 +17,11 @@ export class LogInPage implements OnInit {
     private appService: AppService,
     private router: Router,
     private formBuilder: FormBuilder,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    private storage: Storage) {
   }
 
-  async ngOnInit() {
-    if (localStorage.getItem('user') !== null) {
-      this.router.navigate(['./torneos']);
-    }
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       user: '',
       password: ''
@@ -33,7 +32,7 @@ export class LogInPage implements OnInit {
     this.appService.logIn(form).subscribe(
       async response => {
         if (response.login === 'ok') {
-          localStorage.setItem('user', JSON.stringify(response));
+          await this.storage.set('user', response);
           // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
           await this.router.navigate(['./torneos']);
         } else {

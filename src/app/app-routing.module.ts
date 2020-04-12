@@ -9,11 +9,8 @@ const routes: Routes = [
   },
   {
     path: 'log-in',
-    loadChildren: () => import('../pages/log-in/log-in.module').then(m => m.LogInPageModule)
-  },
-  {
-    path: 'inicio',
-    loadChildren: () => import('../pages/inicio/inicio.module').then(m => m.InicioPageModule),
+    loadChildren: () => import('../pages/log-in/log-in.module').then(m => m.LogInPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'torneos',

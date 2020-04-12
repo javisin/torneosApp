@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
+import {Storage} from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad {
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private storage: Storage) { }
   canLoad(
     route: Route,
-    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.checkLogin();
+    segments: UrlSegment[]): Promise<boolean> | boolean {
+    return this.checkLogin(route);
   }
-  checkLogin(): boolean {
-    if (localStorage.getItem('user') !== null) {
-      return true;
-    } else {
-      this.router.navigate(['./log-in']);
+  async checkLogin(route): Promise<boolean> {
+    if (await this.storage.get('user') !== null && route.path === 'log-in') {
+      await this.router.navigate(['./torneos']);
     }
+    if (await this.storage.get('user') === null && route.path !== 'log-in') {
+      await this.router.navigate(['./log-in']);
+    }
+    return true;
   }
 }
