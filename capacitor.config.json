@@ -1,5 +1,5 @@
 {
-  "appId": "com.example.TTapp",
+  "appId": "com.TodoTorneos.TTapp",
   "appName": "TTapp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
