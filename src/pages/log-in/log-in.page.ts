@@ -33,6 +33,7 @@ export class LogInPage implements OnInit {
       async response => {
         if (response.login === 'ok') {
           await this.storage.set('user', response);
+          this.appService.updateUser(response);
           // localStorage.setItem('usuario', response.body); Añadir el usuario al localStorage
           await this.router.navigate(['./torneos']);
         } else {

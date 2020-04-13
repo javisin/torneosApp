@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app.service';
 import {LoadingController} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-torneos',
@@ -14,22 +13,23 @@ export class TorneosPage implements OnInit {
 
   constructor(private appService: AppService,
               private loadingController: LoadingController,
-              private storage: Storage) {
+              ) {
   }
 
   ngOnInit() {
-  }
-  async ionViewWillEnter() {
-    this.loading = await this.loadingController.create({
-      message: 'Cargando competiciones...'
-    });
-    this.loading.present().then(async () => {
-      const user = await this.storage.get('user');
-      this.appService.getTorneos('demoapp4', user.token).subscribe(res => {
-        this.torneos = Object.values(res);
-        this.torneos.splice(0, 1); // Intentar resolver de otro modo
-        this.loading.dismiss();
-      });
+    this.appService.getUser().subscribe(async user => {
+      if (user !== null) {
+        this.loading = await this.loadingController.create({
+          message: 'Cargando competiciones...'
+        });
+        this.loading.present().then(() => {
+          this.appService.getTorneos(user).subscribe(res => {
+            this.torneos = Object.values(res);
+            this.torneos.splice(0, 1); // Intentar resolver de otro modo
+            this.loading.dismiss();
+          });
+        });
+      }
     });
   }
 }
