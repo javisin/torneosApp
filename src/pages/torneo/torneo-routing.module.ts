@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TorneoPage } from './torneo.page';
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: TorneoPage,
   },
 ];

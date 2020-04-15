@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Storage} from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
@@ -10,8 +9,7 @@ export class AppService {
     private readonly url: string;
     private readonly currentUser: BehaviorSubject<any>;
 
-    constructor(private http: HttpClient,
-                private storage: Storage) {
+    constructor(private http: HttpClient) {
         this.url = 'https://www.todotorneos.com/wsapp06';
         this.currentUser = new BehaviorSubject<any>('null');
     }
@@ -41,8 +39,9 @@ export class AppService {
         };
         return this.http.get(`${this.url}/gettorneoslist.php?user=demoapp4&token=${user.token}`);
     }
-    getTorneo(): Observable<any> {
-        return this.http.get(`${this.url}/getrdos.php?torneo=148990`);
+    getTorneo(idTorneo, jornada): Observable<any> {
+        const params = jornada ? `torneo=148990&jornada=${jornada}` : `torneo=148990`;
+        return this.http.get(`${this.url}/getrdos.php?${params}`);
     }
     getUser(): Observable<any> {
         return this.currentUser;
