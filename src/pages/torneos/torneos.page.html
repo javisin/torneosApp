@@ -3,7 +3,7 @@
     <h3 class="ion-margin">Mis competiciones</h3>
     <ion-grid>
         <ion-list>
-            <ion-item routerLink="/torneos/torneo" *ngFor="let torneo of torneos">
+            <ion-item (click)="presentPopover($event,torneo.idtorneo)" *ngFor="let torneo of torneos">
                 <ion-label >{{torneo.nombretorneo}}</ion-label>
             </ion-item>
         </ion-list>

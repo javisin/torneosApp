@@ -46,6 +46,9 @@ export class AppService {
     getUser(): Observable<any> {
         return this.currentUser;
     }
+    getCategorias(idTorneo): Observable<any> {
+        return this.http.get(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
+    }
     updateUser(value) {
         this.currentUser.next(value);
     }

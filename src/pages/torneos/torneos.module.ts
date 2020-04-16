@@ -8,6 +8,7 @@ import { TorneosPageRoutingModule } from './torneos-routing.module';
 
 import { TorneosPage } from './torneos.page';
 import {ComponentsModule} from '../../components/components.module';
+import {ListaCategoriasComponent} from './lista-categorias/lista-categorias.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {ComponentsModule} from '../../components/components.module';
     TorneosPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [TorneosPage]
+  entryComponents: [ListaCategoriasComponent],
+  declarations: [TorneosPage, ListaCategoriasComponent]
 })
 export class TorneosPageModule {}
