@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ComponentsModule} from '../components/components.module';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
@@ -27,7 +26,6 @@ import {IonicStorageModule} from '@ionic/storage';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })
