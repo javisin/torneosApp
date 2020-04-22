@@ -10,7 +10,7 @@ describe('ClasificacionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ClasificacionComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ClasificacionComponent);

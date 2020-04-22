@@ -10,7 +10,7 @@ describe('MisResultadosComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MisResultadosComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MisResultadosComponent);

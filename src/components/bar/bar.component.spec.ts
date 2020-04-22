@@ -10,7 +10,7 @@ describe('BarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BarComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BarComponent);
