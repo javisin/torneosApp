@@ -4,13 +4,13 @@
   </div>
   <form class="my-4" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <ion-item class="text-white" color="none">
-        <ion-icon name="mail-outline"></ion-icon>
-        <ion-input placeholder="Email" type="text" name="username" formControlName="user"></ion-input>
+        <ion-icon class="mr-2" name="mail-outline"></ion-icon>
+        <ion-input placeholder="Email" type="text" formControlName="user"></ion-input>
       </ion-item>
 
       <ion-item class="text-white" color="none">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        <ion-input placeholder="Contraseña" type="password" name="password" formControlName="password">
+        <ion-icon class="mr-2" name="lock-closed-outline"></ion-icon>
+        <ion-input placeholder="Contraseña" type="password" formControlName="password">
         </ion-input>
       </ion-item>
     <ion-button expand="block" class="ion-margin" type="submit" color="tertiary">Iniciar sesión</ion-button>

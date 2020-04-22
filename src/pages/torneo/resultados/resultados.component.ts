@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppService} from '../../../services/app.service';
+import {TorneoService} from '../../../services/torneo/torneo.service';
 import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 
@@ -9,11 +9,11 @@ import {BehaviorSubject} from 'rxjs';
   styleUrls: ['./resultados.component.scss'],
 })
 export class ResultadosComponent implements OnInit {
-  private results: any[];
-  private jornada: number;
+  public results: any[];
+  public jornada: number;
   private jornadaSubject: BehaviorSubject<number>;
 
-  constructor(private appService: AppService,
+  constructor(private torneoService: TorneoService,
               private route: ActivatedRoute) {
     this.jornadaSubject = new BehaviorSubject<number>(null);
   }
@@ -21,7 +21,7 @@ export class ResultadosComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.jornadaSubject.subscribe(jornada => {
-        this.appService.getTorneo(params.id, jornada).subscribe(torneo => {
+        this.torneoService.getTorneo(params.id, jornada).subscribe(torneo => {
           this.results = torneo.resultados;
           this.jornada = Number(torneo.jornada);
         });

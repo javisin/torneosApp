@@ -13,7 +13,6 @@ import {ListaCategoriasComponent} from './lista-categorias/lista-categorias.comp
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     TorneosPageRoutingModule,
     ComponentsModule

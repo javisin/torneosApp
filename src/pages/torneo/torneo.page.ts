@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { IonSlides} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-torneos',

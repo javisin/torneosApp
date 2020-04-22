@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AppService} from '../../services/app.service';
+import {UserService} from '../../services/user/user.service';
 import { NavController} from '@ionic/angular';
+import { MustMatch } from '../../helpers/mustMatch.validator';
 
 @Component({
   selector: 'app-registro',
@@ -9,12 +10,12 @@ import { NavController} from '@ionic/angular';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  private registerForm: FormGroup;
-  seePassword: boolean;
+  public registerForm: FormGroup;
+  private seePassword: boolean;
 
   constructor(
       private formBuilder: FormBuilder,
-      private appService: AppService,
+      private userService: UserService,
       public nav: NavController
   ) {
     this.seePassword = false;
@@ -27,8 +28,8 @@ export class RegistroPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       nick: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-    console.log(this.registerForm);
+      confirmPassword: [''],
+    }, {validator: MustMatch('password', 'confirmPassword') });
   }
   get FormControl() {
     return this.registerForm.controls;
@@ -39,11 +40,12 @@ export class RegistroPage implements OnInit {
   toggleSeePassword(): void {
     this.seePassword = !this.seePassword;
   }
+  // IMPORTANTE RESPUESTA DEL REGISTRO, VALIDO O NO
 
   onSubmit(form) {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.status === 'VALID') {
-      this.appService.registerUser(form).subscribe(res => {
+      this.userService.registerUser(form).subscribe(res => {
         console.log(res);
       });
     }

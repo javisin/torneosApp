@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppService} from '../../../services/app.service';
+import {TorneoService} from '../../../services/torneo/torneo.service';
 import {NavParams, PopoverController} from '@ionic/angular';
 
 @Component({
@@ -11,7 +11,7 @@ export class ListaCategoriasComponent implements OnInit {
   public idTorneo: string;
   public categorias: any[];
   constructor(
-    private serv: AppService,
+    private torneoService: TorneoService,
     private navParams: NavParams,
     private popoverController: PopoverController
   ) {
@@ -19,7 +19,7 @@ export class ListaCategoriasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serv.getCategorias(this.idTorneo).subscribe(res => {
+    this.torneoService.getCategorias(this.idTorneo).subscribe(res => {
       this.categorias = res.categorias;
     });
   }
