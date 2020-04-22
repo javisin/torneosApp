@@ -12,13 +12,13 @@
     <ion-row>
       <ion-col size="6">
         <ion-item color="none" class="text-white">
-          <ion-input placeholder="Nombre" type="text" name="nombre" formControlName="nombre"></ion-input>
+          <ion-input placeholder="Nombre" type="text" formControlName="nombre"></ion-input>
         </ion-item>
       </ion-col>
 
       <ion-col size="6">
         <ion-item color="none" class="text-white">
-          <ion-input placeholder="Apellidos" type="text" name="apellidos" formControlName="apellidos"></ion-input>
+          <ion-input placeholder="Apellidos" type="text" formControlName="apellidos"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -44,7 +44,7 @@
     <ion-row>
       <ion-col>
       <ion-item color="none" class="text-white">
-        <ion-input placeholder="Email" type="text" name="email" formControlName="email"></ion-input>
+        <ion-input placeholder="Email" type="text" formControlName="email"></ion-input>
       </ion-item>
       </ion-col>
     </ion-row>
@@ -65,7 +65,7 @@
     <ion-row>
       <ion-col>
         <ion-item color="none" class="text-white">
-          <ion-input placeholder="Nombre de usuario" name="nick" formControlName="nick"></ion-input>
+          <ion-input placeholder="Nombre de usuario" formControlName="nick"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -83,7 +83,7 @@
     <ion-row>
       <ion-col>
         <ion-item color="none" class="text-white">
-          <ion-input placeholder="Contraseña" [type]="getSeePassword() ? 'text' : 'password'" name="password" formControlName="password"></ion-input>
+          <ion-input placeholder="Contraseña" [type]="getSeePassword() ? 'text' : 'password'" formControlName="password"></ion-input>
           <ion-icon (click)="toggleSeePassword()" slot="end"
                     [name]="getSeePassword() ? 'eye-off-outline' : 'eye-outline'">
           </ion-icon>
@@ -99,6 +99,29 @@
           </small>
           <small class="text-danger" *ngIf="FormControl.password.errors.minlength">
             La contraseña debe tener al menos 6 caracteres.
+          </small>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item color="none" class="text-white">
+          <ion-input placeholder="Confirmar contraseña" [type]="getSeePassword() ? 'text' : 'password'"
+                     formControlName="confirmPassword">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="ml-20" *ngIf="FormControl.confirmPassword.invalid && FormControl.confirmPassword.touched">
+          <small class="text-danger" *ngIf="FormControl.confirmPassword.errors.required">
+            Este campo es obligatorio.
+          </small>
+          <small class="text-danger" *ngIf="FormControl.confirmPassword.errors.mustMatch">
+            Las contraseñas no coinciden.
           </small>
         </div>
       </ion-col>
