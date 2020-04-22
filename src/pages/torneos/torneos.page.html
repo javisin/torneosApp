@@ -1,12 +1,18 @@
 <app-bar></app-bar>
+<div style="background-color: #2E3F5F">
+    <h3 class="ion-margin text-white text-center">Mis competiciones</h3>
+</div>
 <ion-content color="light">
-    <h3 class="ion-margin">Mis competiciones</h3>
+
     <ion-grid>
-        <ion-list>
+        <ion-list *ngIf="torneos, else noTorneos">
             <ion-item (click)="presentPopover($event,torneo.idtorneo)" *ngFor="let torneo of torneos">
                 <ion-label >{{torneo.nombretorneo}}</ion-label>
             </ion-item>
         </ion-list>
+        <ng-template #noTorneos>
+            <h5 class="ion-margin">No estás inscrito en ningún torneo con la funcionalidad "app".</h5>
+        </ng-template>
     </ion-grid>
 </ion-content>
 
