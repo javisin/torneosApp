@@ -10,6 +10,7 @@ export class UserService {
     private readonly url: string;
     private readonly currentUser: BehaviorSubject<User>;
     private pushToken: string;
+    private platform: string;
 
     constructor(private http: HttpClient) {
         this.url = 'https://www.todotorneos.com/wsapp06';
@@ -37,10 +38,13 @@ export class UserService {
     getUser(): Observable<User> {
         return this.currentUser;
     }
+    updateUser(value) {
+        this.currentUser.next(value);
+    }
     setPushToken(token) {
         this.pushToken = token;
     }
-    updateUser(value) {
-        this.currentUser.next(value);
+    setPlatform(platform) {
+        this.platform = platform;
     }
 }

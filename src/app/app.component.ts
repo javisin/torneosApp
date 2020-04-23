@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
 import {UserService} from '../services/user/user.service';
 import {
@@ -36,8 +35,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      const platform = this.getPlatform();
+      this.userService.setPlatform(platform);
       this.storage.get('user').then(user => this.userService.updateUser(user));
       this.userService.getUser().subscribe(user => this.userName = user ? user.nombre : null);
+
+      // reestructurar
 
       // Request permission to use push notifications
       // iOS will prompt user and return if they granted permission or not
@@ -79,5 +82,12 @@ export class AppComponent {
         }
       );
     });
+  }
+  getPlatform(): string {
+    if (this.platform.is('tablet')) {
+      return 'tablet';
+    } else {
+      return 'mobile';
+    }
   }
 }
