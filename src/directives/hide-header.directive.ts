@@ -23,11 +23,13 @@ export class HideHeaderDirective implements OnInit {
   ngOnInit() {
     this.dom.write(() => {
       this.renderer.setStyle(this.nav, 'transition', 'margin-top 500ms');
+      this.renderer.setStyle(this.el.nativeElement, 'transition', 'height 500ms');
     });
   }
 
   @HostListener('scroll') onScroll() {
-    if (this.el.nativeElement.scrollTop > this.currentScroll) {
+    console.log(this.el.nativeElement.scrollTop, this.currentScroll);
+    if (this.el.nativeElement.scrollTop > this.currentScroll && this.el.nativeElement.scrollTop > 200) {
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
         this.renderer.setStyle(this.el.nativeElement, 'height', 'calc(100vh - 41px)' );
