@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from './user';
+import {Global} from '../global';
 
 @Injectable({
     providedIn: 'root'
@@ -11,9 +12,10 @@ export class UserService {
     private readonly currentUser: BehaviorSubject<User>;
     private pushToken: string;
     private platform: string;
+    private SO: string;
 
     constructor(private http: HttpClient) {
-        this.url = 'https://www.todotorneos.com/wsapp06';
+        this.url = Global.url;
         this.currentUser = new BehaviorSubject<User>(null);
     }
     logIn(loginForm): Observable<User> {

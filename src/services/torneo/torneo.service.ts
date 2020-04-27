@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Torneo} from './torneo';
+import {Global} from '../global';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class TorneoService {
   private readonly url: string;
 
   constructor(private http: HttpClient) {
-    this.url = 'https://www.todotorneos.com/wsapp06';
+    this.url = Global.url;
   }
   getTorneos(user): Observable<any> {
     const httpOptions = {
