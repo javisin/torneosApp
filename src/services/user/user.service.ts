@@ -25,7 +25,11 @@ export class UserService {
                 form.append(key, loginForm[key]);
             }
         }
-        form.append('pushToken', this.pushToken);
+        const platformType = this.platform === 'mobile' ? '1' : '2';
+        const SOType = this.SO === 'android' ? '1' : '2';
+        form.append('dispositivo', platformType);
+        form.append('so', SOType);
+        form.append('id', 'test');
         return this.http.post<User>(`${this.url}/solologin.php`, form);
     }
     registerUser(registerForm): Observable<object> {
@@ -48,5 +52,8 @@ export class UserService {
     }
     setPlatform(platform) {
         this.platform = platform;
+    }
+    setSO(SO) {
+        this.SO = SO;
     }
 }
