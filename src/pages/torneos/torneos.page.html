@@ -3,6 +3,11 @@
     <h5 class="ion-margin text-white text-center">Mis competiciones</h5>
 </div>
 <ion-content color="light">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content class="bg-light"
+            pullingIcon= null>
+        </ion-refresher-content>
+    </ion-refresher>
     <ion-grid>
         <ion-list class="bg-transparent" *ngIf="torneos, else noTorneos">
             <ion-item (click)="presentPopover($event,torneo.idtorneo)" *ngFor="let torneo of torneos">
