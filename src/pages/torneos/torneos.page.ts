@@ -6,6 +6,7 @@ import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {Storage} from '@ionic/storage';
 import {Router} from '@angular/router';
+import {User} from '../../services/user/user';
 
 @Component({
   selector: 'app-torneos',
@@ -15,6 +16,7 @@ import {Router} from '@angular/router';
 export class TorneosPage implements OnInit {
   public torneos: Torneo[];
   private loading: HTMLIonLoadingElement;
+  private user: User;
 
   constructor(private torneoService: TorneoService,
               private userService: UserService,
@@ -29,24 +31,18 @@ export class TorneosPage implements OnInit {
   ngOnInit() {
     this.userService.getUser().subscribe(async user => {
       if (user !== null) {
-        this.loading = await this.loadingController.create({
-          message: 'Cargando competiciones...'
-        });
-        this.loading.present().then(() => {
-          this.torneoService.getTorneos(user).subscribe(res => this.checkTorneos(res));
-        });
+        this.user = user;
+        await this.searchTorneos(user);
       }
     });
   }
-  doRefresh(e) {
-    this.userService.getUser().subscribe(async user => {
-      if (user !== null) {
-          this.torneoService.getTorneos(user).subscribe(res => this.checkTorneos(res));
-          setTimeout(() => {
-          console.log('Async operation has ended');
-          e.target.complete();
-        }, 2000);
-      }
+  async searchTorneos(user) {
+    this.loading = await this.loadingController.create({
+      message: 'Cargando competiciones...'
+    });
+    this.loading.present().then(async () => {
+      this.torneoService.getTorneos(user).subscribe(res => this.checkTorneos(res));
+      await this.loading.dismiss();
     });
   }
   async checkTorneos(res) {
@@ -72,7 +68,12 @@ export class TorneosPage implements OnInit {
         this.torneos = res;
       }
     }
-    await this.loading.dismiss();
+  }
+  async doRefresh(e) {
+    this.torneoService.getTorneos(this.user).subscribe(res => {
+      this.checkTorneos(res);
+      e.target.complete();
+    });
   }
   async presentPopover(ev: any, idTorneo) {
     const popover = await this.popoverController.create({
