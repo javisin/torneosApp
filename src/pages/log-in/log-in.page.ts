@@ -12,7 +12,6 @@ import {Storage} from '@ionic/storage';
 })
 export class LogInPage implements OnInit {
   public loginForm: FormGroup;
-  private alert: HTMLIonAlertElement;
 
   constructor(
     private userService: UserService,
@@ -27,12 +26,6 @@ export class LogInPage implements OnInit {
       user: '',
       password: ''
     });
-    this.alert = await this.alertController.create({
-      header: 'Error',
-      message: 'El usuario o la contraseña son incorrectos.',
-      buttons: ['OK'],
-      translucent: true,
-    });
   }
 
   onSubmit(form) {
@@ -45,7 +38,13 @@ export class LogInPage implements OnInit {
       this.userService.updateUser(res);
       await this.router.navigate(['./torneos']);
     } else {
-      await this.alert.present();
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'El usuario o la contraseña son incorrectos.',
+        buttons: ['OK'],
+        translucent: true,
+      });
+      await alert.present();
     }
   }
 }
