@@ -12,6 +12,7 @@ import {MisResultadosComponent} from './mis-resultados/mis-resultados.component'
 import {ClasificacionComponent} from './clasificacion/clasificacion.component';
 import {ComponentsModule} from '../../components/components.module';
 import {HideHeaderDirective} from '../../directives/hide-header.directive';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import {HideHeaderDirective} from '../../directives/hide-header.directive';
     TorneosPageRoutingModule,
     ComponentsModule
   ],
-
+  providers: [ScreenOrientation],
   declarations: [TorneoPage, ResultadosComponent, MisResultadosComponent, ClasificacionComponent, HideHeaderDirective]
 })
 export class TorneosPageModule {}

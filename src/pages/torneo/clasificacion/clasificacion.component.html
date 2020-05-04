@@ -1,20 +1,26 @@
-<table class="table light my-2">
+<table *ngIf="portraitOrientation; else landscape" class="table light my-2">
   <thead>
   <tr class="no-border">
     <th colspan="2">Equipo</th>
     <th>Puntos</th>
     <th>PJ</th>
+    <th>PG</th>
+    <th>PE</th>
+    <th>PP</th>
   </tr>
   </thead>
-  <tbody class="size-14">
+  <tbody>
   <tr>
     <td class="bg-success no-border">1</td>
     <td>Las Palmas</td>
-    <td>42</td>
-    <td>20</td>
+    <td>22</td>
+    <td>53</td>
+    <td>34</td>
+    <td>3</td>
+    <td>11</td>
   </tr>
   <tr>
-    <td #object1 id='1' class="bg-success no-border">2</td>
+    <td class="bg-success no-border">2</td>
     <td>Huracán</td>
     <td>38</td>
     <td>20</td>
@@ -27,3 +33,50 @@
   </tr>
   </tbody>
 </table>
+<ng-template #landscape>
+  <table *ngIf="position" class="table light my-2">
+  <thead>
+  <tr class="no-border">
+    <th colspan="2">Equipo</th>
+    <th>Puntos</th>
+    <th>PJ</th>
+    <th>PG</th>
+    <th>PE</th>
+    <th>PP</th>
+    <th>SF:SC</th>
+    <th>DS</th>
+    <th>JF:JC</th>
+    <th>DJ</th>
+  </tr>
+  </thead>
+  <tbody >
+  <tr>
+    <td class="bg-success no-border">1</td>
+    <td>Las Palmas</td>
+    <td>{{position.Puntos}}</td>
+    <td>{{position.PJ}}</td>
+    <td>{{position.PG}}</td>
+    <td>{{position.PE}}</td>
+    <td>{{position.PP}}</td>
+    <td>{{position.SF}}:{{position.SC}}</td>
+    <td>{{position.DS}}</td>
+    <td>{{position.JF}}:{{position.JC}}</td>
+    <td>{{position.DJ}}</td>
+
+  </tr>
+  <tr>
+    <td class="bg-success no-border">2</td>
+    <td>Huracán</td>
+    <td>38</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <td class="bg-success no-border">3</td>
+    <td>Villa Santa Brígida</td>
+    <td>35</td>
+    <td>19</td>
+  </tr>
+  </tbody>
+  </table>
+
+</ng-template>
