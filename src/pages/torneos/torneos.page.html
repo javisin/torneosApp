@@ -11,7 +11,7 @@
     <ion-grid>
         <ion-list class="bg-transparent" *ngIf="torneos, else noTorneos">
             <ion-item (click)="presentPopover($event,torneo.idtorneo)" *ngFor="let torneo of torneos">
-                <ion-label >{{torneo.nombretorneo}}</ion-label>
+                {{torneo.nombretorneo}}
             </ion-item>
         </ion-list>
         <ng-template #noTorneos>
