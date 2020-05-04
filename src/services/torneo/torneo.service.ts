@@ -29,4 +29,7 @@ export class TorneoService {
   getCategorias(idTorneo): Observable<any> {
     return this.http.get(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
   }
+  getClasificacion(idTorneo): Observable<any> {
+    return this.http.get(`${this.url}/getclasifica.php?torneo=148990`);
+  }
 }
