@@ -32,7 +32,7 @@
 
       <ion-slide >
         <div class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-resultados></app-resultados>
+          <app-resultados [idTorneo]="idTorneo"></app-resultados>
         </div>
       </ion-slide>
 
@@ -44,7 +44,7 @@
 
       <ion-slide>
         <div class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-clasificacion ></app-clasificacion>
+          <app-clasificacion [idTorneo]="idTorneo"></app-clasificacion>
         </div>
       </ion-slide>
 

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../services/torneo/torneo.service';
-import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
@@ -9,22 +8,20 @@ import {BehaviorSubject} from 'rxjs';
   styleUrls: ['./resultados.component.scss'],
 })
 export class ResultadosComponent implements OnInit {
+  @Input() idTorneo: string;
   public results: any[];
   public jornada: number;
   private jornadaSubject: BehaviorSubject<number>;
 
-  constructor(private torneoService: TorneoService,
-              private route: ActivatedRoute) {
+  constructor(private torneoService: TorneoService) {
     this.jornadaSubject = new BehaviorSubject<number>(null);
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.jornadaSubject.subscribe(jornada => {
-        this.torneoService.getTorneo(params.id, jornada).subscribe(torneo => {
-          this.results = torneo.resultados;
-          this.jornada = Number(torneo.jornada);
-        });
+    this.jornadaSubject.subscribe(jornada => {
+      this.torneoService.getTorneo(this.idTorneo, jornada).subscribe(torneo => {
+        this.results = torneo.resultados;
+        this.jornada = Number(torneo.jornada);
       });
     });
   }
