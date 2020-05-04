@@ -7,6 +7,7 @@ import {Torneo} from '../../services/torneo/torneo';
 import {Storage} from '@ionic/storage';
 import {Router} from '@angular/router';
 import {User} from '../../services/user/user';
+import {createErrorAlert} from '../../helpers/createErrorAlert';
 
 @Component({
   selector: 'app-torneos',
@@ -47,21 +48,7 @@ export class TorneosPage implements OnInit {
   }
   async checkTorneos(res) {
     if (res.Error) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: res.Error,
-        buttons: [
-          {
-            text: 'OK',
-            handler: async () => {
-              await this.storage.remove('user');
-              this.userService.updateUser(null);
-              await this.router.navigate(['/log-in']);
-            }
-          },
-        ],
-        translucent: true,
-      });
+      const alert = await createErrorAlert(res.Error, this.alertController, this.userService, this.storage, this.router);
       await alert.present();
     } else {
       if (res.length > 0) {
