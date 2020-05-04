@@ -8,16 +8,14 @@
             pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-    <ion-grid>
-        <ion-list class="bg-transparent" *ngIf="torneos, else noTorneos">
-            <ion-item (click)="presentPopover($event,torneo.idtorneo)" *ngFor="let torneo of torneos">
+        <ion-list class="bg-transparent ion-no-padding" *ngIf="torneos, else noTorneos">
+            <ion-item (click)="openPicker(torneo.idtorneo)" *ngFor="let torneo of torneos">
                 {{torneo.nombretorneo}}
             </ion-item>
         </ion-list>
         <ng-template #noTorneos>
             <h5 class="ion-margin">No estás inscrito en ningún torneo con la funcionalidad "app".</h5>
         </ng-template>
-    </ion-grid>
 </ion-content>
 
 <!--    <div class="mx-3 my-5" *ngFor="let torneo of torneos">-->

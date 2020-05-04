@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TorneoService} from '../../services/torneo/torneo.service';
-import {AlertController, LoadingController, PopoverController} from '@ionic/angular';
-import {ListaCategoriasComponent} from './lista-categorias/lista-categorias.component';
+import {AlertController, LoadingController, PickerController, PopoverController} from '@ionic/angular';
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {Storage} from '@ionic/storage';
@@ -25,7 +24,8 @@ export class TorneosPage implements OnInit {
               private popoverController: PopoverController,
               private alertController: AlertController,
               private storage: Storage,
-              private router: Router
+              private router: Router,
+              public pickerController: PickerController
               ) {
   }
 
@@ -62,13 +62,34 @@ export class TorneosPage implements OnInit {
       e.target.complete();
     });
   }
-  async presentPopover(ev: any, idTorneo) {
-    const popover = await this.popoverController.create({
-      component: ListaCategoriasComponent,
-      componentProps: {idTorneo},
-      event: ev,
-      translucent: true
+  async openPicker(idTorneo) {
+    const picker = await this.pickerController.create({
+      columns: [{
+        name: 'Categorías',
+        options: await this.getCategorias(idTorneo),
+      }],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          handler: (value) => {
+            this.router.navigate([`torneos/torneo/${idTorneo}`]);
+          }
+        }
+      ]
     });
-    return await popover.present();
+    await picker.present();
+  }
+  async getCategorias(idTorneo) {
+    const {categorias} = await this.torneoService.getCategorias(idTorneo).pipe().toPromise();
+    return categorias.map(categoria => {
+      return {
+        text: categoria.nombre,
+        value: categoria.idcategoria
+      };
+    });
   }
 }
