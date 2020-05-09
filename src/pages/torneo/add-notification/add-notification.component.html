@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon class="medium-icon" name="notifications-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>
+      Notificar
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<div class="border-set p-2">
+
+  <ion-row class="my-2 justify-content-center">
+    <span>{{equipo1}}</span>
+  </ion-row>
+  <ion-row  class="my-2 justify-content-center">
+    <span>VS</span>
+  </ion-row>
+  <ion-row  class="my-2 justify-content-center">
+    <span>{{equipo2}}</span>
+  </ion-row>
+  <ion-segment value="none">
+    <ion-segment-button value="none">
+      <ion-label>Ninguna</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="hour">
+      <ion-label>1h</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="day">
+      <ion-label>1 día</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</div>
+<ion-footer>
+  <ion-toolbar class="border-success">
+    <ion-buttons class="ion-text-center">
+      <ion-button class="w-100" (click)="createNotification()">Crear notificación</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
