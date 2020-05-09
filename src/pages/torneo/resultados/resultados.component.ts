@@ -26,9 +26,11 @@ export class ResultadosComponent implements OnInit {
     });
   }
   nextJornada() {
+    // comparar con el total
     this.jornadaSubject.next(this.jornada + 1);
   }
   previousJornada() {
-    this.jornadaSubject.next(this.jornada - 1);
+    if (this.jornada > 1) { this.jornadaSubject.next(this.jornada - 1); }
+  }
   }
 }
