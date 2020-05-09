@@ -7,7 +7,7 @@
 </div>
 <div class="bg-white my-3">
 
-  <div *ngFor="let result of results" class="border-set p-2">
+  <div *ngFor="let result of results; let i = index" (click)="presentModal(i)" class="border-set p-2">
 
     <ion-row class="my-2">
       <ion-col size="6" class="ion-text-left">
