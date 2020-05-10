@@ -84,7 +84,7 @@ export class TorneosPage implements OnInit {
     await picker.present();
   }
   async getCategorias(idTorneo) {
-    const {categorias} = await this.torneoService.getCategorias(idTorneo).pipe().toPromise();
+    const categorias = await this.torneoService.getCategorias(idTorneo).pipe().toPromise();
     return categorias.map(categoria => {
       return {
         text: categoria.nombre,

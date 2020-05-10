@@ -13,7 +13,7 @@ export class ClasificacionComponent implements OnInit {
   @Input() idTorneo: string;
   public test: boolean;
   public portraitOrientation: boolean;
-  public position: any;
+  public positions: any;
 
   constructor(private route: ActivatedRoute,
               private torneoService: TorneoService,
@@ -28,7 +28,7 @@ export class ClasificacionComponent implements OnInit {
       this.changeRef.detectChanges();
     });
     this.torneoService.getClasificacion(this.idTorneo).subscribe(res => {
-      this.position = res.posiciones.posicion1;
+      this.positions = res.posiciones;
     });
   }
 }

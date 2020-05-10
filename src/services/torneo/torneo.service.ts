@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Torneo} from './torneo';
 import {Global} from '../global';
 
@@ -13,15 +13,14 @@ export class TorneoService {
   constructor(private http: HttpClient) {
     this.url = Global.url;
   }
-  getTorneos(user): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'my-auth-token'
-      })
-    };
-    return this.http.get(`${this.url}/gettorneoslist.php?user=demoapp4&token=${user.token}`);
+  getTorneos(user): Observable<Torneo[]> {
+    return this.http.get<Torneo[]>(`${this.url}/gettorneoslist.php?user=demoapp4&token=${user.token}`);
   }
-  getTorneo(idTorneo, jornada): Observable<any> {
+  getResultados(idTorneo, jornada): Observable<any> {
+    const params = jornada ? `torneo=148990&jornada=${jornada}` : `torneo=148990`;
+    return this.http.get(`${this.url}/getrdos.php?${params}`);
+  }
+  getMisResultados(idTorneo, jornada): Observable<any> {
     const params = jornada ? `torneo=148990&jornada=${jornada}` : `torneo=148990`;
     return this.http.get(`${this.url}/getrdos.php?${params}`);
   }
