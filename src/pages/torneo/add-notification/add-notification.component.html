@@ -1,13 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-icon class="medium-icon" name="notifications-outline"></ion-icon>
+      <ion-button>
+       <ion-icon class="medium-icon" name="notifications-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="ion-text-center">
       Notificar
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Cancelar</ion-button>
+      <ion-button (click)="dismissModal()">
+        <ion-icon class="medium-icon" name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -23,6 +27,9 @@
   <ion-row  class="my-2 justify-content-center">
     <span>{{equipo2}}</span>
   </ion-row>
+  <div class="mt-3 d-flex justify-content-center">
+    <span class="font-weight-bolder">Antelación</span>
+  </div>
   <ion-segment value="none">
     <ion-segment-button value="none">
       <ion-label>Ninguna</ion-label>
