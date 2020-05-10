@@ -1,42 +1,26 @@
 <table *ngIf="portraitOrientation; else landscape" class="table light my-2">
   <thead>
-  <tr class="no-border">
+  <tr class="no-border bg-light">
     <th colspan="2">Equipo</th>
     <th>Puntos</th>
     <th>PJ</th>
-    <th>PG</th>
-    <th>PE</th>
-    <th>PP</th>
+    <th>DS</th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td class="bg-success no-border">1</td>
-    <td>Las Palmas</td>
-    <td>22</td>
-    <td>53</td>
-    <td>34</td>
-    <td>3</td>
-    <td>11</td>
-  </tr>
-  <tr>
-    <td class="bg-success no-border">2</td>
-    <td>Huracán</td>
-    <td>38</td>
-    <td>20</td>
-  </tr>
-  <tr>
-    <td class="bg-success no-border">3</td>
-    <td>Villa Santa Brígida</td>
-    <td>35</td>
-    <td>19</td>
+  <tr *ngFor="let position of positions; let i = index">
+    <td class="border-right bg-light">{{i + 1}}</td>
+    <td class="bg-light">{{position.nombreequipo}}</td>
+    <td>{{position.Puntos}}</td>
+    <td>{{position.PJ}}</td>
+    <td>{{position.DS}}</td>
   </tr>
   </tbody>
 </table>
 <ng-template #landscape>
-  <table *ngIf="position" class="table light my-2">
+  <table class="table light my-2">
   <thead>
-  <tr class="no-border">
+  <tr class="no-border bg-light">
     <th colspan="2">Equipo</th>
     <th>Puntos</th>
     <th>PJ</th>
@@ -50,9 +34,9 @@
   </tr>
   </thead>
   <tbody >
-  <tr>
-    <td class="bg-success no-border">1</td>
-    <td>Las Palmas</td>
+  <tr *ngFor="let position of positions; let i = index">
+    <td class="border-right bg-light">{{i + 1}}</td>
+    <td class="bg-light">{{position.nombreequipo}}</td>
     <td>{{position.Puntos}}</td>
     <td>{{position.PJ}}</td>
     <td>{{position.PG}}</td>
@@ -63,18 +47,6 @@
     <td>{{position.JF}}:{{position.JC}}</td>
     <td>{{position.DJ}}</td>
 
-  </tr>
-  <tr>
-    <td class="bg-success no-border">2</td>
-    <td>Huracán</td>
-    <td>38</td>
-    <td>20</td>
-  </tr>
-  <tr>
-    <td class="bg-success no-border">3</td>
-    <td>Villa Santa Brígida</td>
-    <td>35</td>
-    <td>19</td>
   </tr>
   </tbody>
   </table>
