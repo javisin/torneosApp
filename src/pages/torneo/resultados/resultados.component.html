@@ -1,8 +1,10 @@
 <p class="text-center color-tertiary my-2">Jornada</p>
 <div class="text-center d-flex align-content-center justify-content-center">
-  <ion-icon (click)="previousJornada()" [class.opacity-medium]="jornada <= 1"  class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
+  <ion-icon (click)="previousJornada()" [class.opacity-medium]="jornada <= 1"
+            class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
   <span class="border-secondary border-width-3 rounded bg-white px-4 py-1">{{jornada}}</span>
-  <ion-icon (click)="nextJornada()" class="color-tertiary" size="large" name="arrow-forward-outline">
+  <ion-icon (click)="nextJornada()" [class.opacity-medium]="jornada === totalJornadas"
+            class="color-tertiary" size="large" name="arrow-forward-outline">
   </ion-icon>
 </div>
 <div class="bg-white my-3">
@@ -15,7 +17,7 @@
       </ion-col>
       <ion-col class="ion-align-self-center" offset="1" size="4">
         <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo1}} </span>
+          <span>{{result.rdo1}}</span>
         </div>
       </ion-col>
     </ion-row>
@@ -26,7 +28,7 @@
       </ion-col>
       <ion-col class="ion-align-self-center" offset="1" size="4">
         <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo2}} </span>
+          <span>{{result.rdo2}}</span>
         </div>
       </ion-col>
     </ion-row>
@@ -88,7 +90,9 @@
   </table>
 
 <div class="text-center d-flex align-content-center justify-content-center mb-3">
-  <ion-icon (click)="previousJornada()" [class.opacity-medium]="jornada <= 1"  class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
+  <ion-icon (click)="previousJornada()" [class.opacity-medium]="jornada === 1"
+            class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
   <span class="border-secondary border-width-3 rounded bg-white px-4 py-1">{{jornada}}</span>
-  <ion-icon (click)="nextJornada()" class="color-tertiary" size="large" name="arrow-forward-outline"></ion-icon>
+  <ion-icon (click)="nextJornada()" [class.opacity-medium]="jornada === totalJornadas"
+            class="color-tertiary" size="large" name="arrow-forward-outline"></ion-icon>
 </div>

@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {BehaviorSubject} from 'rxjs';
-import {ModalController, PopoverController} from '@ionic/angular';
+import {PopoverController} from '@ionic/angular';
 import {AddNotificationComponent} from '../add-notification/add-notification.component';
+import {Resultado} from '../../../services/torneo/resultado';
 
 @Component({
   selector: 'app-resultados',
@@ -11,8 +12,9 @@ import {AddNotificationComponent} from '../add-notification/add-notification.com
 })
 export class ResultadosComponent implements OnInit {
   @Input() idTorneo: string;
-  public results: any[];
+  public results: Resultado[];
   public jornada: number;
+  public totalJornadas: number;
   private jornadaSubject: BehaviorSubject<number>;
 
   constructor(private torneoService: TorneoService,
@@ -22,27 +24,32 @@ export class ResultadosComponent implements OnInit {
 
   ngOnInit() {
     this.jornadaSubject.subscribe(jornada => {
-      this.torneoService.getTorneo(this.idTorneo, jornada).subscribe(torneo => {
+      this.torneoService.getResultados(this.idTorneo, jornada).subscribe(torneo => {
         this.results = torneo.resultados;
+        this.totalJornadas = Number(torneo.totaljornadas);
         this.jornada = Number(torneo.jornada);
       });
     });
   }
   nextJornada() {
-    // comparar con el total
+    if (this.jornada < this.totalJornadas) {
     this.jornadaSubject.next(this.jornada + 1);
+    }
   }
   previousJornada() {
-    if (this.jornada > 1) { this.jornadaSubject.next(this.jornada - 1); }
+    if (this.jornada > 1) {
+      this.jornadaSubject.next(this.jornada - 1);
+    }
   }
   async presentModal(i) {
     const modal = await this.popoverController.create({
       component: AddNotificationComponent,
       componentProps: {
+        idPartido: this.results[i].Idpartido,
         equipo1: this.results[i].equipo1,
-        result1: this.results[i].rdo1,
+        resultado1: this.results[i].rdo1,
         equipo2: this.results[i].equipo2,
-        result2: this.results[i].rdo2,
+        resultado2: this.results[i].rdo2,
       },
       cssClass: 'ionic-w-80',
     });
