@@ -16,6 +16,7 @@ export class HideHeaderDirective implements OnInit {
   private visible: boolean;
   private scrollDown: boolean;
   private maxScroll: number;
+  private scrollDivs: NodeListOf<HTMLElement>;
   constructor(
       private el: ElementRef,
       private renderer: Renderer2,
@@ -26,9 +27,12 @@ export class HideHeaderDirective implements OnInit {
   }
   @Input() nav: HTMLElement;
   ngOnInit() {
+    this.scrollDivs = document.querySelectorAll('.scrollable');
     this.dom.write(() => {
       this.renderer.setStyle(this.nav, 'transition', 'margin-top 500ms');
-      this.renderer.setStyle(this.el.nativeElement, 'transition', 'height 500ms');
+      this.scrollDivs.forEach(scroll => {
+        this.renderer.setStyle(scroll, 'transition', 'height 500ms');
+      });
     });
   }
 
@@ -39,14 +43,18 @@ export class HideHeaderDirective implements OnInit {
       this.visible = false;
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
-        this.renderer.setStyle(this.el.nativeElement, 'height', 'calc(100vh - 41px)' );
+        this.scrollDivs.forEach(scroll => {
+          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 41px)');
+        });
       });
-    } else if ((!this.scrollDown && !this.visible
-        && this.el.nativeElement.scrollTop < (this.maxScroll - 200) || this.maxScroll <= 200 )) {
+    } else if (!this.scrollDown && !this.visible
+        && this.el.nativeElement.scrollTop < (this.maxScroll - 100)) {
       this.visible = true;
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', '0');
-        this.renderer.setStyle(this.el.nativeElement, 'height', 'calc(100vh - 141px)' );
+        this.scrollDivs.forEach(scroll => {
+          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 141px)');
+        });
       });
     }
     this.currentScroll = this.el.nativeElement.scrollTop;
