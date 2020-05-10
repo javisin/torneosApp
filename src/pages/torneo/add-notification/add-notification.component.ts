@@ -8,48 +8,78 @@ import {IonSegment, PopoverController} from '@ionic/angular';
   styleUrls: ['./add-notification.component.scss'],
 })
 export class AddNotificationComponent implements OnInit {
+  @Input() idPartido: number;
   @Input() equipo1: string;
-  @Input() result1: string;
+  @Input() resultado1: string;
   @Input() equipo2: string;
-  @Input() result2: string;
-  @ViewChild(IonSegment, {static: true}) segment: IonSegment;
+  @Input() resultado2: string;
+  @ViewChild(IonSegment, {static: false}) segment: IonSegment;
+  public anticipationMessage: string;
   constructor(private localNotifications: LocalNotifications,
-              private popoverController: PopoverController,
+              private popoverController: PopoverController
               ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (await this.localNotifications.isScheduled(this.idPartido)) {
+      const notification = await this.localNotifications.get(this.idPartido);
+      const notifAnticipation = JSON.parse(notification.data).anticipation;
+      switch (notifAnticipation) {
+        case 'none': {
+          this.anticipationMessage = 'el comienzo';
+          break;
+        }
+        case 'hour': {
+          this.anticipationMessage = 'una hora antes';
+          break;
+        }
+        case 'day': {
+          this.anticipationMessage = 'un día antes';
+          break;
+        }
+      }
+    }
   }
   async dismissModal() {
    await this.popoverController.dismiss({
       dismissed: true
     });
   }
+  async cancelNotification() {
+    await this.localNotifications.cancel(this.idPartido);
+    await this.dismissModal();
+  }
   async createNotification() {
     const value = this.segment.value;
     const matchTime = Date.now();
     let text: string;
+    let anticipation: string;
     let notificationDate: Date;
     switch (value) {
       case 'none': {
-        text = `Comienzo del partido ${this.equipo1} VS ${this.equipo2}`;
+        text = `Comienzo del partido`;
         notificationDate = new Date(matchTime);
+        anticipation = 'none';
         break;
       }
       case 'hour': {
-        text = `Una hora para el partido ${this.equipo1} VS ${this.equipo2}`;
+        text = `Una hora para el partido`;
         notificationDate = new Date(matchTime - 3600000);
+        anticipation = 'hour';
         break;
       }
       case 'day': {
-        text = `Un día al partido ${this.equipo1} VS ${this.equipo2}`;
+        text = `Un día para el partido`;
         notificationDate = new Date(matchTime - 3600000 * 24);
+        anticipation = 'day';
         break;
       }
     }
     this.localNotifications.schedule({
-      title: 'Comienzo del partido',
-      text,
+      id: this.idPartido,
+      title: 'Alerta de partido',
+      text: `${text} ${this.equipo1} VS ${this.equipo2}`,
       trigger: {at: notificationDate},
+      data: {anticipation}
     });
     await this.dismissModal();
   }

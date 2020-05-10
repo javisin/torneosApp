@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button>
-       <ion-icon class="medium-icon" name="notifications-outline"></ion-icon>
+       <ion-icon class="medium-icon" [color]="anticipationMessage ? 'warning' : 'none'"
+                 [name]="anticipationMessage ? 'notifications' : 'notifications-outline'"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">
@@ -27,25 +28,35 @@
   <ion-row  class="my-2 justify-content-center">
     <span>{{equipo2}}</span>
   </ion-row>
-  <div class="mt-3 d-flex justify-content-center">
-    <span class="font-weight-bolder">Antelación</span>
-  </div>
-  <ion-segment value="none">
-    <ion-segment-button value="none">
-      <ion-label>Ninguna</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="hour">
-      <ion-label>1h</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="day">
-      <ion-label>1 día</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <p *ngIf="anticipationMessage; else create" class="mt-3 font-weight-bolder">
+    Notificación ya programada para {{anticipationMessage}} del partido.
+  </p>
+  <ng-template #create>
+    <div class="mt-3 d-flex justify-content-center">
+      <span class="font-weight-bolder">Antelación</span>
+    </div>
+    <ion-segment value="none">
+      <ion-segment-button value="none">
+        <ion-label>Ninguna</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="hour">
+        <ion-label>1h</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="day">
+        <ion-label>1 día</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ng-template>
+
 </div>
 <ion-footer>
   <ion-toolbar class="border-success">
     <ion-buttons class="ion-text-center">
-      <ion-button class="w-100" (click)="createNotification()">Crear notificación</ion-button>
+      <ion-button *ngIf="anticipationMessage; else createButton"
+                  class="w-100" (click)="cancelNotification()">Cancelar notificación</ion-button>
+      <ng-template #createButton>
+        <ion-button class="w-100" (click)="createNotification()">Crear notificación</ion-button>
+      </ng-template>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
