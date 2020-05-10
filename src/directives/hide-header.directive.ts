@@ -41,8 +41,8 @@ export class HideHeaderDirective implements OnInit {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
         this.renderer.setStyle(this.el.nativeElement, 'height', 'calc(100vh - 41px)' );
       });
-    } else if (!this.scrollDown && !this.visible
-        && this.el.nativeElement.scrollTop < (this.maxScroll - 200 )) {
+    } else if ((!this.scrollDown && !this.visible
+        && this.el.nativeElement.scrollTop < (this.maxScroll - 200) || this.maxScroll <= 200 )) {
       this.visible = true;
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', '0');
