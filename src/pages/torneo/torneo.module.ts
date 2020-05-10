@@ -23,7 +23,6 @@ import {AddNotificationComponent} from './add-notification/add-notification.comp
     TorneosPageRoutingModule,
     ComponentsModule
   ],
-  providers: [ScreenOrientation],
   declarations: [TorneoPage, ResultadosComponent, MisResultadosComponent, ClasificacionComponent,
     HideHeaderDirective, AddNotificationComponent],
   entryComponents: [AddNotificationComponent]

@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ComponentsModule} from '../components/components.module';
 import {IonicStorageModule} from '@ionic/storage';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

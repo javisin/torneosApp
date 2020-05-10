@@ -10,6 +10,7 @@ import {
   PushNotification,
   PushNotificationToken,
   PushNotificationActionPerformed } from '@capacitor/core';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 const { PushNotifications } = Plugins;
 
 
@@ -25,16 +26,18 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public userService: UserService,
-    private storage: Storage
+    private userService: UserService,
+    private storage: Storage,
+    private screenOrientation: ScreenOrientation
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      // await this.screenOrientation.lock('portrait');
       const platform = this.getPlatform();
       this.userService.setPlatform(platform);
       const SO = this.getSO();
