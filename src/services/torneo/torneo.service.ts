@@ -17,11 +17,11 @@ export class TorneoService {
     return this.http.get<Torneo[]>(`${this.url}/gettorneoslist.php?user=demoapp4&token=${user.token}`);
   }
   getResultados(idTorneo, jornada): Observable<any> {
-    const params = jornada ? `torneo=148990&jornada=${jornada}` : `torneo=148990`;
+    const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
     return this.http.get(`${this.url}/getrdos.php?${params}`);
   }
   getMisResultados(idTorneo, jornada): Observable<any> {
-    const params = jornada ? `torneo=148990&jornada=${jornada}` : `torneo=148990`;
+    const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
     return this.http.get(`${this.url}/getrdos.php?${params}`);
   }
 
@@ -29,6 +29,6 @@ export class TorneoService {
     return this.http.get(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
   }
   getClasificacion(idTorneo): Observable<any> {
-    return this.http.get(`${this.url}/getclasifica.php?torneo=148990`);
+    return this.http.get(`${this.url}/getclasifica.php?torneo=${idTorneo}`);
   }
 }
