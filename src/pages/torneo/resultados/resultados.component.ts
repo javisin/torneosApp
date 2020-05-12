@@ -16,6 +16,7 @@ export class ResultadosComponent implements OnInit {
   public jornada: number;
   public totalJornadas: number;
   private jornadaSubject: BehaviorSubject<number>;
+  public torneoType: string;
 
   constructor(private torneoService: TorneoService,
               private popoverController: PopoverController) {
@@ -26,6 +27,7 @@ export class ResultadosComponent implements OnInit {
     this.jornadaSubject.subscribe(jornada => {
       this.torneoService.getResultados(this.idTorneo, jornada).subscribe(torneo => {
         this.results = torneo.resultados;
+        this.torneoType = torneo.modalidadvisual;
         this.totalJornadas = Number(torneo.totaljornadas);
         this.jornada = Number(torneo.jornada);
       });
@@ -41,7 +43,7 @@ export class ResultadosComponent implements OnInit {
       this.jornadaSubject.next(this.jornada - 1);
     }
   }
-  async presentModal(i) {
+  async createNotification(i) {
     const modal = await this.popoverController.create({
       component: AddNotificationComponent,
       componentProps: {

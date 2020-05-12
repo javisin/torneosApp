@@ -9,85 +9,45 @@
 </div>
 <div class="bg-white my-3">
 
-  <div *ngFor="let result of results; let i = index" (click)="presentModal(i)" class="border-set p-2">
 
-    <ion-row class="my-2">
-      <ion-col size="6" class="ion-text-left">
-        <span>{{result.equipo1}}</span>
-      </ion-col>
-      <ion-col class="ion-align-self-center" offset="1" size="4">
-        <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo1}}</span>
-        </div>
-      </ion-col>
-    </ion-row>
+  <div *ngIf="torneoType === 'sets'; else horizontal">
+    <div *ngFor="let result of results; let i = index" (click)="createNotification(i)" class="border-set p-2">
+      <ion-row class="my-2">
+        <ion-col size="6" class="ion-text-left">
+          <span>{{result.equipo1}}</span>
+        </ion-col>
+        <ion-col class="ion-align-self-center" offset="1" size="4">
+          <div class="resultadosSet px-2 text-left border-secondary">
+            <span>{{result.rdo1}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row  class="my-2">
-      <ion-col size="6" class="ion-text-left">
-        <span>{{result.equipo2}}</span>
-      </ion-col>
-      <ion-col class="ion-align-self-center" offset="1" size="4">
-        <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo2}}</span>
-        </div>
-      </ion-col>
-    </ion-row>
+      <ion-row  class="my-2">
+        <ion-col size="6" class="ion-text-left">
+          <span>{{result.equipo2}}</span>
+        </ion-col>
+        <ion-col class="ion-align-self-center" offset="1" size="4">
+          <div class="resultadosSet px-2 text-left border-secondary">
+            <span>{{result.rdo2}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
   </div>
+  <ng-template #horizontal>
+    <table class="table light my-3">
+      <tbody class="size-14">
+        <tr *ngFor="let result of results; let i = index" (click)="createNotification(i)">
+          <td class="local-team">{{result.equipo1}}</td>
+          <td class="result"><span class="rounded py-1 px-2 back-light">{{result.rdo1}}-{{result.rdo2}}</span></td>
+          <td class="visitor-team">{{result.equipo1}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
 
 </div>
-
-  <table class="table light my-3">
-    <tbody class="size-14">
-    <tr>
-      <td class="local-team">Las Palmas</td>
-      <td class="result"><span class="rounded py-1 px-2 back-light">3-3</span></td>
-      <td class="visitor-team">Universidad</td>
-    </tr>
-    <tr>
-      <td class="local-team">Huracán</td>
-      <td class="date"><span>03/05</span></td>
-      <td class="visitor-team">Unión Viera</td>
-    </tr>
-    <tr>
-      <td class="local-team">Santa Brígida</td>
-      <td class="result"><span class="rounded py-1 px-2 back-light">3-3</span></td>
-      <td class="visitor-team">Acodetti</td>
-    </tr>
-    <tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result"><span class="rounded py-1 px-2 back-light">3-3</span></td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result"><span class="rounded py-1 px-2 back-light">3-3</span></td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result"><span class="rounded py-1 px-2 back-light">3-3</span></td>
-      <td class="visitor-team">S</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr id="element">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">YOP</td>
-    </tr><tr>
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr>
-    </tbody>
-  </table>
 
 <div class="text-center d-flex align-content-center justify-content-center mb-3">
   <ion-icon (click)="previousJornada()" [class.opacity-medium]="jornada === 1"
