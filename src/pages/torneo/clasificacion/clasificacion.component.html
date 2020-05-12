@@ -1,10 +1,9 @@
 <table *ngIf="portraitOrientation; else landscape" class="table light my-2">
-  <thead>
+  <thead class="sticky-top">
   <tr class="no-border bg-light">
     <th colspan="2">Equipo</th>
     <th>Puntos</th>
     <th>PJ</th>
-    <th>DS</th>
   </tr>
   </thead>
   <tbody>
@@ -13,13 +12,12 @@
     <td class="bg-light">{{position.nombreequipo}}</td>
     <td>{{position.Puntos}}</td>
     <td>{{position.PJ}}</td>
-    <td>{{position.DS}}</td>
   </tr>
   </tbody>
 </table>
 <ng-template #landscape>
   <table class="table light my-2">
-  <thead>
+  <thead class="sticky-top">
   <tr class="no-border bg-light">
     <th colspan="2">Equipo</th>
     <th>Puntos</th>
