@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {NotificacionService} from '../../services/notificacion/notificacion.service';
-import {UserService} from '../../services/user/user.service';
-import {User} from '../../services/user/user';
+import {NotificacionService} from '../../../services/notificacion/notificacion.service';
+import {UserService} from '../../../services/user/user.service';
+import {User} from '../../../services/user/user';
 import {AlertController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {Router} from '@angular/router';
-import {createErrorAlert} from '../../helpers/createErrorAlert';
+import {createErrorAlert} from '../../../helpers/createErrorAlert';
 
 @Component({
   selector: 'app-notificaciones',
@@ -35,8 +35,8 @@ export class NotificacionesPage implements OnInit {
       const alert = await createErrorAlert(res.Error, this.alertController, this.userService, this.storage, this.router);
       await alert.present();
     } else {
-      if (res.notificaciones.length > 0) {
-        this.notificaciones = res.notificaciones;
+      if (res.length > 0) {
+        this.notificaciones = res;
       }
     }
   }

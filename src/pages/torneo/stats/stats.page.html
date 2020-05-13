@@ -1,0 +1,53 @@
+<div #nav>
+  <app-bar></app-bar>
+  <div class="nav light ion-text-center d-block ion-padding">
+    <h5 class="ion-no-margin text-white">Liga masculina</h5>
+  </div>
+</div>
+
+<div class="nav light">
+  <ion-grid class="ion-text-center">
+    <ion-row class="ion-justify-content-around size-14 text-white">
+      <ion-col>
+        <span (click)="changeSlide(0)" [class.active]="navIndex === 0" >
+          RESULTADOS
+        </span>
+      </ion-col>
+      <ion-col>
+        <span (click)="changeSlide(1)" [class.active]="navIndex === 1">
+          MIS PARTIDOS
+        </span>
+      </ion-col>
+      <ion-col>
+        <span (click)="changeSlide(2)" [class.active]="navIndex === 2">
+          CLASIFICACIÓN
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+  <ion-content scroll-y="false" color="light">
+    <ion-slides [options]="{initialSlide: 1}" (ionSlideDidChange)="changeSlideIndex()">
+
+      <ion-slide >
+        <div class="scrollable mx-2" appHideHeader [nav]="nav">
+          <app-resultados [idTorneo]="idTorneo"></app-resultados>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
+          <app-mis-resultados [idTorneo]="idTorneo"></app-mis-resultados>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="mx-2 scrollable" appHideHeader [nav]="nav">
+          <app-clasificacion [idTorneo]="idTorneo"></app-clasificacion>
+        </div>
+      </ion-slide>
+
+    </ion-slides>
+  </ion-content>
+

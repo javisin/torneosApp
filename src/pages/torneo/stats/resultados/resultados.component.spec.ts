@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { ResultadosComponent } from './resultados.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Observable, of} from 'rxjs';
-import {TorneoService} from '../../../services/torneo/torneo.service';
+import {TorneoService} from '../../../services/stats/stats.service';
 
 describe('ResultadosComponent', () => {
   let component: ResultadosComponent;

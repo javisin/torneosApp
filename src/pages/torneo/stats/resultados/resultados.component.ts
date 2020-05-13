@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TorneoService} from '../../../services/torneo/torneo.service';
+import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {BehaviorSubject} from 'rxjs';
 import {PopoverController} from '@ionic/angular';
 import {AddNotificationComponent} from '../add-notification/add-notification.component';
-import {Resultado} from '../../../services/torneo/resultado';
+import {Resultado} from '../../../../services/torneo/resultado';
 
 @Component({
   selector: 'app-resultados',

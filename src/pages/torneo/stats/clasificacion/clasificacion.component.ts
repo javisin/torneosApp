@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TorneoService} from '../../../services/torneo/torneo.service';
+import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {ActivatedRoute} from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { ChangeDetectorRef } from '@angular/core';

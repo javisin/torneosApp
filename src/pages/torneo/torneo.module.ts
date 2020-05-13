@@ -2,29 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
-import { TorneosPageRoutingModule } from './torneo-routing.module';
+import { TorneooPageRoutingModule } from './torneo-routing.module';
 
 import { TorneoPage } from './torneo.page';
-import {ResultadosComponent} from './resultados/resultados.component';
-import {MisResultadosComponent} from './mis-resultados/mis-resultados.component';
-import {ClasificacionComponent} from './clasificacion/clasificacion.component';
-import {ComponentsModule} from '../../components/components.module';
+import {StatsPage} from './stats/stats.page';
+import {ResultadosComponent} from './stats/resultados/resultados.component';
+import {MisResultadosComponent} from './stats/mis-resultados/mis-resultados.component';
+import {ClasificacionComponent} from './stats/clasificacion/clasificacion.component';
 import {HideHeaderDirective} from '../../directives/hide-header.directive';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import {AddNotificationComponent} from './add-notification/add-notification.component';
+import {AddNotificationComponent} from './stats/add-notification/add-notification.component';
+import {ComponentsModule} from '../../components/components.module';
+import {NotificacionesPage} from './notificaciones/notificaciones.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TorneosPageRoutingModule,
+    TorneooPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [TorneoPage, ResultadosComponent, MisResultadosComponent, ClasificacionComponent,
-    HideHeaderDirective, AddNotificationComponent],
+  declarations: [TorneoPage, StatsPage, ResultadosComponent, MisResultadosComponent, ClasificacionComponent,
+    HideHeaderDirective, AddNotificationComponent, NotificacionesPage],
   entryComponents: [AddNotificationComponent]
 })
-export class TorneosPageModule {}
+export class TorneoPageModule {}
