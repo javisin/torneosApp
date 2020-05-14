@@ -17,6 +17,7 @@ export class TorneosPage implements OnInit {
   public torneos: Torneo[];
   private loading: HTMLIonLoadingElement;
   private user: User;
+  public openedTorneos: boolean[];
 
   constructor(private torneoService: TorneoService,
               private userService: UserService,
@@ -26,7 +27,8 @@ export class TorneosPage implements OnInit {
               private storage: Storage,
               private router: Router,
               public pickerController: PickerController
-              ) {
+  ) {
+    this.openedTorneos = [];
   }
 
   ngOnInit() {
@@ -62,34 +64,7 @@ export class TorneosPage implements OnInit {
       e.target.complete();
     });
   }
-  async openPicker(idTorneo) {
-    const picker = await this.pickerController.create({
-      columns: [{
-        name: 'Categorías',
-        options: await this.getCategorias(idTorneo),
-      }],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          handler: (value) => {
-            this.router.navigate([`torneos/torneo/${idTorneo}`]);
-          }
-        }
-      ]
-    });
-    await picker.present();
-  }
-  async getCategorias(idTorneo) {
-    const categorias = await this.torneoService.getCategorias(idTorneo).pipe().toPromise();
-    return categorias.map(categoria => {
-      return {
-        text: categoria.nombre,
-        value: categoria.idcategoria
-      };
-    });
+  toggleTorneo(i) {
+    this.openedTorneos[i] = !this.openedTorneos[i];
   }
 }

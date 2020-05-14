@@ -1,31 +1,34 @@
 <app-bar></app-bar>
 <div style="background-color: #2E3F5F">
-    <h5 class="ion-margin text-white text-center">Mis competiciones</h5>
+    <h5 class="ion-margin text-white text-center">Mis torneos</h5>
 </div>
 <ion-content color="light">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content class="bg-light"
-            pullingIcon= null>
+                               pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-        <ion-list class="bg-transparent ion-no-padding" *ngIf="torneos, else noTorneos">
-            <ion-item (click)="openPicker(torneo.idtorneo)" *ngFor="let torneo of torneos">
-                {{torneo.nombretorneo}}
+    <ion-list class="bg-medium ion-no-padding" *ngIf="torneos, else noTorneos">
+        <div *ngFor="let torneo of torneos; let i = index">
+            <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
+                <ion-icon slot="start"
+                          [name]="openedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
+                </ion-icon>
+                {{torneo.nombreTorneo}}
+                <ion-badge slot="end" color="danger">5</ion-badge>
             </ion-item>
-        </ion-list>
-        <ng-template #noTorneos>
-            <div class="h-100 d-flex align-items-center">
-                <p class="ion-margin">No estás inscrito en ningún torneo con la funcionalidad app activa.</p>
+            <div *ngIf="openedTorneos[i]">
+                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.idcategoria]"
+                          class="w-85 ml-auto bg-medium">
+                    {{categoria.nombrecategoria}}
+                </ion-item> <!--Plantear margen-->
             </div>
-        </ng-template>
-</ion-content>
 
-<!--    <div class="mx-3 my-5" *ngFor="let torneo of torneos">-->
-<!--      <div style="background-color: var(&#45;&#45;ion-color-secondary)" class="d-block py-2">-->
-<!--        <div class="d-flex">-->
-<!--          <span class="col-12 text-left text-white">{{torneo.nombretorneo}}</span>-->
-<!--&lt;!&ndash;          <span class="col-5 text-right text-white">{{torneo.fecha}}</span>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <a routerLink="/torneos/torneo" class="py-1 bg-white ion-text-center d-block color-tertiary">visitar</a>-->
-<!--    </div>-->
+        </div>
+    </ion-list>
+    <ng-template #noTorneos>
+        <div class="h-100 d-flex align-items-center">
+            <p class="ion-text-center">No estás inscrito en ningún torneo con la funcionalidad app activa.</p>
+        </div>
+    </ng-template>
+</ion-content>
