@@ -14,15 +14,17 @@ export class TorneoService {
     this.url = Global.url;
   }
   getTorneos(user): Observable<Torneo[]> {
-    return this.http.get<Torneo[]>(`${this.url}/gettorneoslist.php?user=demoapp4&token=${user.token}`);
+    return this.http.get<Torneo[]>(`${this.url}/gettorneoslist2.php?usuario=demoapp4&token=${user.token}`);
+  }
+  getTorneo(user, idTorneo): Observable<Torneo[]> {
+    return this.http.get<any>(`${this.url}/gettorneo.php?usuario=demoapp4&token=${user.token}&idtorneo=${idTorneo}`);
   }
   getResultados(idTorneo, jornada): Observable<any> {
     const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
     return this.http.get(`${this.url}/getrdos.php?${params}`);
   }
-  getMisResultados(idTorneo, jornada): Observable<any> {
-    const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
-    return this.http.get(`${this.url}/getrdos.php?${params}`);
+  getMisResultados(idTorneo, idEquipo): Observable<any> {
+    return this.http.get(`${this.url}/getrdos.php?torneo=${idTorneo}&idequipo=${idEquipo}`);
   }
 
   getCategorias(idTorneo): Observable<any> {
