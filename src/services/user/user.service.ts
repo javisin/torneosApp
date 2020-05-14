@@ -41,7 +41,7 @@ export class UserService {
         }
         return this.http.post<object>(`${this.url}/registra421.php`, form);
     }
-    getUser(): Observable<User> {
+    getUser(): BehaviorSubject<User> {
         return this.currentUser;
     }
     updateUser(value) {
