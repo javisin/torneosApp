@@ -11,7 +11,7 @@ import {Resultado} from '../../../../services/torneo/resultado';
   styleUrls: ['./resultados.component.scss'],
 })
 export class ResultadosComponent implements OnInit {
-  @Input() idTorneo: string;
+  @Input() idCategoria: string;
   public results: Resultado[];
   public jornada: number;
   public totalJornadas: number;
@@ -25,7 +25,7 @@ export class ResultadosComponent implements OnInit {
 
   ngOnInit() {
     this.jornadaSubject.subscribe(jornada => {
-      this.torneoService.getResultados(this.idTorneo, jornada).subscribe(torneo => {
+      this.torneoService.getResultados(this.idCategoria, jornada).subscribe(torneo => {
         this.results = torneo.resultados;
         this.torneoType = torneo.modalidadvisual;
         this.totalJornadas = Number(torneo.totaljornadas);

@@ -10,7 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./clasificacion.component.scss'],
 })
 export class ClasificacionComponent implements OnInit {
-  @Input() idTorneo: string;
+  @Input() idCategoria: string;
   public test: boolean;
   public portraitOrientation: boolean;
   public positions: any;
@@ -27,7 +27,7 @@ export class ClasificacionComponent implements OnInit {
       this.portraitOrientation = this.screenOrientation.type === 'portrait-primary';
       this.changeRef.detectChanges();
     });
-    this.torneoService.getClasificacion(this.idTorneo).subscribe(res => {
+    this.torneoService.getClasificacion(this.idCategoria).subscribe(res => {
       this.positions = res.posiciones;
     });
   }
