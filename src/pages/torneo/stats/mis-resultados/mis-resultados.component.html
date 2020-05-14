@@ -1,119 +1,54 @@
- <table class="table light">
-<!--   <div class="bg-white my-3">-->
+<div *ngIf="torneoType === 'sets'; else horizontal" class="bg-white my-3">
+    <div *ngFor="let result of results; let i = index" class="border-set p-2">
+        <ion-row>
+            <ion-col class="ion-text-left">
+        <span class="color-tertiary">
+        Jornada {{i + 1}}
+        </span>
+            </ion-col>
+        </ion-row>
 
-<!--     <div *ngFor="let result of results" class="border-set p-2">-->
-<!--       <ion-row>-->
-<!--         <ion-col class="ion-text-left">-->
-<!--        <span class="color-tertiary">-->
-<!--        Jornada 1-->
-<!--        </span>-->
-<!--         </ion-col>-->
-<!--       </ion-row>-->
+        <ion-row class="my-2">
+            <ion-col size="6" class="ion-text-left">
+                <span>{{result.equipo1}}</span>
+            </ion-col>
+            <ion-col offset="1" size="4">
+                <div class="resultadosSet px-2 text-left border-secondary">
+                    <span>{{result.rdo1}} </span>
+                </div>
+            </ion-col>
+        </ion-row>
 
-<!--       <ion-row class="my-2">-->
-<!--         <ion-col size="6" class="ion-text-left">-->
-<!--           <span>{{result.equipo1}}</span>-->
-<!--         </ion-col>-->
-<!--         <ion-col offset="1" size="4">-->
-<!--           <div class="resultadosSet px-2 text-left border-secondary">-->
-<!--             <span>{{result.rdo1}} </span>-->
-<!--           </div>-->
-<!--         </ion-col>-->
-<!--       </ion-row>-->
+        <ion-row class="my-2">
+            <ion-col size="6" class="ion-text-left">
+                <span>{{result.equipo2}}</span>
+            </ion-col>
+            <ion-col offset="1" size="4">
+                <div class="resultadosSet px-2 text-left border-secondary">
+                    <span>{{result.rdo2}} </span>
+                </div>
+            </ion-col>
+        </ion-row>
+    </div>
 
-<!--       <ion-row class="my-2">-->
-<!--         <ion-col size="6" class="ion-text-left">-->
-<!--           <span>{{result.equipo2}}</span>-->
-<!--         </ion-col>-->
-<!--         <ion-col offset="1" size="4">-->
-<!--           <div class="resultadosSet px-2 text-left border-secondary">-->
-<!--             <span>{{result.rdo2}} </span>-->
-<!--           </div>-->
-<!--         </ion-col>-->
-<!--       </ion-row>-->
-<!--     </div>-->
+</div>
+<ng-template #horizontal>
+    <table class="table light">
+        <tbody class="size-14">
+        <ng-template ngFor let-result [ngForOf]="results" let-i="index">
+            <tr>
+                <td colspan="3" class="jornada color-tertiary">Jornada {{i + 1}}</td>
+            </tr>
 
-<!--   </div>-->
-    <tbody class="size-14">
-    <tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 1</td>
-    </tr>
-
-    <tr class="no-border-top">
-      <td class="local-team">
-        <span> Las Palmas</span>
-      </td>
-        <td class="result"><span class="rounded py-1 px-2">3-3</span></td>
-        <td class="visitor-team">Universidadas</td>
-    </tr>
-
-    <tr>
-        <td colspan="3" class="jornada color-tertiary">Jornada 2</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Huracán</td>
-      <td id="aqui1" class="result"><span class="rounded py-1 px-2">1-0</span></td>
-      <td class="visitor-team">Unión Viera</td>
-    </tr>
-
-    <tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 3</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Santa Brígida</td>
-      <td class="result"><span class="rounded py-1 px-2">2-3</span></td>
-      <td class="visitor-team">Acodetti</td>
-    </tr>
-
-    <tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 4</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result"><span class="rounded py-1 px-2">0-2</span></td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 5</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">05/04</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td id="aqui" colspan="3" class="jornada color-tertiary">Jornada 6</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">06/04</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 7</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 8</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 4</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Guanarteme</td>
-    </tr><tr>
-      <td colspan="3" class="jornada color-tertiary">Jornada 4</td>
-    </tr>
-    <tr class="no-border-top">
-      <td class="local-team">Veteranos del Pilar</td>
-      <td class="result">1-0</td>
-      <td class="visitor-team">Aqui</td>
-    </tr>
-    </tbody>
-  </table>
+            <tr class="no-border-top">
+                <td class="local-team">
+                    <span>{{result.equipo1}}</span>
+                </td>
+                <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
+                <td class="visitor-team">{{result.equipo2}}</td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</ng-template>
+<h2 *ngIf="!results">No participas en este torneo</h2>
