@@ -1,11 +1,18 @@
 <div #nav>
   <app-bar></app-bar>
-  <div class="nav light ion-text-center d-block ion-padding">
-    <h5 class="ion-no-margin text-white">Liga masculina</h5>
+  <div *ngIf="torneoDetails" class="nav-bg light ion-text-center d-block ion-padding pb-0">
+    <h5 class="ion-no-margin text-white no-overflow">
+      {{torneoDetails.nombretorneo}}
+    </h5>
+    <span (click)="openPicker(torneoDetails.idtorneo)" class="text-white mt-1 size-16 no-overflow">
+      {{torneoDetails.nombrecategoria}}
+      <ion-icon name="caret-down-outline"></ion-icon>
+    </span>
+
   </div>
 </div>
 
-<div class="nav light">
+<div class="nav-bg light">
   <ion-grid class="ion-text-center">
     <ion-row class="ion-justify-content-around size-14 text-white">
       <ion-col>
@@ -32,19 +39,19 @@
 
       <ion-slide >
         <div class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-resultados [idTorneo]="idTorneo"></app-resultados>
+          <app-resultados [idCategoria]="idCategoria"></app-resultados>
         </div>
       </ion-slide>
 
       <ion-slide>
         <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-mis-resultados [idTorneo]="idTorneo"></app-mis-resultados>
+          <app-mis-resultados [idCategoria]="idCategoria" [torneoDetails] = "torneoDetails"></app-mis-resultados>
         </div>
       </ion-slide>
 
       <ion-slide>
         <div class="mx-2 scrollable" appHideHeader [nav]="nav">
-          <app-clasificacion [idTorneo]="idTorneo"></app-clasificacion>
+          <app-clasificacion [idCategoria]="idCategoria"></app-clasificacion>
         </div>
       </ion-slide>
 
