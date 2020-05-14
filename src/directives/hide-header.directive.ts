@@ -44,7 +44,7 @@ export class HideHeaderDirective implements OnInit {
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
         this.scrollDivs.forEach(scroll => {
-          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 91px)');
+          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 94px)');
         });
       });
     } else if (!this.scrollDown && !this.visible
@@ -53,7 +53,7 @@ export class HideHeaderDirective implements OnInit {
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', '0');
         this.scrollDivs.forEach(scroll => {
-          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 191px)');
+          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 218px)');
         });
       });
     }
