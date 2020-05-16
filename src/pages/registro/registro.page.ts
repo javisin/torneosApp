@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
-import { NavController} from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
 import { MustMatch } from '../../helpers/mustMatch.validator';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -16,7 +17,8 @@ export class RegistroPage implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private userService: UserService,
-      public nav: NavController
+      private router: Router,
+      private alertController: AlertController
   ) {
     this.seePassword = false;
   }
@@ -45,8 +47,25 @@ export class RegistroPage implements OnInit {
   onSubmit(form) {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.status === 'VALID') {
-      this.userService.registerUser(form).subscribe(res => {
-        console.log(res);
+      this.userService.registerUser(form).subscribe(async res => {
+        if (res.Error) {
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: res.Error,
+            buttons: [
+              {
+                text: 'OK',
+                handler: async () => {
+                  await this.alertController.dismiss();
+                }
+              },
+            ],
+            translucent: true,
+          });
+          await alert.present();
+        } else {
+          await this.router.navigate(['/log-in']);
+        }
       });
     }
   }
