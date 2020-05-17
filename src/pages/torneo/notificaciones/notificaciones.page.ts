@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
@@ -23,12 +23,8 @@ export class NotificacionesPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.userService.getUser().subscribe(async user => {
-      if (user !== null) {
-        this.user = user;
-        this.notificacionService.getNotificaciones(user).subscribe(res => this.checkNotificaciones(res));
-      }
-    });
+    const user = this.userService.getUser().getValue();
+    this.notificacionService.getNotificaciones(user).subscribe(res => this.checkNotificaciones(res));
   }
   async checkNotificaciones(res) {
     if (res.Error) {
