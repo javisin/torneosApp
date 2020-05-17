@@ -24,8 +24,9 @@ export class StatsPage implements OnInit {
     this.navIndex = 1;
   }
   async ionViewWillEnter() {
+    await this.slides.update();
     this.screenOrientation.unlock();
-    this.scroll.nativeElement.scrollTop = document.getElementById('aqui').offsetTop;
+    // this.scroll.nativeElement.scrollTop = document.getElementById('aqui').offsetTop;
   }
   async ionViewWillLeave() {
     await this.screenOrientation.lock('portrait');
