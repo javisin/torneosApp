@@ -49,9 +49,8 @@ export class ResultadosComponent implements OnInit {
       componentProps: {
         idPartido: this.results[i].Idpartido,
         equipo1: this.results[i].equipo1,
-        resultado1: this.results[i].rdo1,
         equipo2: this.results[i].equipo2,
-        resultado2: this.results[i].rdo2,
+        fecha: this.results[i].fechapartido,
       },
       cssClass: 'ionic-w-80',
     });
