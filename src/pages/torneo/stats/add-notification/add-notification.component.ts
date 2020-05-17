@@ -10,31 +10,24 @@ import {IonSegment, PopoverController} from '@ionic/angular';
 export class AddNotificationComponent implements OnInit {
   @Input() idPartido: number;
   @Input() equipo1: string;
-  @Input() resultado1: string;
   @Input() equipo2: string;
-  @Input() resultado2: string;
+  @Input() fecha: string;
   @ViewChild(IonSegment, {static: false}) segment: IonSegment;
   public anticipationMessage: string;
+  public finished: boolean;
   constructor(private localNotifications: LocalNotifications,
               private popoverController: PopoverController
-              ) { }
+              ) {
+    this.finished = false;
+  }
 
   async ngOnInit() {
-    if (await this.localNotifications.isScheduled(this.idPartido)) {
-      const notification = await this.localNotifications.get(this.idPartido);
-      const notifAnticipation = JSON.parse(notification.data).anticipation;
-      switch (notifAnticipation) {
-        case 'none': {
-          this.anticipationMessage = 'el comienzo';
-          break;
-        }
-        case 'hour': {
-          this.anticipationMessage = 'una hora antes';
-          break;
-        }
-        case 'day': {
-          this.anticipationMessage = 'un día antes';
-          break;
+    if (this.fecha !== '') {
+      if (Date.now() > this.getDateTime(this.fecha)) {
+        this.finished = true;
+      } else {
+        if (await this.localNotifications.isScheduled(this.idPartido)) {
+          this.anticipationMessage = await this.getAnticipationMessage();
         }
       }
     }
@@ -50,7 +43,7 @@ export class AddNotificationComponent implements OnInit {
   }
   async createNotification() {
     const value = this.segment.value;
-    const matchTime = Date.now();
+    const matchTime = this.getDateTime(this.fecha);
     let text: string;
     let anticipation: string;
     let notificationDate: Date;
@@ -82,5 +75,24 @@ export class AddNotificationComponent implements OnInit {
       data: {anticipation}
     });
     await this.dismissModal();
+  }
+  getDateTime(stringDate: string): number {
+    const [year, month, day] = stringDate.split('-');
+    return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+  }
+  async getAnticipationMessage(): Promise<string> {
+    const notification = await this.localNotifications.get(this.idPartido);
+    const notifAnticipation = JSON.parse(notification.data).anticipation;
+    switch (notifAnticipation) {
+      case 'none': {
+        return 'el comienzo';
+      }
+      case 'hour': {
+        return 'una hora antes';
+      }
+      case 'day': {
+        return 'un día antes';
+      }
+    }
   }
 }

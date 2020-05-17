@@ -27,24 +27,37 @@
   <ion-row  class="my-2 justify-content-center">
     <span>{{equipo2}}</span>
   </ion-row>
-  <p *ngIf="anticipationMessage; else create" class="mt-3 font-weight-bolder">
-    Notificación ya programada para {{anticipationMessage}} del partido.
-  </p>
-  <ng-template #create>
-    <div class="mt-3 d-flex justify-content-center">
-      <span class="font-weight-bolder">Antelación</span>
+  <div *ngIf="fecha; else noDate">
+    <div *ngIf="!finished; else finishedMessage" >
+      <p class="text-center text-secondary">{{fecha}}</p>
+      <p *ngIf="anticipationMessage; else create" class="mt-3 mx-1 text-center font-weight-bolder">
+        Notificación ya programada para {{anticipationMessage}} del partido.
+      </p>
+      <ng-template #create>
+        <div class="mt-3 d-flex justify-content-center">
+          <span class="font-weight-bolder">Antelación</span>
+        </div>
+        <ion-segment value="none">
+          <ion-segment-button value="none">
+            <ion-label>Ninguna</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="hour">
+            <ion-label>1h</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="day">
+            <ion-label>1 día</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ng-template>
     </div>
-    <ion-segment value="none">
-      <ion-segment-button value="none">
-        <ion-label>Ninguna</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="hour">
-        <ion-label>1h</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="day">
-        <ion-label>1 día</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+    <ng-template #finishedMessage>
+      <p class="mt-3 mx-1 text-center font-weight-bolder">Este partido finalizó el {{fecha}}</p>
+    </ng-template>
+  </div>
+  <ng-template #noDate>
+    <p class="mt-3 mx-1 text-center font-weight-bolder">
+      No se ha concretado fecha para este partido.
+    </p>
   </ng-template>
 </ion-content>
 
@@ -52,10 +65,15 @@
 <ion-footer>
   <ion-toolbar class="border-success">
     <ion-buttons class="ion-text-center">
-      <ion-button *ngIf="anticipationMessage; else createButton"
-                  class="w-100" (click)="cancelNotification()">Cancelar notificación</ion-button>
-      <ng-template #createButton>
-        <ion-button class="w-100" (click)="createNotification()">Crear notificación</ion-button>
+      <ng-container *ngIf="fecha && !finished; else noNotification" >
+        <ion-button *ngIf="anticipationMessage; else createButton"
+                    class="w-100" (click)="cancelNotification()">Cancelar notificación</ion-button>
+        <ng-template #createButton>
+          <ion-button class="w-100" (click)="createNotification()">Crear notificación</ion-button>
+        </ng-template>
+      </ng-container>
+      <ng-template #noNotification>
+        <ion-button class="w-100" (click)="dismissModal()">OK</ion-button>
       </ng-template>
     </ion-buttons>
   </ion-toolbar>
