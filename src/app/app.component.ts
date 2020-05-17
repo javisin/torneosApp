@@ -37,13 +37,13 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      // await this.screenOrientation.lock('portrait');
       const platform = this.getPlatform();
       this.userService.setPlatform(platform);
       const SO = this.getSO();
       this.userService.setSO(SO);
       this.storage.get('user').then(user => this.userService.updateUser(user));
       this.userService.getUser().subscribe(user => this.userName = user ? user.nombre : null);
+      await this.screenOrientation.lock('portrait');
 
       // reestructurar
 

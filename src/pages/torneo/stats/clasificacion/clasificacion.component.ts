@@ -20,16 +20,20 @@ export class ClasificacionComponent implements OnInit {
               private screenOrientation: ScreenOrientation,
               private changeRef: ChangeDetectorRef) {
   }
-
   ngOnInit() {
-    this.portraitOrientation = this.screenOrientation.type === 'portrait-primary';
+    this.portraitOrientation = this.screenOrientation.type.includes('portrait');
     this.screenOrientation.onChange().subscribe(() => {
-      this.portraitOrientation = this.screenOrientation.type === 'portrait-primary';
+      this.portraitOrientation = this.screenOrientation.type.includes('portrait');
       this.changeRef.detectChanges();
     });
     this.torneoService.getClasificacion(this.idCategoria).subscribe(res => {
       this.positions = res.posiciones;
     });
+  }
+  async toggleOrientation() {
+    const orientation = this.screenOrientation.type.includes('portrait') ? 'landscape' : 'portrait';
+    await this.screenOrientation.lock(orientation);
+    setTimeout(async () => await this.screenOrientation.unlock(), 5000);
   }
 }
 

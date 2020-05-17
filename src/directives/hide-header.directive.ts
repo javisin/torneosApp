@@ -7,6 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import {DomController} from '@ionic/angular';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
 @Directive({
   selector: '[appHideHeader]'
@@ -20,7 +21,9 @@ export class HideHeaderDirective implements OnInit {
   constructor(
       private el: ElementRef,
       private renderer: Renderer2,
-      private dom: DomController) {
+      private dom: DomController,
+      private screenOrientation: ScreenOrientation,
+  ) {
     this.currentScroll = 0;
     this.maxScroll = 0;
     this.visible = true;
@@ -39,7 +42,8 @@ export class HideHeaderDirective implements OnInit {
   @HostListener('scroll') onScroll() {
     this.maxScroll = this.el.nativeElement.scrollHeight - this.el.nativeElement.clientHeight;
     this.scrollDown = this.el.nativeElement.scrollTop > this.currentScroll;
-    if (this.scrollDown && this.visible && this.el.nativeElement.scrollTop > 200) {
+    if ((this.scrollDown && this.visible && this.el.nativeElement.scrollTop > 200)
+      || this.screenOrientation.type.includes('landscape')) {
       this.visible = false;
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
