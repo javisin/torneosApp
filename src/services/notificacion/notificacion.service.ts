@@ -13,6 +13,6 @@ export class NotificacionService {
     this.url = Global.url;
   }
   getNotificaciones(user): Observable<any> {
-    return this.http.get(`${this.url}/getnotificaciones.php?usuario=demoapp1&token=41c4767193bbc4903dd8f1bb`);
+    return this.http.get(`${this.url}/getnotificaciones.php?usuario=demoapp4&token=${user.token}`);
   }
 }

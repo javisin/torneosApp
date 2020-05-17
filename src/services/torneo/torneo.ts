@@ -1,6 +1,5 @@
 export interface Torneo {
-  idtorneo: string;
-  nombretorneo: string;
-  nombrecategoria: string;
-  idcategoria: string;
+  idTorneo: string;
+  nombreTorneo: string;
+  categorias: {idcategoria: string, nombrecategoria: string}[];
 }

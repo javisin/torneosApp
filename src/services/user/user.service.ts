@@ -32,7 +32,7 @@ export class UserService {
         form.append('id', 'test');
         return this.http.post<User>(`${this.url}/solologin.php`, form);
     }
-    registerUser(registerForm): Observable<object> {
+    registerUser(registerForm): Observable<any> {
         const form = new FormData();
         for (const key in registerForm) {
             if (registerForm.hasOwnProperty(key)) {
