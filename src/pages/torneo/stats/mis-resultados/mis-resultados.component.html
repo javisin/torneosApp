@@ -35,7 +35,7 @@
 <ng-template #horizontal>
     <table class="table light">
         <tbody class="size-14">
-        <ng-template ngFor let-result [ngForOf]="results" let-i="index">
+        <ng-container *ngFor="let result of results; let i = index">
             <tr>
                 <td colspan="3" class="jornada color-tertiary">Jornada {{i + 1}}</td>
             </tr>
@@ -47,7 +47,7 @@
                 <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
                 <td class="visitor-team">{{result.equipo2}}</td>
             </tr>
-        </ng-template>
+        </ng-container>
         </tbody>
     </table>
 </ng-template>
