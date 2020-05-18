@@ -51,6 +51,7 @@ export class ResultadosComponent implements OnInit {
         equipo1: this.results[i].equipo1,
         equipo2: this.results[i].equipo2,
         fecha: this.results[i].fechapartido,
+        idCategoria: this.idCategoria,
       },
       cssClass: 'ionic-w-80',
     });

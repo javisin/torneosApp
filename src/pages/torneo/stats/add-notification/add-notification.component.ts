@@ -12,6 +12,7 @@ export class AddNotificationComponent implements OnInit {
   @Input() equipo1: string;
   @Input() equipo2: string;
   @Input() fecha: string;
+  @Input() idCategoria: string;
   @ViewChild(IonSegment, {static: false}) segment: IonSegment;
   public anticipationMessage: string;
   public finished: boolean;
@@ -72,7 +73,7 @@ export class AddNotificationComponent implements OnInit {
       title: 'Alerta de partido',
       text: `${text} ${this.equipo1} VS ${this.equipo2}`,
       trigger: {at: notificationDate},
-      data: {anticipation}
+      data: {anticipation, categoria: this.idCategoria},
     });
     await this.dismissModal();
   }

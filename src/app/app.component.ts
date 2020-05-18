@@ -11,6 +11,8 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed } from '@capacitor/core';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {Router} from '@angular/router';
 const { PushNotifications } = Plugins;
 
 
@@ -28,7 +30,9 @@ export class AppComponent {
     private statusBar: StatusBar,
     private userService: UserService,
     private storage: Storage,
-    private screenOrientation: ScreenOrientation
+    private screenOrientation: ScreenOrientation,
+    private localNotifications: LocalNotifications,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -37,6 +41,8 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.setUpLocalNotifications();
+      this.setUpPushNotifications();
       const platform = this.getPlatform();
       this.userService.setPlatform(platform);
       const SO = this.getSO();
@@ -44,49 +50,55 @@ export class AppComponent {
       this.storage.get('user').then(user => this.userService.updateUser(user));
       this.userService.getUser().subscribe(user => this.userName = user ? user.nombre : null);
       await this.screenOrientation.lock('portrait');
-
-      // reestructurar
-
-      // Request permission to use push notifications
-      // iOS will prompt user and return if they granted permission or not
-      // Android will just grant without prompting
-    //   PushNotifications.requestPermission().then( result => {
-    //     if (result.granted) {
-    //       // Register with Apple / Google to receive push via APNS/FCM
-    //       PushNotifications.register();
-    //     } else {
-    //       // Show some error
-    //     }
-    //   });
-    //
-    //   // On success, we should be able to receive notifications
-    //   PushNotifications.addListener('registration',
-    //     (token: PushNotificationToken) => {
-    //       this.userService.setPushToken(token.value);
-    //     }
-    //   );
-    //
-    //   // Some issue with our setup and push will not work
-    //   PushNotifications.addListener('registrationError',
-    //     (error: any) => {
-    //       alert('Error on registration: ' + JSON.stringify(error));
-    //     }
-    //   );
-    //
-    //   // Show us the notification payload if the app is open on our device
-    //   PushNotifications.addListener('pushNotificationReceived',
-    //     (notification: PushNotification) => {
-    //       alert('Push received: ' + JSON.stringify(notification));
-    //     }
-    //   );
-    //
-    //   // Method called when tapping on a notification
-    //   PushNotifications.addListener('pushNotificationActionPerformed',
-    //     (notification: PushNotificationActionPerformed) => {
-    //       alert('Push action performed: ' + JSON.stringify(notification));
-    //     }
-    //   );
     });
+  }
+  setUpLocalNotifications() {
+    this.localNotifications.requestPermission().then(() => {
+      this.localNotifications.on('click').subscribe(async notification => {
+        await this.router.navigate(['/torneos/torneo/', notification.data.categoria]);
+      });
+    });
+  }
+  setUpPushNotifications() {
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermission().then( result => {
+      if (result.granted) {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+    // On success, we should be able to receive notifications
+    PushNotifications.addListener('registration',
+      (token: PushNotificationToken) => {
+        this.userService.setPushToken(token.value);
+      }
+    );
+
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError',
+      (error: any) => {
+        alert('Error on registration: ' + JSON.stringify(error));
+      }
+    );
+
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived',
+      (notification: PushNotification) => {
+        alert('Push received: ' + JSON.stringify(notification));
+      }
+    );
+
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification: PushNotificationActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
   }
   getPlatform(): string {
     if (this.platform.is('tablet')) {
