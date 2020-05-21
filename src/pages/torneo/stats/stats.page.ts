@@ -39,10 +39,11 @@ export class StatsPage implements OnInit {
       this.checkJornadaActiva(this.categoriaDetails.jornadaactiva);
     });
   }
-  checkJornadaActiva() {
+  checkJornadaActiva(jornada: string) {
     const interval  = setInterval(() => {
-      if (document.getElementById('18')) {
-        this.scroll.nativeElement.scrollTop = document.getElementById('18').offsetTop;
+      setTimeout(() => clearInterval(interval), 5000);
+      if (document.getElementById(jornada)) {
+        this.scroll.nativeElement.scrollTop = document.getElementById(jornada).offsetTop;
         clearInterval(interval);
       }
     }, 100);
