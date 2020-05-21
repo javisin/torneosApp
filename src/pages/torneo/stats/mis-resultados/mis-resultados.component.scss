@@ -4,5 +4,8 @@
   text-align: left;
 }
 .no-border-top td{
-  border-top: 0;
+  border-top: 0 !important;
+}
+.size-8{
+  font-size: 12px;
 }
