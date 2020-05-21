@@ -1,0 +1,34 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Añadir resultado</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <form class="my-4" [formGroup]="resultForm" (ngSubmit)="onSubmit(resultForm.value)">
+      <ion-row>
+        <ion-col class="border-right" size="6">
+          <h5 class="text-center">{{equipo1}}</h5>
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Resultado</ion-label>
+            <ion-input formControlName="result1" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <h5 class="text-center">{{equipo2}}</h5>
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Resultado</ion-label>
+            <ion-input formControlName="result2" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="justify-content-center">
+        <ion-button type="submit">Enviar resultado</ion-button>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+</ion-content>
