@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { TorneosPage } from './torneos.page';
 import {TorneosPageRoutingModule} from './torneos-routing.module';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {UserService} from '../../services/user/user.service';
 import {TorneoService} from '../../services/torneo/torneo.service';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
@@ -17,15 +17,17 @@ describe('TorneosPage', () => {
 
   beforeEach(async(() => {
     userServiceStub = {
-      getUser(): Observable<User> {
-        const user = {
-          login: 'ok',
-          nombre: 'javi',
-          ape: 'tu padre',
-          nick: 'javisin',
-          token: '123',
-        };
-        return of(user);
+      getUser(): BehaviorSubject<User> {
+        return new BehaviorSubject(
+          {
+            login: 'ok',
+            nombre: 'javi',
+            ape: 'tu padre',
+            nick: 'javisin',
+            token: '123',
+            email: 'demoapp4'
+          }
+        );
       }
     };
     torneoServiceStub = {
