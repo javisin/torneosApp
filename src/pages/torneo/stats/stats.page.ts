@@ -26,7 +26,6 @@ export class StatsPage implements OnInit {
   async ionViewWillEnter() {
     await this.slides.update();
     this.screenOrientation.unlock();
-    // this.scroll.nativeElement.scrollTop = document.getElementById('aqui').offsetTop;
   }
   async ionViewWillLeave() {
     await this.screenOrientation.lock('portrait');
@@ -36,9 +35,17 @@ export class StatsPage implements OnInit {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.torneoService.getTorneo(this.userService.getUser().value, this.idCategoria).subscribe(data => {
       this.torneoDetails = data;
+      this.checkJornadaActiva();
     });
   }
-
+  checkJornadaActiva() {
+    const interval  = setInterval(() => {
+      if (document.getElementById('18')) {
+        this.scroll.nativeElement.scrollTop = document.getElementById('18').offsetTop;
+        clearInterval(interval);
+      }
+    }, 100);
+  }
   changeSlideIndex() {
     this.slides.getActiveIndex().then(index => {
       this.navIndex = index;
