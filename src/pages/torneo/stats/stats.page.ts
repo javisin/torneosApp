@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {UserService} from '../../../services/user/user.service';
 import {TorneoService} from '../../../services/torneo/torneo.service';
+import {Categoria} from '../../../services/torneo/categoria';
 @Component({
   selector: 'app-torneos',
   templateUrl: './stats.page.html',
@@ -14,7 +15,7 @@ export class StatsPage implements OnInit {
   @ViewChild('scroll', {static: true}) scroll: ElementRef;
   public navIndex: number;
   public idCategoria: string;
-  public torneoDetails: any;
+  public categoriaDetails: Categoria;
   constructor(private route: ActivatedRoute,
               private screenOrientation: ScreenOrientation,
               private userService: UserService,
@@ -33,9 +34,9 @@ export class StatsPage implements OnInit {
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    this.torneoService.getTorneo(this.userService.getUser().value, this.idCategoria).subscribe(data => {
-      this.torneoDetails = data;
-      this.checkJornadaActiva();
+    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(data => {
+      this.categoriaDetails = data;
+      this.checkJornadaActiva(this.categoriaDetails.jornadaactiva);
     });
   }
   checkJornadaActiva() {

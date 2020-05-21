@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {Resultado} from '../../../../services/torneo/resultado';
 import {ModalController} from '@ionic/angular';
 import {AddResultComponent} from '../add-result/add-result.component';
+import {Categoria} from '../../../../services/torneo/categoria';
 
 @Component({
   selector: 'app-mis-resultados',
@@ -11,7 +12,7 @@ import {AddResultComponent} from '../add-result/add-result.component';
 })
 export class MisResultadosComponent implements OnChanges {
   @Input() idCategoria: string;
-  @Input() torneoDetails: any;
+  @Input() categoriaDetails: Categoria;
   public results: Resultado[];
   public torneoType: string;
 
@@ -19,8 +20,8 @@ export class MisResultadosComponent implements OnChanges {
               private modalController: ModalController) { }
 
   async ngOnChanges() {
-    if (this.torneoDetails && this.torneoDetails.idequipo !== '') {
-      const info = await this.torneoService.getMisResultados(this.idCategoria, this.torneoDetails.idequipo).pipe().toPromise();
+    if (this.categoriaDetails && this.categoriaDetails.idequipo !== '') {
+      const info = await this.torneoService.getMisResultados(this.idCategoria, this.categoriaDetails.idequipo).pipe().toPromise();
       this.results = info.resultados;
       this.torneoType = info.modalidadvisual;
     }

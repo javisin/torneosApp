@@ -1,5 +1,7 @@
+import {Categoria} from './categoria';
+
 export interface Torneo {
   idTorneo: string;
   nombreTorneo: string;
-  categorias: {idcategoria: string, nombrecategoria: string}[];
+  categorias: Categoria[];
 }

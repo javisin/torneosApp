@@ -1,11 +1,11 @@
 <div #nav>
   <app-bar></app-bar>
-  <div *ngIf="torneoDetails" class="nav-bg light ion-text-center d-block ion-padding pb-0">
+  <div *ngIf="categoriaDetails" class="nav-bg light ion-text-center d-block ion-padding pb-0">
     <h5 class="ion-no-margin text-white no-overflow">
-      {{torneoDetails.nombretorneo}}
+      {{categoriaDetails.nombretorneo}}
     </h5>
-    <span (click)="openPicker(torneoDetails.idtorneo)" class="text-white mt-1 size-16 no-overflow">
-      {{torneoDetails.nombrecategoria}}
+    <span (click)="openPicker(categoriaDetails.idtorneo)" class="text-white mt-1 size-16 no-overflow">
+      {{categoriaDetails.nombrecategoria}}
       <ion-icon name="caret-down-outline"></ion-icon>
     </span>
 
@@ -45,7 +45,7 @@
 
       <ion-slide>
         <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-mis-resultados [idCategoria]="idCategoria" [torneoDetails] = "torneoDetails"></app-mis-resultados>
+          <app-mis-resultados [idCategoria]="idCategoria" [categoriaDetails] = "categoriaDetails"></app-mis-resultados>
         </div>
       </ion-slide>
 

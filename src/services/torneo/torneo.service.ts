@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {Torneo} from './torneo';
 import {Global} from '../global';
 import {User} from '../user/user';
+import {Jornada} from './jornada';
+import {Categoria} from './categoria';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +19,18 @@ export class TorneoService {
   getTorneos(user): Observable<Torneo[]> {
     return this.http.get<Torneo[]>(`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=N`);
   }
-  getTorneo(user, idTorneo): Observable<Torneo[]> {
-    return this.http.get<any>(`${this.url}/gettorneo.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
+  getCategoria(user, idTorneo): Observable<Categoria> {
+    return this.http.get<Categoria>(`${this.url}/gettorneo.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
   }
-  getResultados(idTorneo, jornada): Observable<any> {
+  getResultados(idTorneo, jornada): Observable<Jornada> {
     const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
-    return this.http.get(`${this.url}/getrdos.php?${params}`);
+    return this.http.get<Jornada>(`${this.url}/getrdos.php?${params}`);
   }
-  getMisResultados(idTorneo, idEquipo): Observable<any> {
-    return this.http.get(`${this.url}/getrdosequipo.php?torneo=${idTorneo}&idequipo=${idEquipo}`);
+  getMisResultados(idTorneo, idEquipo): Observable<Jornada> {
+    return this.http.get<Jornada>(`${this.url}/getrdosequipo.php?torneo=${idTorneo}&idequipo=${idEquipo}`);
   }
-  getCategorias(idTorneo): Observable<any> {
-    return this.http.get(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
+  getCategorias(idTorneo): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
   }
   getClasificacion(idTorneo): Observable<any> {
     return this.http.get(`${this.url}/getclasifica.php?torneo=${idTorneo}`);
