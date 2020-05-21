@@ -1,10 +1,14 @@
-thead{
-  background-color: white;
-  color: var(--ion-color-secondary);
-}
 .no-border, .no-border th{
   border: 0 !important;
 }
 table{
   font-size: 12px;
+}
+.table-sticky thead th {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #b0dffe;
+  color: white;
 }
