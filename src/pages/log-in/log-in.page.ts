@@ -35,7 +35,7 @@ export class LogInPage implements OnInit {
   async checkLogin(res) {
     if (res.login === 'ok') {
       await this.storage.set('user', res);
-      this.userService.updateUser(res);
+      this.userService.setStorageUser();
       await this.router.navigate(['./torneos']);
     } else {
       const alert = await this.alertController.create({

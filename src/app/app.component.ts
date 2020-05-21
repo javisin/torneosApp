@@ -47,7 +47,7 @@ export class AppComponent {
       this.userService.setPlatform(platform);
       const SO = this.getSO();
       this.userService.setSO(SO);
-      this.storage.get('user').then(user => this.userService.updateUser(user));
+      this.userService.setStorageUser();
       this.userService.getUser().subscribe(user => this.userName = user ? user.nombre : null);
       await this.screenOrientation.lock('portrait');
     });

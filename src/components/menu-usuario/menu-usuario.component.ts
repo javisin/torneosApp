@@ -19,7 +19,7 @@ export class MenuUsuarioComponent implements OnInit {
   ngOnInit() {}
   async logOut() {
     await this.storage.remove('user');
-    this.userService.updateUser(null);
+    this.userService.setStorageUser();
     await this.popoverController.dismiss();
     await this.router.navigate(['/log-in']);
   }
