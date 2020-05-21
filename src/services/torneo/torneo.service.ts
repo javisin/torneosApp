@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Torneo} from './torneo';
 import {Global} from '../global';
+import {User} from '../user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,13 @@ export class TorneoService {
   }
   getInvitaciones(user: User): Observable<any> {
     return this.http.get(`${this.url}/getinvitaciones.php?usuario=${user.email}&token=${user.token}`);
+  }
+  responseInvitacion(user: User, idInvitation: string, response: string): Observable<any> {
+    const form = new FormData();
+    form.append('usuario', user.email);
+    form.append('token', user.token);
+    form.append('idinvitacion', idInvitation);
+    form.append('respuesta', response);
+    return this.http.post(`${this.url}/respondeinvitacion.php`, form);
   }
 }

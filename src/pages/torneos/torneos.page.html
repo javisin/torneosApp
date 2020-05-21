@@ -8,17 +8,11 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-    <ion-item>
-        Torneo fútbol Canarias 2020
-        <ion-icon slot="end" color="success" name="checkmark-outline"></ion-icon>
-        <ion-icon slot="end" color="danger"  name="close-outline"></ion-icon>
+    <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
+        {{invitation.titulo}}
+        <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
     </ion-item>
-    <ion-item>
-        Torneo fútbol de Canarias 2020
-        <ion-button class="ml-1 mr-3" slot="end">Aceptar</ion-button>
-        <ion-button class="ion-no-margin" slot="end">Rechazar</ion-button>
-    </ion-item>
-    <ion-list class="bg-medium ion-no-padding" *ngIf="torneos, else noTorneos">
+    <ion-list class="bg-medium ion-no-padding" *ngIf="torneos && torneos.length > 0, else noTorneos">
         <div *ngFor="let torneo of torneos; let i = index">
             <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
                 <ion-icon slot="start"
@@ -33,7 +27,6 @@
                     {{categoria.nombrecategoria}}
                 </ion-item> <!--Plantear margen-->
             </div>
-
         </div>
     </ion-list>
     <ng-template #noTorneos>
