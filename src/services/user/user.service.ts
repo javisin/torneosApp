@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from './user';
 import {Global} from '../global';
+import {Storage} from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,8 @@ export class UserService {
     private platform: string;
     private SO: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private storage: Storage) {
         this.url = Global.url;
         this.currentUser = new BehaviorSubject<User>(null);
     }
@@ -44,8 +46,10 @@ export class UserService {
     getUser(): BehaviorSubject<User> {
         return this.currentUser;
     }
-    updateUser(value) {
-        this.currentUser.next(value);
+    setStorageUser() {
+        this.storage.get('user').then(user => {
+            this.currentUser.next(user);
+        });
     }
     setPushToken(token) {
         this.pushToken = token;
