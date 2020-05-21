@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,6 +15,7 @@ import {HideHeaderDirective} from '../../directives/hide-header.directive';
 import {AddNotificationComponent} from './stats/add-notification/add-notification.component';
 import {ComponentsModule} from '../../components/components.module';
 import {NotificacionesPage} from './notificaciones/notificaciones.page';
+import {AddResultComponent} from './stats/add-result/add-result.component';
 
 @NgModule({
   imports: [
@@ -22,10 +23,11 @@ import {NotificacionesPage} from './notificaciones/notificaciones.page';
     FormsModule,
     IonicModule,
     TorneooPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ],
   declarations: [TorneoPage, StatsPage, ResultadosComponent, MisResultadosComponent, ClasificacionComponent,
-    HideHeaderDirective, AddNotificationComponent, NotificacionesPage],
-  entryComponents: [AddNotificationComponent]
+    HideHeaderDirective, AddNotificationComponent, NotificacionesPage, AddResultComponent],
+  entryComponents: [AddNotificationComponent, AddResultComponent]
 })
 export class TorneoPageModule {}

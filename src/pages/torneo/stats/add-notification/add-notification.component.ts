@@ -33,14 +33,14 @@ export class AddNotificationComponent implements OnInit {
       }
     }
   }
-  async dismissModal() {
+  async dismissPopover() {
    await this.popoverController.dismiss({
       dismissed: true
     });
   }
   async cancelNotification() {
     await this.localNotifications.cancel(this.idPartido);
-    await this.dismissModal();
+    await this.dismissPopover();
   }
   async createNotification() {
     const value = this.segment.value;
@@ -75,7 +75,7 @@ export class AddNotificationComponent implements OnInit {
       trigger: {at: notificationDate},
       data: {anticipation, categoria: this.idCategoria},
     });
-    await this.dismissModal();
+    await this.dismissPopover();
   }
   getDateTime(stringDate: string): number {
     const [year, month, day] = stringDate.split('-');

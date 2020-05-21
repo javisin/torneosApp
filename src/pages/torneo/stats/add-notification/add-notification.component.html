@@ -10,7 +10,7 @@
       Notificar
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">
+      <ion-button (click)="dismissPopover()">
         <ion-icon class="medium-icon" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -73,7 +73,7 @@
         </ng-template>
       </ng-container>
       <ng-template #noNotification>
-        <ion-button class="w-100" (click)="dismissModal()">OK</ion-button>
+        <ion-button class="w-100" (click)="dismissPopover()">OK</ion-button>
       </ng-template>
     </ion-buttons>
   </ion-toolbar>
