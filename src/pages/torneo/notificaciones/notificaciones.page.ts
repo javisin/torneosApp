@@ -2,10 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
-import {AlertController} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
-import {Router} from '@angular/router';
-import {createErrorAlert} from '../../../helpers/createErrorAlert';
+import {AlertService} from '../../../services/alert/alert.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -18,9 +15,7 @@ export class NotificacionesPage implements OnInit {
 
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
-              private alertController: AlertController,
-              private storage: Storage,
-              private router: Router) { }
+              private alertService: AlertService) { }
 
   ngOnInit() {
     const user = this.userService.getUser().getValue();
@@ -28,7 +23,7 @@ export class NotificacionesPage implements OnInit {
   }
   async checkNotificaciones(res) {
     if (res.Error) {
-      const alert = await createErrorAlert(res.Error, this.alertController, this.userService, this.storage, this.router);
+      const alert = await this.alertService.createErrorAlert(res.Error);
       await alert.present();
     } else {
       if (res.length > 0) {
