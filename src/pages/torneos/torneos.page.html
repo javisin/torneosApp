@@ -22,9 +22,9 @@
                 <ion-badge slot="end" color="danger">5</ion-badge>
             </ion-item>
             <div *ngIf="openedTorneos[i]">
-                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.idcategoria]"
+                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.id]"
                           class="w-85 ml-auto bg-medium">
-                    {{categoria.nombrecategoria}}
+                    {{categoria.nombre}}
                 </ion-item> <!--Plantear margen-->
             </div>
         </div>
