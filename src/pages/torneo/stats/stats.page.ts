@@ -16,6 +16,7 @@ export class StatsPage implements OnInit {
   public navIndex: number;
   public idCategoria: string;
   public categoriaDetails: Categoria;
+  public idEquipo: string;
   constructor(private route: ActivatedRoute,
               private screenOrientation: ScreenOrientation,
               private userService: UserService,
@@ -36,6 +37,7 @@ export class StatsPage implements OnInit {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(data => {
       this.categoriaDetails = data;
+      this.idEquipo = data.idEquipo;
       this.checkJornadaActiva(this.categoriaDetails.jornadaactiva);
     });
   }
@@ -82,7 +84,7 @@ export class StatsPage implements OnInit {
     return categorias.map(categoria => {
       return {
         text: categoria.nombre,
-        value: categoria.idcategoria
+        value: categoria.id
       };
     });
   }
