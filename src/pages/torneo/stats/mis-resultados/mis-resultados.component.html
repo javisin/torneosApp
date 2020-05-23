@@ -57,6 +57,96 @@
         </tbody>
     </table>
 </ng-template>
-<div *ngIf="!results" class="d-flex h-75 align-items-center justify-content-center">
+<table *ngIf="!results" class="table light">
+    <tbody class="size-14">
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
+        </tr>
+        <tr class="no-border-top">
+            <td class="local-team">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </td>
+            <td class="result"><ion-skeleton-text animated></ion-skeleton-text></td>
+            <td class="visitor-team"><ion-skeleton-text animated></ion-skeleton-text></td>
+        </tr>
+    </tbody>
+</table>
+<div *ngIf="results && results.length <= 0" class="d-flex h-75 align-items-center justify-content-center">
     <h5>No participas en esta categoría</h5>
 </div>
