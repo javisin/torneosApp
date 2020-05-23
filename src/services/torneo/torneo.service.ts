@@ -6,6 +6,7 @@ import {Global} from '../global';
 import {User} from '../user/user';
 import {Jornada} from './jornada';
 import {Categoria} from './categoria';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import {Categoria} from './categoria';
 export class TorneoService {
   private readonly url: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private userService: UserService) {
     this.url = Global.url;
   }
   getTorneos(user): Observable<Torneo[]> {
@@ -24,7 +26,7 @@ export class TorneoService {
   }
   getResultados(idTorneo, jornada): Observable<Jornada> {
     const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
-    return this.http.get<Jornada>(`${this.url}/getrdos.php?${params}`);
+    return this.http.get<Jornada>(`${this.url}/getrdosliga.php?${params}`);
   }
   getMisResultados(idTorneo, idEquipo): Observable<Jornada> {
     return this.http.get<Jornada>(`${this.url}/getrdosequipo.php?torneo=${idTorneo}&idequipo=${idEquipo}`);
@@ -45,5 +47,17 @@ export class TorneoService {
     form.append('idinvitacion', idInvitation);
     form.append('respuesta', response);
     return this.http.post(`${this.url}/respondeinvitacion.php`, form);
+  }
+  setResult(resultForm): Observable<any> {
+    const form = new FormData();
+    for (const key in resultForm) {
+      if (resultForm.hasOwnProperty(key)) {
+        form.append(key, resultForm[key]);
+      }
+    }
+    const user = this.userService.getUser().value;
+    form.append('usuario', user.email);
+    form.append('token', user.token);
+    return this.http.post(`${this.url}/grabardoliga.php`, form);
   }
 }
