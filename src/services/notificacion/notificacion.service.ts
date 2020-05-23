@@ -12,7 +12,7 @@ export class NotificacionService {
   constructor(private http: HttpClient) {
     this.url = Global.url;
   }
-  getNotificaciones(user): Observable<any> {
-    return this.http.get(`${this.url}/getnotificaciones.php?usuario=${user.email}&token=${user.token}`);
+  getNotificaciones(user, idTorneo): Observable<any> {
+    return this.http.get(`${this.url}/getnotificaciones.php?usuario=${user.email}&token=${user.token}&idTorneo=${idTorneo}`);
   }
 }
