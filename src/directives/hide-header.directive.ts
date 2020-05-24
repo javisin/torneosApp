@@ -45,6 +45,7 @@ export class HideHeaderDirective implements OnInit {
     if ((this.scrollDown && this.visible && this.el.nativeElement.scrollTop > 200)
       || this.screenOrientation.type.includes('landscape')) {
       this.visible = false;
+      this.scrollDivs = document.querySelectorAll('.scrollable');
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
         this.scrollDivs.forEach(scroll => {
@@ -54,6 +55,7 @@ export class HideHeaderDirective implements OnInit {
     } else if (!this.scrollDown && !this.visible
         && this.el.nativeElement.scrollTop < (this.maxScroll - 100)) {
       this.visible = true;
+      this.scrollDivs = document.querySelectorAll('.scrollable');
       this.dom.write(() => {
         this.renderer.setStyle(this.nav, 'margin-top', '0');
         this.scrollDivs.forEach(scroll => {
