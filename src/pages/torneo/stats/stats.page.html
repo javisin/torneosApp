@@ -4,7 +4,7 @@
     <h5 class="ion-no-margin text-white no-overflow">
       {{categoriaDetails.nombreTorneo}}
     </h5>
-    <span (click)="openPicker(categoriaDetails.idTorneo)" class="text-white mt-1 size-16 no-overflow">
+    <span (click)="openPicker(categoriaDetails.idCategoria)" class="text-white mt-1 size-16 no-overflow">
       {{categoriaDetails.nombre}}
       <ion-icon name="caret-down-outline"></ion-icon>
     </span>
@@ -25,7 +25,7 @@
           MIS PARTIDOS
         </span>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="categoriaType === '2'">
         <span (click)="changeSlide(2)" [class.active]="navIndex === 2">
           CLASIFICACIÓN
         </span>
@@ -45,11 +45,11 @@
 
       <ion-slide>
         <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-mis-resultados [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-mis-resultados>
+          <app-mis-resultados *ngIf="idEquipo" [canAddResult]="true" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-mis-resultados>
         </div>
       </ion-slide>
 
-      <ion-slide>
+      <ion-slide *ngIf="categoriaType === '2'">
         <div class="mx-2 scrollable" appHideHeader [nav]="nav">
           <app-clasificacion [idCategoria]="idCategoria"></app-clasificacion>
         </div>

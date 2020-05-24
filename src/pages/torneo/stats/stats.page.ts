@@ -17,6 +17,7 @@ export class StatsPage implements OnInit {
   public idCategoria: string;
   public categoriaDetails: Categoria;
   public idEquipo: string;
+  public categoriaType: string;
   constructor(private route: ActivatedRoute,
               private screenOrientation: ScreenOrientation,
               private userService: UserService,
@@ -35,10 +36,11 @@ export class StatsPage implements OnInit {
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(data => {
-      this.categoriaDetails = data;
-      this.idEquipo = data.idEquipo;
-      this.checkJornadaActiva(this.categoriaDetails.jornadaactiva);
+    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(categoria => {
+      this.categoriaDetails = categoria;
+      this.idEquipo = categoria.idEquipo;
+      this.categoriaType = categoria.tipo;
+      this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
     });
   }
   checkJornadaActiva(jornada: string) {
