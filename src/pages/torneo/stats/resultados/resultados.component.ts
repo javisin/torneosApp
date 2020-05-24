@@ -55,6 +55,14 @@ export class ResultadosComponent implements OnInit {
       },
       cssClass: 'ionic-w-80',
     });
+  async presentModal(idEquipo) {
+    const modal = await this.modalController.create({
+      component: ResultadosEquipoModalComponent,
+      componentProps: {
+        idCategoria: this.idCategoria,
+        idEquipo,
+      }
+    });
     return await modal.present();
   }
 }

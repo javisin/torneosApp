@@ -13,7 +13,7 @@
   <div *ngIf="torneoType === 'sets'; else horizontal">
     <div *ngFor="let result of results; let i = index" (click)="createNotification(i)" class="border-set p-2">
       <ion-row class="my-2">
-        <ion-col size="6" class="ion-text-left">
+        <ion-col (click)="presentModal(result.idequipo1)" size="6" class="ion-text-left">
           <span>{{result.equipo1}}</span>
         </ion-col>
         <ion-col class="ion-align-self-center" offset="1" size="4">
@@ -24,7 +24,7 @@
       </ion-row>
 
       <ion-row  class="my-2">
-        <ion-col size="6" class="ion-text-left">
+        <ion-col (click)="presentModal(result.idequipo1)" size="6" class="ion-text-left">
           <span>{{result.equipo2}}</span>
         </ion-col>
         <ion-col class="ion-align-self-center" offset="1" size="4">
@@ -38,11 +38,12 @@
   <ng-template #horizontal>
     <table class="table light my-3">
       <tbody class="size-14">
-        <tr *ngFor="let result of results; let i = index" (click)="createNotification(i)">
-          <td class="local-team">{{result.equipo1}}</td>
-          <td class="result"><span class="rounded py-1 px-2 back-light">{{result.rdo1}}-{{result.rdo2}}</span></td>
-          <td class="visitor-team">{{result.equipo1}}</td>
+        <tr class="no-border-top">
+          <td (click)="presentModal(result.idequipo1)" class="local-team pt-0">{{result.equipo1}}</td>
+          <td class="result pt-0"><span class="rounded py-1 px-2 back-light">{{result.rdo1}}-{{result.rdo2}}</span></td>
+          <td (click)="presentModal(result.idequipo2)" class="visitor-team pt-0">{{result.equipo2}}</td>
         </tr>
+      </ng-container>
       </tbody>
     </table>
   </ng-template>

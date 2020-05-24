@@ -1,0 +1,11 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-mis-resultados [canAddResult]="false" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-mis-resultados>
+</ion-content>
