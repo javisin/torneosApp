@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {IonSegment, PopoverController} from '@ionic/angular';
 
@@ -13,6 +13,7 @@ export class AddNotificationComponent implements OnInit {
   @Input() equipo2: string;
   @Input() fecha: string;
   @Input() idCategoria: string;
+  isScheduled: boolean;
   @ViewChild(IonSegment, {static: false}) segment: IonSegment;
   public anticipationMessage: string;
   public finished: boolean;
@@ -20,9 +21,11 @@ export class AddNotificationComponent implements OnInit {
               private popoverController: PopoverController
               ) {
     this.finished = false;
+    this.isScheduled = false;
   }
 
   async ngOnInit() {
+    this.fecha = '2020-05-30';
     if (this.fecha !== '') {
       if (Date.now() > this.getDateTime(this.fecha)) {
         this.finished = true;
@@ -35,7 +38,7 @@ export class AddNotificationComponent implements OnInit {
   }
   async dismissPopover() {
    await this.popoverController.dismiss({
-      dismissed: true
+     isScheduled: this.isScheduled,
     });
   }
   async cancelNotification() {
@@ -75,6 +78,7 @@ export class AddNotificationComponent implements OnInit {
       trigger: {at: notificationDate},
       data: {anticipation, categoria: this.idCategoria},
     });
+    this.isScheduled = true;
     await this.dismissPopover();
   }
   getDateTime(stringDate: string): number {

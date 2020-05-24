@@ -1,9 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {BehaviorSubject} from 'rxjs';
-import {PopoverController} from '@ionic/angular';
+import {ModalController, PopoverController} from '@ionic/angular';
 import {AddNotificationComponent} from '../add-notification/add-notification.component';
 import {Resultado} from '../../../../services/torneo/resultado';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {AddResultComponent} from '../add-result/add-result.component';
+import {ResultadosEquipoComponent} from '../resultados-equipo/resultados-equipo.component';
+import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resultados-equipo-modal.component';
 
 @Component({
   selector: 'app-resultados',
@@ -19,7 +23,9 @@ export class ResultadosComponent implements OnInit {
   public torneoType: string;
 
   constructor(private torneoService: TorneoService,
-              private popoverController: PopoverController) {
+              private popoverController: PopoverController,
+              private modalController: ModalController,
+              private localNotifications: LocalNotifications) {
     this.jornadaSubject = new BehaviorSubject<number>(null);
   }
 
@@ -27,6 +33,11 @@ export class ResultadosComponent implements OnInit {
     this.jornadaSubject.subscribe(jornada => {
       this.torneoService.getResultados(this.idCategoria, jornada).subscribe(torneo => {
         this.results = torneo.resultados;
+        this.results.map(async result => {
+          if (await this.localNotifications.isScheduled(Number(result.Idpartido))) {
+            result.isScheduled = true;
+          }
+        });
         this.torneoType = torneo.modalidadvisual;
         this.totalJornadas = Number(torneo.totaljornadas);
         this.jornada = Number(torneo.jornada);
@@ -55,6 +66,13 @@ export class ResultadosComponent implements OnInit {
       },
       cssClass: 'ionic-w-80',
     });
+    modal.onDidDismiss().then(details => {
+      if (details.data.isScheduled) {
+        this.results[i].isScheduled = true;
+      }
+    });
+    return await modal.present();
+  }
   async presentModal(idEquipo) {
     const modal = await this.modalController.create({
       component: ResultadosEquipoModalComponent,
