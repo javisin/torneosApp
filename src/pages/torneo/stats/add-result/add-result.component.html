@@ -9,23 +9,85 @@
 <ion-content>
   <ion-grid>
     <form class="my-4" [formGroup]="resultForm" (ngSubmit)="onSubmit(resultForm.value)">
-      <ion-row>
-        <ion-col class="border-right" size="6">
-          <h5 class="text-center">{{equipo1}}</h5>
-          <ion-item class="ion-no-padding">
-            <ion-label position="stacked">Resultado</ion-label>
-            <ion-input formControlName="result1" type="number"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="6">
-          <h5 class="text-center">{{equipo2}}</h5>
-          <ion-item class="ion-no-padding">
-            <ion-label position="stacked">Resultado</ion-label>
-            <ion-input formControlName="result2" type="number"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="justify-content-center">
+      <div *ngIf="torneoType === 'horizontal'; else sets">
+        <ion-row>
+          <ion-col class="border-right" size="6">
+            <h5 class="text-center">{{nombreEquipo1}}</h5>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Resultado</ion-label>
+              <ion-input formControlName="txtrdo11" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <h5 class="text-center">{{nombreEquipo2}}</h5>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Resultado</ion-label>
+              <ion-input formControlName="txtrdo21" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ng-template #sets>
+        <ion-row>
+          <ion-col class="border-right" size="6">
+            <h5 class="text-center">{{nombreEquipo1}}</h5>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set1</ion-label>
+              <ion-input formControlName="txtrdo11" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set2</ion-label>
+              <ion-input formControlName="txtrdo12" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set3</ion-label>
+              <ion-input formControlName="txtrdo13" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set4</ion-label>
+              <ion-input formControlName="txtrdo14" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set5</ion-label>
+              <ion-input formControlName="txtrdo15" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <h5 class="text-center">{{nombreEquipo2}}</h5>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set1</ion-label>
+              <ion-input formControlName="txtrdo21" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set2</ion-label>
+              <ion-input formControlName="txtrdo22" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set3</ion-label>
+              <ion-input formControlName="txtrdo23" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set4</ion-label>
+              <ion-input formControlName="txtrdo24" type="number"></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-label position="stacked">Set5</ion-label>
+              <ion-input formControlName="txtrdo25" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <ion-label>Ganador</ion-label>
+          <ion-select formControlName="idequipoganador" cancel-text="Cancelar">
+            <ion-select-option value="1">{{nombreEquipo1}}</ion-select-option>
+            <ion-select-option value="2">{{nombreEquipo2}}</ion-select-option>
+            <ion-select-option value="11">Empate</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ng-template>
+
+      <ion-row class="justify-content-center mt-2">
         <ion-button type="submit">Enviar resultado</ion-button>
       </ion-row>
     </form>
