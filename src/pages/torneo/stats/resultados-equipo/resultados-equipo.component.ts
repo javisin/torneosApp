@@ -2,7 +2,8 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {Resultado} from '../../../../services/torneo/resultado';
 import {ModalController} from '@ionic/angular';
-import {AddResultComponent} from '../add-result/add-result.component';
+import {AddResultadoComponent} from '../add-resultado/add-resultado.component';
+import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resultados-equipo-modal.component';
 
 @Component({
   selector: 'app-mis-resultados',
@@ -14,7 +15,7 @@ export class ResultadosEquipoComponent implements OnInit {
   @Input() idEquipo: string;
   @Input() canAddResult: boolean;
   public results: Resultado[];
-  public torneoType: string;
+  public modality: string;
 
   constructor(private torneoService: TorneoService,
               private modalController: ModalController) { }
@@ -22,11 +23,11 @@ export class ResultadosEquipoComponent implements OnInit {
   async ngOnInit() {
     const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo).pipe().toPromise();
     this.results = info.resultados;
-    this.torneoType = info.modalidadvisual;
+    this.modality = info.modalidadvisual;
   }
   async presentModal(i) {
     const modal = await this.modalController.create({
-      component: AddResultComponent,
+      component: AddResultadoComponent,
       componentProps: {
         idCategoria: this.idCategoria,
         jornada: i + 1,
@@ -35,7 +36,17 @@ export class ResultadosEquipoComponent implements OnInit {
         idEquipo1: this.results[i].idequipo1,
         idEquipo2: this.results[i].idequipo2,
         idPartido: this.results[i].Idpartido,
-        torneoType: this.torneoType,
+        modality: this.modality,
+      }
+    });
+    return await modal.present();
+  }
+  async presentResultadosEquipoModal(idEquipo) {
+    const modal = await this.modalController.create({
+      component: ResultadosEquipoModalComponent,
+      componentProps: {
+        idCategoria: this.idCategoria,
+        idEquipo,
       }
     });
     return await modal.present();

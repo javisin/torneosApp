@@ -1,4 +1,4 @@
-<div *ngIf="torneoType === 'sets'; else horizontal" class="bg-white mb-3">
+<div *ngIf="modality === 'sets'; else horizontal" class="bg-white mb-3">
     <div *ngFor="let result of results; let i = index" class="border-set p-2">
         <ion-row [id]="i + 1">
             <ion-col size="12" class="ion-text-center">
@@ -9,7 +9,7 @@
         </ion-row>
 
         <ion-row class="my-2">
-            <ion-col size="6" class="ion-text-left">
+            <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-left">
                 <span>{{result.equipo1}}</span>
             </ion-col>
             <ion-col offset="1" size="4">
@@ -20,7 +20,7 @@
         </ion-row>
 
         <ion-row class="my-2">
-            <ion-col size="6" class="ion-text-left">
+            <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-left">
                 <span>{{result.equipo2}}</span>
             </ion-col>
             <ion-col offset="1" size="4">
@@ -48,9 +48,13 @@
             </tr>
 
             <tr class="no-border-top">
-                <td class="local-team">{{result.equipo1}}</td>
+                <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team">
+                    {{result.equipo1}}
+                </td>
                 <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
-                <td class="visitor-team">{{result.equipo2}}</td>
+                <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team">
+                    {{result.equipo2}}
+                </td>
             </tr>
             <tr class="no-border-top"><td class="p-0" colspan="3">
                 <ion-button *ngIf="canAddResult && result.rdo1 === '' && result.rdo2 === ''"
