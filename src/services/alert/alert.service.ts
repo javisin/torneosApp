@@ -20,6 +20,7 @@ export class AlertService {
       buttons: [
         {
           text: 'OK',
+          role: 'cancel',
           handler: async () => {
             await this.storage.remove('user');
             this.userService.setStorageUser();
