@@ -45,7 +45,7 @@
 
       <ion-slide>
         <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-mis-resultados *ngIf="idEquipo" [canAddResult]="true" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-mis-resultados>
+          <app-mis-resultados *ngIf="idEquipo" [modal]="false" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-mis-resultados>
         </div>
       </ion-slide>
 

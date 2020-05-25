@@ -13,7 +13,7 @@ import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resulta
 export class ResultadosEquipoComponent implements OnInit {
   @Input() idCategoria: string;
   @Input() idEquipo: string;
-  @Input() canAddResult: boolean;
+  @Input() modal: boolean;
   public results: Resultado[];
   public modality: string;
 
@@ -42,14 +42,16 @@ export class ResultadosEquipoComponent implements OnInit {
     return await modal.present();
   }
   async presentResultadosEquipoModal(idEquipo) {
-    const modal = await this.modalController.create({
-      component: ResultadosEquipoModalComponent,
-      componentProps: {
-        idCategoria: this.idCategoria,
-        idEquipo,
-      }
-    });
-    return await modal.present();
+    if (!this.modal) {
+      const modal = await this.modalController.create({
+        component: ResultadosEquipoModalComponent,
+        componentProps: {
+          idCategoria: this.idCategoria,
+          idEquipo,
+        }
+      });
+      return await modal.present();
+    }
   }
 
 }

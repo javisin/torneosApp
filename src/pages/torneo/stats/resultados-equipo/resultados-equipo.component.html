@@ -30,7 +30,7 @@
             </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
-            <ion-button *ngIf="canAddResult && result.rdo1 === '' && result.rdo2 === ''"
+            <ion-button *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
                         (click)="presentModal(i)"
                         class="size-8 p-0">
                 Añadir resultado
@@ -57,7 +57,7 @@
                 </td>
             </tr>
             <tr class="no-border-top"><td class="p-0" colspan="3">
-                <ion-button *ngIf="canAddResult && result.rdo1 === '' && result.rdo2 === ''"
+                <ion-button *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
                             (click)="presentModal(i)"
                             class="size-8 p-0">
                     Añadir resultado
