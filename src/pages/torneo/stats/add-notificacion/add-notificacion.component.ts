@@ -4,10 +4,10 @@ import {IonSegment, PopoverController} from '@ionic/angular';
 
 @Component({
   selector: 'app-add-notification',
-  templateUrl: './add-notification.component.html',
-  styleUrls: ['./add-notification.component.scss'],
+  templateUrl: './add-notificacion.component.html',
+  styleUrls: ['./add-notificacion.component.scss'],
 })
-export class AddNotificationComponent implements OnInit {
+export class AddNotificacionComponent implements OnInit {
   @Input() idPartido: number;
   @Input() equipo1: string;
   @Input() equipo2: string;

@@ -1,5 +1,5 @@
 <ion-header translucent>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Añadir resultado</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Cerrar</ion-button>
@@ -9,19 +9,19 @@
 <ion-content>
   <ion-grid>
     <form class="my-4" [formGroup]="resultForm" (ngSubmit)="onSubmit(resultForm.value)">
-      <div *ngIf="torneoType === 'horizontal'; else sets">
+      <div *ngIf="modality === 'horizontal'; else sets">
         <ion-row>
           <ion-col class="border-right" size="6">
             <h5 class="text-center">{{nombreEquipo1}}</h5>
             <ion-item class="ion-no-padding">
-              <ion-label position="stacked">Resultado</ion-label>
+              <ion-label color="tertiary" position="stacked">Resultado</ion-label>
               <ion-input formControlName="txtrdo11" type="number"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <h5 class="text-center">{{nombreEquipo2}}</h5>
             <ion-item class="ion-no-padding">
-              <ion-label position="stacked">Resultado</ion-label>
+              <ion-label color="tertiary" position="stacked">Resultado</ion-label>
               <ion-input formControlName="txtrdo21" type="number"></ion-input>
             </ion-item>
           </ion-col>

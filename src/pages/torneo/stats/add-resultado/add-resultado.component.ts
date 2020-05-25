@@ -5,10 +5,10 @@ import {TorneoService} from '../../../../services/torneo/torneo.service';
 
 @Component({
   selector: 'app-add-result',
-  templateUrl: './add-result.component.html',
-  styleUrls: ['./add-result.component.scss'],
+  templateUrl: './add-resultado.component.html',
+  styleUrls: ['./add-resultado.component.scss'],
 })
-export class AddResultComponent implements OnInit {
+export class AddResultadoComponent implements OnInit {
   @Input() nombreEquipo1: string;
   @Input() nombreEquipo2: string;
   @Input() idEquipo1: string;
@@ -16,7 +16,7 @@ export class AddResultComponent implements OnInit {
   @Input() jornada: string;
   @Input() idCategoria: string;
   @Input() idPartido: string;
-  @Input() torneoType: string;
+  @Input() modality: string;
   public resultForm: FormGroup;
 
   constructor(private modalController: ModalController,
@@ -25,7 +25,7 @@ export class AddResultComponent implements OnInit {
               private alertController: AlertController) { }
 
   ngOnInit() {
-    if (this.torneoType === 'sets') {
+    if (this.modality === 'sets') {
       this.resultForm = this.formBuilder.group({
         txtrdo11: ['', Validators.required],
         txtrdo12: ['', Validators.required],
