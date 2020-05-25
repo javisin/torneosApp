@@ -39,7 +39,7 @@
 
       <ion-slide >
         <div class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-resultados [idCategoria]="idCategoria"></app-resultados>
+          <app-resultados *ngIf="categoriaType" [idCategoria]="idCategoria" [categoriaType]="categoriaType"></app-resultados>
         </div>
       </ion-slide>
 

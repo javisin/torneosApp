@@ -12,10 +12,10 @@ import {ResultadosComponent} from './stats/resultados/resultados.component';
 import {ResultadosEquipoComponent} from './stats/resultados-equipo/resultados-equipo.component';
 import {ClasificacionComponent} from './stats/clasificacion/clasificacion.component';
 import {HideHeaderDirective} from '../../directives/hide-header.directive';
-import {AddNotificationComponent} from './stats/add-notification/add-notification.component';
+import {AddNotificacionComponent} from './stats/add-notificacion/add-notificacion.component';
 import {ComponentsModule} from '../../components/components.module';
 import {NotificacionesPage} from './notificaciones/notificaciones.page';
-import {AddResultComponent} from './stats/add-result/add-result.component';
+import {AddResultadoComponent} from './stats/add-resultado/add-resultado.component';
 import {ResultadosEquipoModalComponent} from './stats/resultados-equipo-modal/resultados-equipo-modal.component';
 
 @NgModule({
@@ -28,7 +28,7 @@ import {ResultadosEquipoModalComponent} from './stats/resultados-equipo-modal/re
     ReactiveFormsModule
   ],
   declarations: [TorneoPage, StatsPage, ResultadosComponent, ResultadosEquipoComponent, ClasificacionComponent,
-    HideHeaderDirective, AddNotificationComponent, NotificacionesPage, AddResultComponent, ResultadosEquipoModalComponent],
-  entryComponents: [AddNotificationComponent, AddResultComponent, ResultadosEquipoModalComponent]
+    HideHeaderDirective, AddNotificacionComponent, NotificacionesPage, AddResultadoComponent, ResultadosEquipoModalComponent],
+  entryComponents: [AddNotificacionComponent, AddResultadoComponent, ResultadosEquipoModalComponent]
 })
 export class TorneoPageModule {}
