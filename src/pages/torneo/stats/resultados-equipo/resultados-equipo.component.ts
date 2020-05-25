@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {Resultado} from '../../../../services/torneo/resultado';
 import {ModalController} from '@ionic/angular';
