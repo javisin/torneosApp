@@ -38,31 +38,44 @@ export class HideHeaderDirective implements OnInit {
       });
     });
   }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (this.screenOrientation.type.includes('landscape')) {
+      this.hideHeader();
+    } else if (this.screenOrientation.type.includes('portrait')) {
+      this.showHeader();
+    }
+  }
 
   @HostListener('scroll') onScroll() {
     this.maxScroll = this.el.nativeElement.scrollHeight - this.el.nativeElement.clientHeight;
     this.scrollDown = this.el.nativeElement.scrollTop > this.currentScroll;
-    if ((this.scrollDown && this.visible && this.el.nativeElement.scrollTop > 200)
-      || this.screenOrientation.type.includes('landscape')) {
-      this.visible = false;
-      this.scrollDivs = document.querySelectorAll('.scrollable');
-      this.dom.write(() => {
-        this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
-        this.scrollDivs.forEach(scroll => {
-          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 94px)');
-        });
-      });
-    } else if (!this.scrollDown && !this.visible
+    if (this.scrollDown && this.visible && this.el.nativeElement.scrollTop > 200) {
+      this.hideHeader();
+    } else if (!this.scrollDown && !this.visible && !this.screenOrientation.type.includes('landscape')
         && this.el.nativeElement.scrollTop < (this.maxScroll - 100)) {
-      this.visible = true;
-      this.scrollDivs = document.querySelectorAll('.scrollable');
-      this.dom.write(() => {
-        this.renderer.setStyle(this.nav, 'margin-top', '0');
-        this.scrollDivs.forEach(scroll => {
-          this.renderer.setStyle(scroll, 'height', 'calc(100vh - 218px)');
-        });
-      });
+      this.showHeader();
     }
     this.currentScroll = this.el.nativeElement.scrollTop;
+  }
+  hideHeader() {
+    this.visible = false;
+    this.scrollDivs = document.querySelectorAll('.scrollable');
+    this.dom.write(() => {
+      this.renderer.setStyle(this.nav, 'margin-top', `-${ this.nav.clientHeight }px`);
+      this.scrollDivs.forEach(scroll => {
+        this.renderer.setStyle(scroll, 'height', 'calc(100vh - 94px)');
+      });
+    });
+  }
+  showHeader() {
+    this.visible = true;
+    this.scrollDivs = document.querySelectorAll('.scrollable');
+    this.dom.write(() => {
+      this.renderer.setStyle(this.nav, 'margin-top', '0');
+      this.scrollDivs.forEach(scroll => {
+        this.renderer.setStyle(scroll, 'height', 'calc(100vh - 218px)');
+      });
+    });
   }
 }
