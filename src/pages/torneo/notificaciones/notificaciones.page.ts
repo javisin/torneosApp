@@ -23,15 +23,16 @@ export class NotificacionesPage implements OnInit {
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
     const user = this.userService.getUser().getValue();
-    this.notificacionService.getNotificaciones(user, this.idCategoria).subscribe(res => this.checkNotificaciones(res));
+    this.notificacionService.getNotificaciones(user, this.idCategoria).subscribe(
+      notificaciones => this.checkNotificaciones(notificaciones));
   }
-  async checkNotificaciones(res) {
-    if (res.Error) {
-      const alert = await this.alertService.createErrorAlert(res.Error);
+  async checkNotificaciones(notificaciones) {
+    if (notificaciones.Error) {
+      const alert = await this.alertService.createErrorAlert(notificaciones.Error);
       await alert.present();
     } else {
-      if (res.length > 0) {
-        this.notificaciones = res;
+      if (notificaciones.length > 0) {
+        this.notificaciones = notificaciones;
       }
     }
   }
