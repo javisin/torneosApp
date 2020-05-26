@@ -4,8 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TorneooPageRoutingModule } from './torneo-routing.module';
-
 import { TorneoPage } from './torneo.page';
 import {StatsPage} from './stats/stats.page';
 import {ResultadosComponent} from './stats/resultados/resultados.component';
@@ -17,13 +15,14 @@ import {ComponentsModule} from '../../components/components.module';
 import {NotificacionesPage} from './notificaciones/notificaciones.page';
 import {AddResultadoComponent} from './stats/add-resultado/add-resultado.component';
 import {ResultadosEquipoModalComponent} from './stats/resultados-equipo-modal/resultados-equipo-modal.component';
+import {TorneoPageRoutingModule} from './torneo-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TorneooPageRoutingModule,
+    TorneoPageRoutingModule,
     ComponentsModule,
     ReactiveFormsModule
   ],
