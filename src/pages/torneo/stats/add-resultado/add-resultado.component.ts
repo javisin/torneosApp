@@ -42,7 +42,7 @@ export class AddResultadoComponent implements OnInit {
         idequipo2: this.idEquipo2,
         idtorneo: this.idCategoria,
         njornada: this.jornada,
-        idresultado: this.idPartido, // ID PARTIDO TONTO
+        idpartido: this.idPartido,
       });
     } else {
       this.resultForm = this.formBuilder.group({
@@ -52,7 +52,7 @@ export class AddResultadoComponent implements OnInit {
         idequipo2: this.idEquipo2,
         idtorneo: this.idCategoria,
         njornada: this.jornada,
-        idresultado: this.idPartido, // ID PARTIDO TONTO
+        idpartido: this.idPartido, // ID PARTIDO TONTO
       });
     }
   }
