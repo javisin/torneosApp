@@ -6,7 +6,7 @@ import {AddResultadoComponent} from '../add-resultado/add-resultado.component';
 import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resultados-equipo-modal.component';
 
 @Component({
-  selector: 'app-mis-resultados',
+  selector: 'app-resultados-equipo',
   templateUrl: './resultados-equipo.component.html',
   styleUrls: ['./resultados-equipo.component.scss'],
 })
@@ -14,6 +14,7 @@ export class ResultadosEquipoComponent implements OnInit {
   @Input() idCategoria: string;
   @Input() idEquipo: string;
   @Input() modal: boolean;
+  @Input() categoriaType: string;
   public results: Resultado[];
   public modality: string;
 
@@ -21,7 +22,7 @@ export class ResultadosEquipoComponent implements OnInit {
               private modalController: ModalController) { }
 
   async ngOnInit() {
-    const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo).pipe().toPromise();
+    const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType).pipe().toPromise();
     this.results = info.resultados;
     this.modality = info.modalidadvisual;
   }
@@ -48,6 +49,7 @@ export class ResultadosEquipoComponent implements OnInit {
         componentProps: {
           idCategoria: this.idCategoria,
           idEquipo,
+          catgoriaType: this.categoriaType
         }
       });
       return await modal.present();

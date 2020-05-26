@@ -111,6 +111,7 @@ export class ResultadosComponent implements OnInit {
       componentProps: {
         idCategoria: this.idCategoria,
         idEquipo,
+        categoriaType: this.categoriaType
       }
     });
     return await modal.present();
