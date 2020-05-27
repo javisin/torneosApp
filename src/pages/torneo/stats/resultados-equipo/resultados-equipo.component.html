@@ -1,26 +1,32 @@
 <div *ngIf="modality === 'sets'; else horizontal" class="bg-white mb-3">
-    <div *ngFor="let result of results; let i = index" class="border-set p-2">
+    <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
         <ion-row [id]="i + 1">
-            <ion-col size="12" class="ion-text-center">
+            <ion-col size="6" class="ion-text-start">
                 <span class="color-tertiary">
                 Jornada {{i + 1}}
+                </span>
+            </ion-col>
+            <ion-col (click)="presentModal(i)" *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
+                     size="6" class="ion-text-end">
+                <span class="color-primary font-weight-bold">
+                Añadir resultado
                 </span>
             </ion-col>
         </ion-row>
 
         <ion-row class="my-2">
-            <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-left">
+            <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
                 <span>{{result.equipo1}}</span>
             </ion-col>
             <ion-col offset="1" size="4">
                 <div class="resultadosSet px-2 text-left border-secondary">
-                    <span>{{result.rdo1}} </span>
+                    <span>{{result.rdo1}}</span>
                 </div>
             </ion-col>
         </ion-row>
 
         <ion-row class="my-2">
-            <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-left">
+            <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
                 <span>{{result.equipo2}}</span>
             </ion-col>
             <ion-col offset="1" size="4">
@@ -28,13 +34,6 @@
                     <span>{{result.rdo2}} </span>
                 </div>
             </ion-col>
-        </ion-row>
-        <ion-row class="ion-justify-content-center">
-            <ion-button *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
-                        (click)="presentModal(i)"
-                        class="size-8 p-0">
-                Añadir resultado
-            </ion-button>
         </ion-row>
     </div>
 
@@ -44,7 +43,15 @@
         <tbody class="size-14">
         <ng-container *ngFor="let result of results; let i = index">
             <tr [id]="i + 1">
-                <td colspan="3" class="jornada color-tertiary">Jornada {{i + 1}}</td>
+                <ng-container *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''; else noAddResult">
+                    <td colspan="1" class="jornada color-tertiary">Jornada {{i + 1}}</td>
+                    <td (click)="presentModal(i)" colspan="2" class="text-right color-primary font-weight-bold">
+                        Añadir resultado
+                    </td>
+                </ng-container>
+                <ng-template #noAddResult>
+                    <td colspan="3" class="jornada color-tertiary">Jornada {{i + 1}}</td>
+                </ng-template>
             </tr>
 
             <tr class="no-border-top">
@@ -56,13 +63,6 @@
                     {{result.equipo2}}
                 </td>
             </tr>
-            <tr class="no-border-top"><td class="p-0" colspan="3">
-                <ion-button *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
-                            (click)="presentModal(i)"
-                            class="size-8 p-0">
-                    Añadir resultado
-                </ion-button>
-            </td></tr>
         </ng-container>
         </tbody>
     </table>

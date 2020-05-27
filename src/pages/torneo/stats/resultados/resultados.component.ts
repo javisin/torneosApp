@@ -40,7 +40,7 @@ export class ResultadosComponent implements OnInit {
     this.roundSubject.subscribe(round => {
       this.torneoService.getResultados(this.idCategoria, this.categoriaType, round).subscribe(torneo => {
         this.results = torneo.resultados;
-        // this.checkScheduledNotifications();
+        this.checkScheduledNotifications();
         this.getRoundDetails(torneo);
       });
     });
