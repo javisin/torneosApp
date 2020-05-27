@@ -20,15 +20,20 @@
           RESULTADOS
         </span>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="idEquipo">
         <span (click)="changeSlide(1)" [class.active]="navIndex === 1">
           MIS PARTIDOS
         </span>
       </ion-col>
       <ion-col *ngIf="categoriaType === '2'">
-        <span (click)="changeSlide(2)" [class.active]="navIndex === 2">
+        <span *ngIf="idEquipo; else noPlayer" (click)="changeSlide(2)" [class.active]="navIndex === 2">
           CLASIFICACIÓN
         </span>
+        <ng-template #noPlayer>
+          <span (click)="changeSlide(1)" [class.active]="navIndex === 1">
+          CLASIFICACIÓN
+        </span>
+        </ng-template>
       </ion-col>
     </ion-row>
   </ion-grid>

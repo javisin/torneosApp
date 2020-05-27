@@ -37,12 +37,17 @@ export class StatsPage implements OnInit {
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(categoria => {
+    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(async categoria => {
       this.categoriaDetails = categoria;
-      this.idEquipo = categoria.idEquipo;
       this.categoriaType = categoria.tipo;
       this.idTorneo = categoria.idTorneo;
-      this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
+      this.idEquipo = categoria.idEquipo;
+      if (this.idEquipo) {
+        this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
+      } else {
+        const Swiper = await this.slides.getSwiper();
+        Swiper.removeSlide(1);
+      }
     });
   }
   checkJornadaActiva(jornada: string) {
