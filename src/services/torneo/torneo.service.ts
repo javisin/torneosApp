@@ -22,19 +22,20 @@ export class TorneoService {
     return this.http.get<Torneo[]>(`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=N`);
   }
   getCategoria(user, idTorneo): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.url}/gettorneo.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
+    return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
   }
   getResultados(idTorneo, type, jornada): Observable<Jornada> {
     if (type === '1') {
-      const params = jornada ? `torneo=${idTorneo}&fase=${jornada}` : `torneo=${idTorneo}&fase=4`;
+      const params = jornada ? `torneo=${idTorneo}&fase=${jornada}` : `torneo=${idTorneo}`;
       return this.http.get<Jornada>(`${this.url}/getrdoseliminatoria.php?${params}`);
     } else {
       const params = jornada ? `torneo=${idTorneo}&jornada=${jornada}` : `torneo=${idTorneo}`;
       return this.http.get<Jornada>(`${this.url}/getrdosliga.php?${params}`);
     }
   }
-  getMisResultados(idTorneo, idEquipo): Observable<Jornada> {
-    return this.http.get<Jornada>(`${this.url}/getrdosequipo.php?torneo=${idTorneo}&idequipo=${idEquipo}`);
+  getMisResultados(idTorneo, idEquipo, categoriaType): Observable<Jornada> {
+    const endpoint = categoriaType === '1' ? 'getrdoseliminatoriaequipo.php' : 'getrdosligaequipo.php';
+    return this.http.get<Jornada>(`${this.url}/${endpoint}?torneo=${idTorneo}&idequipo=${idEquipo}`);
   }
   getCategorias(idTorneo): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
