@@ -66,12 +66,9 @@ export class ResultadosComponent implements OnInit {
   }
   setPlayOffRounds() {
     this.playOffRounds = {
-      names: ['Final', 'Semifinal', 'Cuartos de final', 'Octavos de final'],
-      values: []
+      names: ['Final', 'Semifinal', 'Cuartos de final', 'Octavos de final', '16avos de final'],
+      values: [ ...Array(this.totalRounds - 1).keys() ].map( i => i + 2),
     };
-    for (let i = 1; i <= this.totalRounds; i++) {
-      this.playOffRounds.values.push(i);
-    }
   }
   nextJornada() {
     if (this.round < this.totalRounds) {
