@@ -22,9 +22,11 @@ export class ResultadosEquipoComponent implements OnInit {
               private modalController: ModalController) { }
 
   async ngOnInit() {
-    const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType).pipe().toPromise();
-    this.results = info.resultados;
-    this.modality = info.modalidadvisual;
+    if (this.idEquipo) {
+      const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType).pipe().toPromise();
+      this.results = info.resultados;
+      this.modality = info.modalidadvisual;
+    }
   }
   async presentModal(i) {
     const modal = await this.modalController.create({

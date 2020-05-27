@@ -68,7 +68,7 @@
     </table>
 </ng-template>
 
-<table *ngIf="!results" class="table light">
+<table *ngIf="!results && idEquipo" class="table light">
     <tbody class="size-14">
         <tr>
             <td colspan="3" class="jornada"><ion-skeleton-text animated class="w-25"></ion-skeleton-text></td>
@@ -158,6 +158,6 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="results && results.length <= 0" class="d-flex h-75 align-items-center justify-content-center">
+<div *ngIf="!idEquipo" class="d-flex h-75 align-items-center justify-content-center">
     <h5>No participas en esta categoría</h5>
 </div>
