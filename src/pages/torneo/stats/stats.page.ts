@@ -14,6 +14,7 @@ export class StatsPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
   @ViewChild('scroll', {static: true}) scroll: ElementRef;
   public navIndex: number;
+  public idTorneo: string;
   public idCategoria: string;
   public categoriaDetails: Categoria;
   public idEquipo: string;
@@ -40,6 +41,7 @@ export class StatsPage implements OnInit {
       this.categoriaDetails = categoria;
       this.idEquipo = categoria.idEquipo;
       this.categoriaType = categoria.tipo;
+      this.idTorneo = categoria.idTorneo;
       this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
     });
   }
@@ -60,11 +62,11 @@ export class StatsPage implements OnInit {
   async changeSlide(index: number) {
     await this.slides.slideTo(index);
   }
-  async openPicker(idTorneo) {
+  async openPicker() {
     const picker = await this.pickerController.create({
       columns: [{
         name: 'Categorías',
-        options: await this.getCategorias(idTorneo)
+        options: await this.getCategorias()
       }],
       buttons: [
         {
@@ -81,8 +83,8 @@ export class StatsPage implements OnInit {
     });
     await picker.present();
   }
-  async getCategorias(idTorneo) {
-    const categorias = await this.torneoService.getCategorias(idTorneo).pipe().toPromise();
+  async getCategorias() {
+    const categorias = await this.torneoService.getCategorias(this.idTorneo).pipe().toPromise();
     return categorias.map(categoria => {
       return {
         text: categoria.nombre,

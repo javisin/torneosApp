@@ -4,7 +4,7 @@
     <h5 class="ion-no-margin text-white no-overflow">
       {{categoriaDetails.nombreTorneo}}
     </h5>
-    <span (click)="openPicker(categoriaDetails.idCategoria)" class="text-white mt-1 size-16 no-overflow">
+    <span (click)="openPicker()" class="text-white mt-1 size-16 no-overflow">
       {{categoriaDetails.nombre}}
       <ion-icon name="caret-down-outline"></ion-icon>
     </span>
@@ -45,7 +45,7 @@
 
       <ion-slide>
         <div #scroll class="scrollable mx-2" appHideHeader [nav]="nav">
-          <app-resultados-equipo *ngIf="idEquipo" [modal]="false" [categoriaType]="categoriaType" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-resultados-equipo>
+          <app-resultados-equipo *ngIf="categoriaType" [modal]="false" [categoriaType]="categoriaType" [idCategoria]="idCategoria" [idEquipo] = "idEquipo"></app-resultados-equipo>
         </div>
       </ion-slide>
 
