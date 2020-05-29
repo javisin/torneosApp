@@ -8,7 +8,7 @@
                            pullingIcon= null>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list *ngIf="notificaciones && notificaciones.length < 0; else noNotificaciones" class="bg-transparent ion-no-padding">
+  <ion-list *ngIf="notificaciones && notificaciones.length > 0; else noNotificaciones" class="bg-transparent ion-no-padding">
     <ion-item-sliding *ngFor="let notificacion of notificaciones">
     <ion-item lines="full" >
       <ion-label color="primary" class="notificacion-title mb-2" position="stacked">

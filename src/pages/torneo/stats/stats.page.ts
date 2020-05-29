@@ -5,6 +5,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {UserService} from '../../../services/user/user.service';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {Categoria} from '../../../services/torneo/categoria';
+import {ErrorService} from '../../../services/alert/error.service';
 @Component({
   selector: 'app-torneos',
   templateUrl: './stats.page.html',
@@ -23,6 +24,7 @@ export class StatsPage implements OnInit {
               private screenOrientation: ScreenOrientation,
               private userService: UserService,
               private torneoService: TorneoService,
+              private errorService: ErrorService,
               private pickerController: PickerController,
               private router: Router) {
     this.navIndex = 1;
@@ -37,18 +39,24 @@ export class StatsPage implements OnInit {
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(async categoria => {
-      this.categoriaDetails = categoria;
-      this.categoriaType = categoria.tipo;
-      this.idTorneo = categoria.idTorneo;
-      this.idEquipo = categoria.idEquipo;
-      if (this.idEquipo) {
-        this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
-      } else {
-        const Swiper = await this.slides.getSwiper();
-        Swiper.removeSlide(1);
-      }
-    });
+    this.torneoService.getCategoria(this.userService.getUser().value, this.idCategoria).subscribe(
+      async categoria => {
+        await this.errorService.checkErrors(categoria);
+        this.categoriaDetails = categoria;
+        this.categoriaType = categoria.tipo;
+        this.idTorneo = categoria.idTorneo;
+        this.idEquipo = categoria.idEquipo;
+        if (this.idEquipo) {
+          this.checkJornadaActiva(this.categoriaDetails.jornadaActiva);
+        } else {
+          const Swiper = await this.slides.getSwiper();
+          Swiper.removeSlide(1);
+        }
+      },
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error);
+        await alert.present();
+      });
   }
   checkJornadaActiva(jornada: string) {
     const interval  = setInterval(() => {

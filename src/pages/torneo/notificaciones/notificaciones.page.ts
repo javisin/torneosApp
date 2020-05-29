@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
-import {AlertService} from '../../../services/alert/alert.service';
+import {ErrorService} from '../../../services/alert/error.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -17,30 +17,39 @@ export class NotificacionesPage implements OnInit {
 
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
-              private alertService: AlertService,
+              private errorService: ErrorService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    const user = this.userService.getUser().getValue();
-    this.notificacionService.getNotificaciones(user, this.idCategoria).subscribe(
-      notificaciones => this.checkNotificaciones(notificaciones));
+    this.user = this.userService.getUser().getValue();
+    this.fetchNotificaciones();
   }
-  async checkNotificaciones(notificaciones) {
-    if (notificaciones.Error) {
-      const alert = await this.alertService.createErrorAlert(notificaciones.Error);
-      await alert.present();
-    } else {
-      if (notificaciones.length > 0) {
+
+  fetchNotificaciones() {
+    this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(
+      async notificaciones => {
+        await this.errorService.checkErrors(notificaciones);
         this.notificaciones = notificaciones;
-      }
-    }
+      },
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error);
+        await alert.present();
+      });
   }
+
   async doRefresh(e) {
-    this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(res => {
-      this.checkNotificaciones(res);
-      e.target.complete();
-    });
+    this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(
+      async notificaciones => {
+        await this.errorService.checkErrors(notificaciones);
+        this.notificaciones = notificaciones;
+        e.target.complete();
+      },
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error);
+        e.target.complete();
+        await alert.present();
+      });
   }
 
 }
