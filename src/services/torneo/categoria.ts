@@ -1,12 +1,12 @@
 export interface Categoria {
-  nombretorneo?: string;
-  idtorneo?: string;
-  nombrecategoria: string;
-  idcategoria?: string;
-  idequipo?: string;
-  nombreequipo?: string;
-  modalidadvisual?: string;
-  tipodetorneo: string;
-  jornadaactiva?: string;
-  nombre?: string;
+  nombreTorneo: string;
+  idTorneo: string;
+  nombre: string;
+  id: string;
+  nombreEquipo?: string;
+  idEquipo?: string;
+  modalidadVisual?: string;
+  tipo: string;
+  jornadaActiva?: string;
+  numnotifica: string;
 }

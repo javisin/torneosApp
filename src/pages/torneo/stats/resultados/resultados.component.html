@@ -11,7 +11,10 @@
     </ion-icon>
   </ng-container>
   <ng-template #eliminatoria>
-    <ion-select class="border-secondary border-width-3 rounded bg-white" [interfaceOptions]="options" (ionChange)="selectRound($event)" *ngIf="playOffRounds" [value]="round" interface="popover">
+    <ion-select class="border-secondary border-width-3 rounded bg-white"
+                interface="popover" [interfaceOptions]="options"
+                (ionChange)="selectRound($event)" *ngIf="playOffRounds"
+                [value]="round" >
       <ion-select-option *ngFor="let value of playOffRounds.values; let i = index" [value]="value">
         {{playOffRounds.names[i]}}
       </ion-select-option>

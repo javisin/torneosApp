@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from './user';
 import {Global} from '../global';
@@ -41,7 +41,7 @@ export class UserService {
                 form.append(key, registerForm[key]);
             }
         }
-        return this.http.post<object>(`${this.url}/registra421.php`, form);
+        return this.http.post<any>(`${this.url}/registra421.php`, form);
     }
     getUser(): BehaviorSubject<User> {
         return this.currentUser;
