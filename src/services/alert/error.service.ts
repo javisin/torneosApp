@@ -7,12 +7,13 @@ import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class ErrorService {
 
   constructor(private alertController: AlertController,
               private userService: UserService,
               private storage: Storage,
               private router: Router) { }
+
   async createErrorAlert(error: string) {
     return await this.alertController.create({
       header: 'Error',
@@ -31,5 +32,12 @@ export class AlertService {
       ],
       translucent: true,
     });
+  }
+
+  async checkErrors(res) {
+    if (res.Error) {
+      const alert = await this.createErrorAlert(res.Error);
+      await alert.present();
+    }
   }
 }

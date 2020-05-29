@@ -4,7 +4,7 @@ import {AlertController, LoadingController} from '@ionic/angular';
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
-import {AlertService} from '../../services/alert/alert.service';
+import {ErrorService} from '../../services/alert/error.service';
 
 @Component({
   selector: 'app-torneos',
@@ -22,7 +22,7 @@ export class TorneosPage implements OnInit {
               private userService: UserService,
               private loadingController: LoadingController,
               private alertController: AlertController,
-              private alertService: AlertService
+              private errorService: ErrorService
   ) {
     this.openedTorneos = [];
   }
@@ -31,54 +31,59 @@ export class TorneosPage implements OnInit {
     this.userService.getUser().subscribe(async user => {
       if (user !== null) {
         this.user = user;
-        await this.searchTorneos(user);
+        await this.loadContent();
       }
     });
   }
 
-  async searchTorneos(user) {
+  async loadContent() {
     this.loading = await this.loadingController.create({
       message: 'Cargando competiciones...'
     });
     this.loading.present().then(async () => {
-      this.torneoService.getInvitaciones(user).subscribe(
-        res => this.invitations = res,
+      this.torneoService.getInvitaciones(this.user).subscribe(
+        async invitations => {
+          await this.errorService.checkErrors(invitations);
+          this.invitations = invitations;
+        },
         async error => {
-          const alert = await this.alertService.createErrorAlert(error.message);
+          const alert = await this.errorService.createErrorAlert(error.message);
           await this.loading.dismiss();
           await alert.present();
         });
-      this.torneoService.getTorneos(user).subscribe(
-        async res => {
-          await this.checkTorneos(res);
+      this.torneoService.getTorneos(this.user, false).subscribe(
+        async torneo => {
+          await this.errorService.checkErrors(torneo);
+          this.torneos = torneo;
           await this.loading.dismiss();
         },
         async error => {
-          const alert = await this.alertService.createErrorAlert(error.message);
+          const alert = await this.errorService.createErrorAlert(error.message);
           await this.loading.dismiss();
           await alert.present();
         });
     });
   }
 
-  async checkTorneos(res) {
-    if (res.Error) {
-      const alert = await this.alertService.createErrorAlert(res.Error);
-      await alert.present();
-    } else {
-      if (res.length > 0) {
-        this.torneos = res;
-      }
-    }
-  }
   async doRefresh(e) {
-    this.torneoService.getTorneos(this.user).subscribe(
-      res => {
-        this.checkTorneos(res);
+    this.torneoService.getInvitaciones(this.user).subscribe(
+      async invitations => {
+        await this.errorService.checkErrors(invitations);
+        this.invitations = invitations;
+      },
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error.message);
+        e.target.complete();
+        await alert.present();
+      });
+    this.torneoService.getTorneos(this.user, false).subscribe(
+      async torneo => {
+        await this.errorService.checkErrors(torneo);
+        this.torneos = torneo;
         e.target.complete();
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error.message);
+        const alert = await this.errorService.createErrorAlert(error.message);
         e.target.complete();
         await alert.present();
       });
