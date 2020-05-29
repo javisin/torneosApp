@@ -8,6 +8,10 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
+    <ion-select interface="popover" placeholder="Mostrar">
+        <ion-select-option value="all">Todos</ion-select-option>
+        <ion-select-option value="active">Sólo activos</ion-select-option>
+    </ion-select>
     <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
         {{invitation.titulo}}
         <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
@@ -19,12 +23,12 @@
                           [name]="openedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
                 </ion-icon>
                 {{torneo.nombreTorneo}}
-                <ion-badge slot="end" color="danger">5</ion-badge>
             </ion-item>
             <div *ngIf="openedTorneos[i]">
                 <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.id]"
                           class="w-85 ml-auto bg-medium">
                     {{categoria.nombre}}
+                    <ion-badge slot="end" color="danger">{{categoria.numnotifica}}</ion-badge>
                 </ion-item> <!--Plantear margen-->
             </div>
         </div>
