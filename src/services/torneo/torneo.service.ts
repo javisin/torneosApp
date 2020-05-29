@@ -61,7 +61,7 @@ export class TorneoService {
         form.append(key, resultForm[key]);
       }
     }
-    const user = this.userService.getUser().value;
+    const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
     return this.http.post(`${this.url}/grabardoliga.php`, form);
