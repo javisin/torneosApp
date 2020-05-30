@@ -14,7 +14,7 @@ export class AddNotificacionComponent implements OnInit {
   @Input() fecha: string;
   @Input() idCategoria: string;
   isScheduled: boolean;
-  @ViewChild(IonSegment, {static: false}) segment: IonSegment;
+  @ViewChild(IonSegment) segment: IonSegment;
   public anticipationMessage: string;
   public finished: boolean;
   constructor(private localNotifications: LocalNotifications,
