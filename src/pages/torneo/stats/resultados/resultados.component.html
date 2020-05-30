@@ -25,16 +25,23 @@
 
   <div *ngIf="modality === 'sets'; else horizontal">
     <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
-      <ion-row class="justify-content-end">
-        <ion-icon (click)="createNotification(i)"
-                  class="medium-icon text-right"
-                  [color]="result.isScheduled ? 'warning' : 'medium'"
-                  [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
-        </ion-icon>
+      <ion-row>
+        <ion-col size="8" class="text-left size-14 date-color">
+          {{result.fechapartido}}
+        </ion-col>
+        <ion-col class="text-right">
+          <ion-icon (click)="createNotification(i)"
+                    class="medium-icon text-right"
+                    [color]="result.isScheduled ? 'warning' : 'medium'"
+                    [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
+          </ion-icon>
+        </ion-col>
       </ion-row>
       <ion-row class="my-2">
         <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
-          <span>{{result.equipo1}}</span>
+          <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo1}">
+              {{result.equipo1}}
+          </span>
         </ion-col>
         <ion-col class="ion-align-self-center" offset="1" size="4">
           <div class="resultadosSet px-2 text-left border-secondary">
@@ -44,8 +51,10 @@
       </ion-row>
 
       <ion-row  class="my-2">
-        <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
-          <span>{{result.equipo2}}</span>
+        <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
+          <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo2}">
+              {{result.equipo2}}
+          </span>
         </ion-col>
         <ion-col class="ion-align-self-center" offset="1" size="4">
           <div class="resultadosSet px-2 text-left border-secondary">
@@ -60,7 +69,8 @@
       <tbody class="size-14">
       <ng-container *ngFor="let result of results; let i = index">
         <tr>
-          <td colspan="3" class="w-100 pb-0 pt-1 text-right">
+          <td class="date-color size-14 text-left">2020-05-28</td>
+          <td colspan="2" class="w-100 pb-0 pt-1 text-right">
             <ion-icon (click)="createNotification(i)"
                       class="medium-icon"
                       [color]="result.isScheduled ? 'warning' : 'medium'"
