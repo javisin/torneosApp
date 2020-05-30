@@ -52,6 +52,10 @@
               <ion-label color="tertiary" position="stacked">Set5</ion-label>
               <ion-input formControlName="txtrdo15" type="number"></ion-input>
             </ion-item>
+            <ion-item *ngIf="type === '1'" class="ion-no-padding">
+              <ion-label color="tertiary" position="stacked">Datos</ion-label>
+              <ion-input formControlName="txtdatos1" type="text"></ion-input>
+            </ion-item>
           </ion-col>
           <ion-col size="6">
             <h5 class="text-center">{{nombreEquipo2}}</h5>
@@ -75,11 +79,15 @@
               <ion-label color="tertiary" position="stacked">Set5</ion-label>
               <ion-input formControlName="txtrdo25" type="number"></ion-input>
             </ion-item>
+            <ion-item *ngIf="type === '1'" class="ion-no-padding">
+              <ion-label color="tertiary" position="stacked">Datos</ion-label>
+              <ion-input formControlName="txtdatos2" type="text"></ion-input>
+            </ion-item>
           </ion-col>
         </ion-row>
         <ion-item>
           <ion-label>Ganador</ion-label>
-          <ion-select formControlName="idequipoganador" cancel-text="Cancelar">
+          <ion-select formControlName="equipoganador" cancel-text="Cancelar">
             <ion-select-option value="1">{{nombreEquipo1}}</ion-select-option>
             <ion-select-option value="2">{{nombreEquipo2}}</ion-select-option>
             <ion-select-option value="11">Empate</ion-select-option>
