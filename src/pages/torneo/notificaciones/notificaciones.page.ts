@@ -4,6 +4,7 @@ import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
 import {ErrorService} from '../../../services/alert/error.service';
 import {ActivatedRoute} from '@angular/router';
+import {Notificacion} from '../../../services/notificacion/notificacion';
 
 @Component({
   selector: 'app-notificaciones',
@@ -11,7 +12,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./notificaciones.page.scss'],
 })
 export class NotificacionesPage implements OnInit {
-  public notificaciones: any[];
+  public notificaciones: Notificacion[];
   private user: User;
   private idCategoria: string;
 
@@ -31,6 +32,10 @@ export class NotificacionesPage implements OnInit {
       async notificaciones => {
         await this.errorService.checkErrors(notificaciones);
         this.notificaciones = notificaciones;
+        this.notificacionService.readNotificaciones(this.user, this.notificaciones).subscribe(
+          () => null,
+          error => this.errorService.createErrorAlert(error)
+        );
       },
       async error => {
         const alert = await this.errorService.createErrorAlert(error);
