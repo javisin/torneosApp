@@ -43,19 +43,29 @@ export class TorneosPage implements OnInit {
     this.loading.present().then(async () => {
       this.torneoService.getInvitaciones(this.user).subscribe(
         async invitations => {
-          await this.errorService.checkErrors(invitations);
+          if (invitations.Error) {
+            const alert = await this.errorService.createErrorAlert(invitations.Error);
+            await this.loading.dismiss();
+            await alert.present();
+            return;
+          }
           this.invitations = invitations;
-        },
-        async error => {
-          const alert = await this.errorService.createErrorAlert(error.message);
-          await this.loading.dismiss();
-          await alert.present();
-        });
-      this.torneoService.getTorneos(this.user, false).subscribe(
-        async torneo => {
-          await this.errorService.checkErrors(torneo);
-          this.torneos = torneo;
-          await this.loading.dismiss();
+          this.torneoService.getTorneos(this.user, false).subscribe(
+            async torneos => {
+              if (torneos.Error) {
+                const alert = await this.errorService.createErrorAlert(torneos.Error);
+                await this.loading.dismiss();
+                await alert.present();
+                return;
+              }
+              this.torneos = torneos;
+              await this.loading.dismiss();
+            },
+            async error => {
+              const alert = await this.errorService.createErrorAlert(error.message);
+              await this.loading.dismiss();
+              await alert.present();
+            });
         },
         async error => {
           const alert = await this.errorService.createErrorAlert(error.message);
