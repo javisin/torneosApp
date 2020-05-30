@@ -6,7 +6,7 @@
                 Jornada {{i + 1}}
                 </span>
             </ion-col>
-            <ion-col (click)="presentModal(i)" *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
+            <ion-col (click)="presentAddResultModal(i)" *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''"
                      size="6" class="ion-text-end">
                 <span class="color-primary font-weight-bold">
                 Añadir resultado
@@ -45,7 +45,7 @@
             <tr [id]="i + 1">
                 <ng-container *ngIf="!modal && result.rdo1 === '' && result.rdo2 === ''; else noAddResult">
                     <td colspan="1" class="jornada color-tertiary">Jornada {{i + 1}}</td>
-                    <td (click)="presentModal(i)" colspan="2" class="text-right color-primary font-weight-bold">
+                    <td (click)="presentAddResultModal(i)" colspan="2" class="text-right color-primary font-weight-bold">
                         Añadir resultado
                     </td>
                 </ng-container>

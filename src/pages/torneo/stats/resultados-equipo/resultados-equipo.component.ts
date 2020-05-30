@@ -28,7 +28,7 @@ export class ResultadosEquipoComponent implements OnInit {
       this.modality = info.modalidadvisual;
     }
   }
-  async presentModal(i) {
+  async presentAddResultModal(i) {
     const modal = await this.modalController.create({
       component: AddResultadoComponent,
       componentProps: {
@@ -40,6 +40,7 @@ export class ResultadosEquipoComponent implements OnInit {
         idEquipo2: this.results[i].idequipo2,
         idPartido: this.results[i].Idpartido,
         modality: this.modality,
+        type: this.categoriaType,
       }
     });
     return await modal.present();
