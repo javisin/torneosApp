@@ -14,4 +14,5 @@ export interface Resultado {
   equipo1: string;
   Idpartido: string;
   isScheduled: boolean;
+  idganador: string;
 }
