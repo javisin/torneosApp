@@ -56,7 +56,7 @@ export class TorneoService {
     form.append('respuesta', response);
     return this.http.post(`${this.url}/respondeinvitacion.php`, form);
   }
-  setResult(resultForm): Observable<any> {
+  setResult(resultForm, type): Observable<any> {
     const form = new FormData();
     for (const key in resultForm) {
       if (resultForm.hasOwnProperty(key)) {
@@ -66,6 +66,7 @@ export class TorneoService {
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
-    return this.http.post(`${this.url}/grabardoliga.php`, form);
+    const endpoint = type === '1' ? 'grabardoeliminatoria.php' : 'grabardoliga.php';
+    return this.http.post(`${this.url}/${endpoint}`, form);
   }
 }
