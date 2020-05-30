@@ -25,7 +25,11 @@ export class ResultadosEquipoComponent implements OnInit {
     if (this.idEquipo) {
       const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType).pipe().toPromise();
       this.results = info.resultados;
-      this.modality = info.modalidadvisual;
+      if (this.categoriaType === '1') {
+        this.modality = 'sets';
+      } else {
+        this.modality = info.modalidadvisual;
+      }
     }
   }
   async presentAddResultModal(i) {
@@ -52,7 +56,7 @@ export class ResultadosEquipoComponent implements OnInit {
         componentProps: {
           idCategoria: this.idCategoria,
           idEquipo,
-          catgoriaType: this.categoriaType
+          categoriaType: this.categoriaType
         }
       });
       return await modal.present();
