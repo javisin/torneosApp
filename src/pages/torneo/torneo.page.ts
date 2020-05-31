@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NotificacionService} from '../../services/notificacion/notificacion.service';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
+import {NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions/ngx';
+import {IonRouterOutlet} from '@ionic/angular';
 
 @Component({
   selector: 'app-torneoo',
@@ -13,7 +15,9 @@ export class TorneoPage implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
-              private notificacionService: NotificacionService) { }
+              private notificacionService: NotificacionService,
+              private nativePageTransitions: NativePageTransitions,
+              private ionRouterOutlet: IonRouterOutlet) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -22,5 +26,17 @@ export class TorneoPage implements OnInit {
         this.notificacionesLength = notificaciones.length;
       });
     });
+  }
+  ionViewWillLeave() {
+    if (this.ionRouterOutlet.getLastUrl() === '/torneos') {
+      const options: NativeTransitionOptions = {
+        direction: 'right',
+        duration: 400,
+        slowdownfactor: -1,
+        iosdelay: 50,
+        androiddelay: 50,
+      };
+      this.nativePageTransitions.slide(options);
+    }
   }
 }

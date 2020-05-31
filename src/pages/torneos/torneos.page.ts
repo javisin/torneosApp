@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {TorneoService} from '../../services/torneo/torneo.service';
-import {AlertController, LoadingController} from '@ionic/angular';
+import {AlertController, IonRouterOutlet, LoadingController} from '@ionic/angular';
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
 import {ErrorService} from '../../services/alert/error.service';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-torneos',
@@ -22,7 +23,9 @@ export class TorneosPage implements OnInit {
               private userService: UserService,
               private loadingController: LoadingController,
               private alertController: AlertController,
-              private errorService: ErrorService
+              private errorService: ErrorService,
+              private nativePageTransitions: NativePageTransitions,
+              private ionRouterOutlet: IonRouterOutlet
   ) {
     this.openedTorneos = [];
   }
@@ -34,6 +37,18 @@ export class TorneosPage implements OnInit {
         await this.loadContent();
       }
     });
+  }
+  ionViewWillLeave() {
+    if (this.ionRouterOutlet.getLastUrl().includes('/torneos/torneo')) {
+      const options: NativeTransitionOptions = {
+        direction: 'left',
+        duration: 400,
+        slowdownfactor: -1,
+        iosdelay: 50,
+        androiddelay: 50,
+      };
+      this.nativePageTransitions.slide(options);
+    }
   }
 
   async loadContent() {
@@ -50,7 +65,7 @@ export class TorneosPage implements OnInit {
             return;
           }
           this.invitations = invitations;
-          this.torneoService.getTorneos(this.user, false).subscribe(
+          this.torneoService.getTorneos(this.user).subscribe(
             async torneos => {
               if (torneos.Error) {
                 const alert = await this.errorService.createErrorAlert(torneos.Error);
@@ -86,7 +101,7 @@ export class TorneosPage implements OnInit {
         e.target.complete();
         await alert.present();
       });
-    this.torneoService.getTorneos(this.user, false).subscribe(
+    this.torneoService.getTorneos(this.user).subscribe(
       async torneo => {
         await this.errorService.checkErrors(torneo);
         this.torneos = torneo;
