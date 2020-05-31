@@ -32,10 +32,12 @@ export class NotificacionesPage implements OnInit {
       async notificaciones => {
         await this.errorService.checkErrors(notificaciones);
         this.notificaciones = notificaciones;
-        this.notificacionService.readNotificaciones(this.user, this.notificaciones).subscribe(
-          () => null,
-          error => this.errorService.createErrorAlert(error)
-        );
+        if (this.notificaciones.length > 0) {
+          this.notificacionService.readNotificaciones(this.user, this.notificaciones).subscribe(
+            () => null,
+            error => this.errorService.createErrorAlert(error)
+          );
+        }
       },
       async error => {
         const alert = await this.errorService.createErrorAlert(error);
