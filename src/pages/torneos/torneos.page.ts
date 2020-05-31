@@ -13,7 +13,8 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
   styleUrls: ['./torneos.page.scss'],
 })
 export class TorneosPage implements OnInit {
-  public torneos: Torneo[];
+  private torneos: Torneo[];
+  public filteredTorneos: Torneo[];
   private loading: HTMLIonLoadingElement;
   private user: User;
   public openedTorneos: boolean[];
@@ -74,6 +75,7 @@ export class TorneosPage implements OnInit {
                 return;
               }
               this.torneos = torneos;
+              this.filteredTorneos = this.torneos.filter(torneo => torneo.activo === '1');
               await this.loading.dismiss();
             },
             async error => {
@@ -116,6 +118,14 @@ export class TorneosPage implements OnInit {
 
   toggleTorneo(i) {
     this.openedTorneos[i] = !this.openedTorneos[i];
+  }
+
+  filterTorneos(e) {
+    if (e.detail.value === 'all') {
+      this.filteredTorneos = this.torneos;
+    } else {
+      this.filteredTorneos = this.torneos.filter(torneo => torneo.activo === '1');
+    }
   }
 
   async presentAlertConfirm(i) {

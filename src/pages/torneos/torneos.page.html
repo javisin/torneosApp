@@ -8,7 +8,7 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-    <ion-select interface="popover" placeholder="Mostrar">
+    <ion-select value="active" (ionChange)="filterTorneos($event)" interface="popover" placeholder="Mostrar">
         <ion-select-option value="all">Todos</ion-select-option>
         <ion-select-option value="active">Sólo activos</ion-select-option>
     </ion-select>
@@ -16,8 +16,10 @@
         {{invitation.titulo}}
         <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
     </ion-item>
-    <ion-list class="bg-medium ion-no-padding" *ngIf="torneos && torneos.length > 0, else noTorneos">
-        <div *ngFor="let torneo of torneos; let i = index">
+    <ion-list class="bg-medium ion-no-padding"
+              *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
+
+        <div *ngFor="let torneo of filteredTorneos; let i = index">
             <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
                 <ion-icon slot="start"
                           [name]="openedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
@@ -32,10 +34,11 @@
                 </ion-item> <!--Plantear margen-->
             </div>
         </div>
+
     </ion-list>
     <ng-template #noTorneos>
         <div class="h-100 d-flex align-items-center justify-content-center">
-            <p class="ion-text-center">No estás inscrito en ningún torneo con la funcionalidad app activa.</p>
+            <p class="ion-text-center">No estás inscrito en ningún torneo activo con la funcionalidad app.</p>
         </div>
     </ng-template>
 </ion-content>
