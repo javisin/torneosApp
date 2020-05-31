@@ -43,8 +43,6 @@ export class AppComponent {
       this.splashScreen.hide();
       this.setUpLocalNotifications();
       this.setUpPushNotifications();
-      const platform = this.getPlatform();
-      this.userService.setPlatform(platform);
       const SO = this.getSO();
       this.userService.setSO(SO);
       this.userService.setStorageUser();
@@ -75,10 +73,10 @@ export class AppComponent {
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration',
       (token: PushNotificationToken) => {
+        console.log(token.value);
         this.userService.setPushToken(token.value);
       }
     );
-
     // Some issue with our setup and push will not work
     PushNotifications.addListener('registrationError',
       (error: any) => {
@@ -99,13 +97,6 @@ export class AppComponent {
         this.router.navigate(['torneos/torneo/', notification.notification.data.idTorneo]);
       }
     );
-  }
-  getPlatform(): string {
-    if (this.platform.is('tablet')) {
-      return 'tablet';
-    } else {
-      return 'mobile';
-    }
   }
   getSO(): string {
     if (this.platform.is('ios')) {

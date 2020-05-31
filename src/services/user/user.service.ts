@@ -12,7 +12,6 @@ export class UserService {
     private readonly url: string;
     private readonly currentUser: BehaviorSubject<User>;
     private pushToken: string;
-    private platform: string;
     private SO: string;
 
     constructor(private http: HttpClient,
@@ -27,9 +26,7 @@ export class UserService {
                 form.append(key, loginForm[key]);
             }
         }
-        const platformType = this.platform === 'mobile' ? '1' : '2';
         const SOType = this.SO === 'android' ? '1' : '2';
-        form.append('dispositivo', platformType);
         form.append('so', SOType);
         form.append('id', 'test');
         return this.http.post<User>(`${this.url}/solologin.php`, form);
@@ -53,9 +50,6 @@ export class UserService {
     }
     setPushToken(token) {
         this.pushToken = token;
-    }
-    setPlatform(platform) {
-        this.platform = platform;
     }
     setSO(SO) {
         this.SO = SO;
