@@ -8,10 +8,13 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-    <ion-select value="active" (ionChange)="filterTorneos($event)" interface="popover" placeholder="Mostrar">
-        <ion-select-option value="all">Todos</ion-select-option>
-        <ion-select-option value="active">Sólo activos</ion-select-option>
-    </ion-select>
+    <div class="d-flex justify-content-start">
+        <ion-select value="active" (ionChange)="filterTorneos($event)" class="color-tertiary"
+                    interface="popover" placeholder="Mostrar">
+            <ion-select-option value="all">Todos</ion-select-option>
+            <ion-select-option value="active">Sólo activos</ion-select-option>
+        </ion-select>
+    </div>
     <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
         {{invitation.titulo}}
         <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
@@ -21,17 +24,17 @@
 
         <div *ngFor="let torneo of filteredTorneos; let i = index">
             <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
-                <ion-icon slot="start"
-                          [name]="openedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
+                <ion-icon slot="start" color="light"
+                          [name]="!closedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
                 </ion-icon>
                 {{torneo.nombreTorneo}}
             </ion-item>
-            <div *ngIf="openedTorneos[i]">
+            <div *ngIf="!closedTorneos[i]">
                 <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.id]"
                           class="w-85 ml-auto bg-medium">
                     {{categoria.nombre}}
                     <ion-badge slot="end" color="danger">{{categoria.numnotifica}}</ion-badge>
-                </ion-item> <!--Plantear margen-->
+                </ion-item>
             </div>
         </div>
 

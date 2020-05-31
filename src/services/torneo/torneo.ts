@@ -4,4 +4,5 @@ export interface Torneo {
   idTorneo: string;
   nombreTorneo: string;
   categorias: Categoria[];
+  activo: string;
 }

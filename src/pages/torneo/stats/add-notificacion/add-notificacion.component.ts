@@ -13,8 +13,8 @@ export class AddNotificacionComponent implements OnInit {
   @Input() equipo2: string;
   @Input() fecha: string;
   @Input() idCategoria: string;
-  isScheduled: boolean;
   @ViewChild(IonSegment) segment: IonSegment;
+  public isScheduled: boolean;
   public anticipationMessage: string;
   public finished: boolean;
   constructor(private localNotifications: LocalNotifications,
@@ -25,7 +25,7 @@ export class AddNotificacionComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.fecha = '2020-05-30';
+    this.fecha = '2020-07-30';
     if (this.fecha !== '') {
       if (Date.now() > this.getDateTime(this.fecha)) {
         this.finished = true;

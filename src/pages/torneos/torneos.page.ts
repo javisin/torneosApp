@@ -17,7 +17,7 @@ export class TorneosPage implements OnInit {
   public filteredTorneos: Torneo[];
   private loading: HTMLIonLoadingElement;
   private user: User;
-  public openedTorneos: boolean[];
+  public closedTorneos: boolean[];
   public invitations: any[];
 
   constructor(private torneoService: TorneoService,
@@ -28,7 +28,7 @@ export class TorneosPage implements OnInit {
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet
   ) {
-    this.openedTorneos = [];
+    this.closedTorneos = [];
   }
 
   ngOnInit() {
@@ -117,7 +117,7 @@ export class TorneosPage implements OnInit {
   }
 
   toggleTorneo(i) {
-    this.openedTorneos[i] = !this.openedTorneos[i];
+    this.closedTorneos[i] = !this.closedTorneos[i];
   }
 
   filterTorneos(e) {
