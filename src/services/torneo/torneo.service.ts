@@ -18,10 +18,9 @@ export class TorneoService {
               private userService: UserService) {
     this.url = Global.url;
   }
-  getTorneos(user, onlyActives: boolean): Observable<Torneo[]> {
-    const soloActivosParam = onlyActives ? 'S' : 'N';
-    return this.http.get<Torneo[]>
-    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=${soloActivosParam}`);
+  getTorneos(user): Observable<any> {
+    return this.http.get<any>
+    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}`);
   }
   getCategoria(user, idTorneo): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
