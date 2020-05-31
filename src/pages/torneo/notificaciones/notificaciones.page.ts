@@ -33,7 +33,8 @@ export class NotificacionesPage implements OnInit {
         await this.errorService.checkErrors(notificaciones);
         this.notificaciones = notificaciones;
         if (this.notificaciones.length > 0) {
-          this.notificacionService.readNotificaciones(this.user, this.notificaciones).subscribe(
+          const notificacionesIds = this.notificaciones.map(notificacion => notificacion.idnotificacion);
+          this.notificacionService.readNotificaciones(this.user, notificacionesIds).subscribe(
             () => null,
             error => this.errorService.createErrorAlert(error)
           );
