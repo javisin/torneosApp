@@ -13,6 +13,7 @@ import {ComponentsModule} from '../components/components.module';
 import {IonicStorageModule} from '@ionic/storage';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
     SplashScreen,
     LocalNotifications,
     ScreenOrientation,
+    NativePageTransitions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
