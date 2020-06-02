@@ -39,16 +39,23 @@
                 </div>
             </ion-col>
         </ion-row>
-        <ion-row class="justify-content-center">
-            <ion-col class="size-14 date-color">
-                {{result.fechapartido}} {{result.datospartido}}
-            </ion-col>
-        </ion-row>
+        <ng-container *ngIf="!result.rdo1 && !result.rdo2">
+            <ion-row class="justify-content-center">
+                <ion-col class="size-14 date-color">
+                    {{result.fechapartido}} {{result.horapartido}}
+                </ion-col>
+            </ion-row>
+            <ion-row class="justify-content-center">
+                <ion-col class="size-14 date-color no-overflow">
+                    {{result.datospartido}}
+                </ion-col>
+            </ion-row>
+        </ng-container>
     </div>
 
 </div>
 <ng-template #horizontal>
-    <table class="table light">
+    <table style="table-layout:fixed;" class="table light">
         <tbody class="size-14">
         <ng-container *ngFor="let result of results; let i = index">
             <tr [id]="i + 1">
@@ -63,7 +70,6 @@
                     <td colspan="3" class="top-row text-left color-tertiary">Jornada {{i + 1}}</td>
                 </ng-template>
             </tr>
-
             <tr class="no-border-top">
                 <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team">
                     {{result.equipo1}}
@@ -73,9 +79,18 @@
                     {{result.equipo2}}
                 </td>
             </tr>
-            <tr class="no-border-top">
-                <td colspan="3" class="py-0 date-color size-14 text-center">2020-05-28 en Santiago Bernabeu</td>
-            </tr>
+            <ng-container *ngIf="!result.rdo1 && !result.rdo2">
+                <tr class="no-border-top">
+                    <td colspan="3" class="py-0 date-color size-14 text-center">
+                        {{result.fechapartido}} {{result.horapartido}}
+                    </td>
+                </tr>
+                <tr class="no-border-top">
+                    <td colspan="3" class="no-overflow py-0 date-color size-14 text-center">
+                        {{result.datospartido}}
+                    </td>
+                </tr>
+            </ng-container>
         </ng-container>
         </tbody>
     </table>

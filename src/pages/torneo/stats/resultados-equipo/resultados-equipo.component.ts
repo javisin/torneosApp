@@ -23,7 +23,8 @@ export class ResultadosEquipoComponent implements OnInit {
 
   async ngOnInit() {
     if (this.idEquipo) {
-      const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType).pipe().toPromise();
+      const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType)
+        .pipe().toPromise();
       this.results = info.resultados;
       if (this.categoriaType === '1') {
         this.modality = 'sets';
