@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Validar
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissPopover()">
+        <ion-icon class="medium-icon" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<form [formGroup]="confirmResultForm" (ngSubmit)="onSubmit(confirmResultForm.value)">
+  <ion-content scroll-y="false">
+    <ion-row>
+      <ion-col class="text-center color-primary" size="5">acodetto{{equipo1}}</ion-col>
+      <ion-col class="text-center color-primary" offset="2" size="5">viera{{equipo2}}</ion-col>
+    </ion-row>
+    <ion-row class="justify-content-center">
+      <ion-col class="text-center" size="5">1{{result1}}</ion-col>
+      <ion-col class="text-center" size="2">-</ion-col>
+      <ion-col class="text-center" size="5">2{{result2}}</ion-col>
+    </ion-row>
+    <ion-item lines="none">
+      <ion-label class="size-14" color="tertiary">Aceptar resultado</ion-label>
+      <ion-select #select formControlName="validar" cancel-text="Cancelar">
+        <ion-select-option value="OK">Sí</ion-select-option>
+        <ion-select-option value="NOK">No</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="select.value === 'NOK'" lines="none" class="mb-1">
+      <ion-label color="tertiary" position="stacked">Mensaje adicional</ion-label>
+      <ion-textarea class="size-14" formControlName="textonok"
+                    placeholder="Añade los motivos del rechazo (OPCIONAL)">
+      </ion-textarea>
+    </ion-item>
+  </ion-content>
+
+  <ion-footer>
+    <ion-toolbar class="border-success">
+      <ion-buttons class="ion-text-center">
+          <ion-button type="submit" class="w-100">Enviar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</form>

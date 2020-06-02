@@ -20,7 +20,7 @@ export class TorneoService {
   }
   getTorneos(user): Observable<any> {
     return this.http.get<any>
-    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}`);
+    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=N`);
   }
   getCategoria(user, idTorneo): Observable<Categoria> {
     return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
@@ -67,5 +67,17 @@ export class TorneoService {
     form.append('token', user.token);
     const endpoint = type === '1' ? 'grabardoeliminatoria.php' : 'grabardoliga.php';
     return this.http.post(`${this.url}/${endpoint}`, form);
+  }
+  validateResultado(validateForm) {
+    const form = new FormData();
+    for (const key in validateForm) {
+      if (validateForm.hasOwnProperty(key)) {
+        form.append(key, validateForm[key]);
+      }
+    }
+    const user = this.userService.getUser().getValue();
+    form.append('usuario', user.email);
+    form.append('token', user.token);
+    return this.http.post(`${this.url}/validardo.php`, form);
   }
 }

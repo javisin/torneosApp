@@ -1,10 +1,13 @@
 export interface Notificacion {
   idnotificacion: string;
-  idTorneo: string;
+  idtorneo: string;
   idpartido: string;
   titulo: string;
   descripcion: string;
-  fechahora: string;
   estado: string;
-  timestamp: string;
+  timestamp: number;
+  rdo1: string;
+  rdo2: string;
+  equipo1: string;
+  equipo2: string;
 }

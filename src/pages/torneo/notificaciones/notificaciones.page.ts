@@ -5,6 +5,8 @@ import {User} from '../../../services/user/user';
 import {ErrorService} from '../../../services/alert/error.service';
 import {ActivatedRoute} from '@angular/router';
 import {Notificacion} from '../../../services/notificacion/notificacion';
+import {PopoverController} from '@ionic/angular';
+import {ConfirmResultadoComponent} from './confirm-resultado/confirm-resultado.component';
 
 @Component({
   selector: 'app-notificaciones',
@@ -19,7 +21,8 @@ export class NotificacionesPage implements OnInit {
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
               private errorService: ErrorService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
@@ -51,6 +54,7 @@ export class NotificacionesPage implements OnInit {
       async notificaciones => {
         await this.errorService.checkErrors(notificaciones);
         this.notificaciones = notificaciones;
+        console.log(this.notificaciones[0].timestamp);
         e.target.complete();
       },
       async error => {
@@ -58,6 +62,21 @@ export class NotificacionesPage implements OnInit {
         e.target.complete();
         await alert.present();
       });
+  }
+  async confirmResultado(i) {
+    const modal = await this.popoverController.create({
+      component: ConfirmResultadoComponent,
+      componentProps: {
+        idPartido: this.notificaciones[i].idpartido,
+        idCategoria: this.notificaciones[i].idtorneo,
+        result1: this.notificaciones[i].rdo1,
+        result2: this.notificaciones[i].rdo2,
+        equipo1: this.notificaciones[i].equipo1,
+        equipo2: this.notificaciones[i].equipo2,
+      },
+      cssClass: 'ionic-w-80',
+    });
+    return await modal.present();
   }
 
 }
