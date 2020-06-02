@@ -73,7 +73,6 @@ export class AppComponent {
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration',
       (token: PushNotificationToken) => {
-        console.log(token.value);
         this.userService.setPushToken(token.value);
       }
     );
@@ -94,7 +93,7 @@ export class AppComponent {
     // Method called when tapping on a notification
     PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        this.router.navigate(['torneos/torneo/', notification.notification.data.idTorneo]);
+        this.router.navigate([`torneos/torneo/${notification.notification.data.idTorneo}/notifications`]);
       }
     );
   }
