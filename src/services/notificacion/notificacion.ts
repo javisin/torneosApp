@@ -5,6 +5,7 @@ export interface Notificacion {
   titulo: string;
   descripcion: string;
   estado: string;
+  estadovalidacion: string;
   timestamp: number;
   rdo1: string;
   rdo2: string;

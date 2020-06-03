@@ -16,13 +16,22 @@
       </ion-label>
       <ion-note color="dark" class="size-14 mb-2">{{notificacion.descripcion}}</ion-note>
       <ion-row class="w-100 align-items-center">
-        <ion-col size="7">
-          <ion-note class="mb-2 size-14">
+        <ion-col size="6">
+          <ion-note class="size-14">
             {{notificacion.timestamp * 1000 |date:'y-MM-dd HH:mm'}}
           </ion-note>
         </ion-col>
-        <ion-col size="5">
-          <ion-button (click)="confirmResultado(i)" class="mt-0 text-right">Validar</ion-button>
+        <ion-col size="6" class="text-center">
+          <ion-button *ngIf="notificacion.estadovalidacion === 'E'" (click)="confirmResultado(i)"
+                      class="mt-0">
+            Validar
+          </ion-button>
+          <ion-note color="tertiary" *ngIf="notificacion.estadovalidacion === 'OK'" class="size-14">
+            Resultado aceptado
+          </ion-note>
+          <ion-note color="tertiary" *ngIf="notificacion.estadovalidacion === 'NOK'" class="size-14">
+            Resultado rechazado
+          </ion-note>
         </ion-col>
       </ion-row>
     </ion-item>
