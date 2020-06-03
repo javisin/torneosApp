@@ -1,6 +1,6 @@
 export interface Notificacion {
   idnotificacion: string;
-  idtorneo: string;
+  idcategoria: string;
   idpartido: string;
   titulo: string;
   descripcion: string;

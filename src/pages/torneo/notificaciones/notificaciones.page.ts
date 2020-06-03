@@ -68,7 +68,7 @@ export class NotificacionesPage implements OnInit {
       component: ConfirmResultadoComponent,
       componentProps: {
         idPartido: this.notificaciones[i].idpartido,
-        idCategoria: this.notificaciones[i].idtorneo,
+        idCategoria: this.notificaciones[i].idcategoria,
         result1: this.notificaciones[i].rdo1,
         result2: this.notificaciones[i].rdo2,
         equipo1: this.notificaciones[i].equipo1,
