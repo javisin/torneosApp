@@ -66,7 +66,7 @@ export class TorneoService {
     const endpoint = type === '1' ? 'grabardoeliminatoria.php' : 'grabardoliga.php';
     return this.http.post(`${this.url}/${endpoint}`, form);
   }
-  validateResultado(validateForm) {
+  validateResultado(validateForm): Observable<any> {
     const form = objectToForm(validateForm);
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
