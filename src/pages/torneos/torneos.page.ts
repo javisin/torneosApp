@@ -136,7 +136,7 @@ export class TorneosPage implements OnInit {
         {
           text: 'Rechazar',
           handler: () => {
-            this.torneoService.responseInvitacion(this.user, this.invitations[i].id, 'NOK').subscribe(
+            this.torneoService.responseInvitacion(this.invitations[i].id, 'NOK').subscribe(
               () => this.invitations.splice(i, 1),
               error => console.log(error),
             );
@@ -144,7 +144,7 @@ export class TorneosPage implements OnInit {
         }, {
           text: 'Aceptar',
           handler: () => {
-            this.torneoService.responseInvitacion(this.user, this.invitations[i].id, 'OK').subscribe(
+            this.torneoService.responseInvitacion(this.invitations[i].id, 'OK').subscribe(
               () => this.invitations.splice(i, 1),
               error => console.log(error),
             );

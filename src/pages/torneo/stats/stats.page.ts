@@ -39,7 +39,7 @@ export class StatsPage implements OnInit {
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;
-    this.torneoService.getCategoria(this.userService.getUser().getValue(), this.idCategoria).subscribe(
+    this.torneoService.getCategoria(this.idCategoria).subscribe(
       async categoria => {
         await this.errorService.checkErrors(categoria);
         this.categoriaDetails = categoria;

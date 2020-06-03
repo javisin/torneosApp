@@ -7,6 +7,7 @@ import {User} from '../user/user';
 import {Jornada} from './jornada';
 import {Categoria} from './categoria';
 import {UserService} from '../user/user.service';
+import {objectToForm} from '../../helpers/objectToForm';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class TorneoService {
     return this.http.get<any>
     (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=N`);
   }
-  getCategoria(user, idTorneo): Observable<Categoria> {
+  getCategoria(idTorneo): Observable<Categoria> {
+    const user = this.userService.getUser().getValue();
     return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
   }
   getResultados(idTorneo, type, jornada): Observable<Jornada> {
@@ -47,7 +49,8 @@ export class TorneoService {
   getInvitaciones(user: User): Observable<any> {
     return this.http.get(`${this.url}/getinvitaciones.php?usuario=${user.email}&token=${user.token}`);
   }
-  responseInvitacion(user: User, idInvitation: string, response: string): Observable<any> {
+  responseInvitacion(idInvitation: string, response: string): Observable<any> {
+    const user = this.userService.getUser().getValue();
     const form = new FormData();
     form.append('usuario', user.email);
     form.append('token', user.token);
@@ -56,12 +59,7 @@ export class TorneoService {
     return this.http.post(`${this.url}/respondeinvitacion.php`, form);
   }
   setResult(resultForm, type): Observable<any> {
-    const form = new FormData();
-    for (const key in resultForm) {
-      if (resultForm.hasOwnProperty(key)) {
-        form.append(key, resultForm[key]);
-      }
-    }
+    const form = objectToForm(resultForm);
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
@@ -69,12 +67,7 @@ export class TorneoService {
     return this.http.post(`${this.url}/${endpoint}`, form);
   }
   validateResultado(validateForm) {
-    const form = new FormData();
-    for (const key in validateForm) {
-      if (validateForm.hasOwnProperty(key)) {
-        form.append(key, validateForm[key]);
-      }
-    }
+    const form = objectToForm(validateForm);
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
