@@ -8,21 +8,26 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
-    <div class="d-flex justify-content-start">
-        <ion-select value="active" (ionChange)="filterTorneos($event)" class="color-tertiary"
-                    interface="popover" placeholder="Mostrar">
-            <ion-select-option value="all">Todos</ion-select-option>
-            <ion-select-option value="active">Sólo activos</ion-select-option>
-        </ion-select>
-    </div>
-    <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
-        {{invitation.titulo}}
-        <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
-    </ion-item>
+    <ion-list *ngIf="invitations && invitations.length > 0" class="bg-medium ion-no-padding">
+        <ion-list-header class="color-primary size-20">Invitaciones ({{invitations.length}})</ion-list-header>
+        <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
+            {{invitation.titulo}}
+            <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
+        </ion-item>
+    </ion-list>
+
     <ion-list class="bg-medium ion-no-padding"
               *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
+        <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
+        <div class="d-flex justify-content-start">
+            <ion-select value="active" (ionChange)="filterTorneos($event)" class="color-tertiary"
+                        interface="popover" placeholder="Mostrar">
+                <ion-select-option value="all">Todos</ion-select-option>
+                <ion-select-option value="active">Sólo activos</ion-select-option>
+            </ion-select>
+        </div>
 
-        <div *ngFor="let torneo of filteredTorneos; let i = index">
+        <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
             <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
                 <ion-icon slot="start" color="light"
                           [name]="!closedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
@@ -33,10 +38,12 @@
                 <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.id]"
                           class="w-85 ml-auto bg-medium">
                     {{categoria.nombre}}
-                    <ion-badge slot="end" color="danger">{{categoria.numnotifica}}</ion-badge>
+                    <ion-badge *ngIf="categoria.numnotifica > 0" slot="end" color="danger">
+                        {{categoria.numnotifica}}
+                    </ion-badge>
                 </ion-item>
             </div>
-        </div>
+        </ng-container>
 
     </ion-list>
     <ng-template #noTorneos>
