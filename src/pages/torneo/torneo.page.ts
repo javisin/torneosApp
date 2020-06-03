@@ -23,7 +23,7 @@ export class TorneoPage implements OnInit {
     this.route.params.subscribe(params => {
       const user = this.userService.getUser().getValue();
       this.notificacionService.getNotificaciones(user, params.id).subscribe(notificaciones => {
-        this.notificacionesLength = notificaciones.length;
+        this.notificacionesLength = notificaciones.filter(notificacion => notificacion.estado === '0').length;
       });
     });
   }
