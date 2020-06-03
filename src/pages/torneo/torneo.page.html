@@ -8,7 +8,7 @@
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
       <ion-label>Notificaciones</ion-label>
-      <ion-badge color="danger">{{notificacionesLength}}</ion-badge>
+      <ion-badge *ngIf="notificacionesLength > 0" color="danger">{{notificacionesLength}}</ion-badge>
     </ion-tab-button>
 
   </ion-tab-bar>
