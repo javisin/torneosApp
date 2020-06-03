@@ -69,7 +69,7 @@
       <tbody class="size-14">
       <ng-container *ngFor="let result of results; let i = index">
         <tr>
-          <td class="date-color size-14 text-left">2020-05-28</td>
+          <td class="date-color size-14 text-left">{{result.fechapartido}}</td>
           <td colspan="2" class="w-100 pb-0 pt-1 text-right">
             <ion-icon (click)="createNotification(i)"
                       class="medium-icon"

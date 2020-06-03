@@ -25,7 +25,6 @@ export class AddNotificacionComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.fecha = '2020-07-30';
     if (this.fecha !== '') {
       if (Date.now() > this.getDateTime(this.fecha)) {
         this.finished = true;
