@@ -76,6 +76,9 @@ export class NotificacionesPage implements OnInit {
       },
       cssClass: 'ionic-w-80',
     });
+    modal.onDidDismiss().then(details => {
+      this.notificaciones[i].estadovalidacion = details.data.notificacionStatus;
+    });
     return await modal.present();
   }
 

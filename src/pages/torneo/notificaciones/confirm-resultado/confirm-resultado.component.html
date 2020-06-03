@@ -8,7 +8,7 @@
       Validar
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissPopover()">
+      <ion-button (click)="dismissPopover('E')">
         <ion-icon class="medium-icon" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,6 +32,15 @@
         <ion-select-option value="NOK">No</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-row>
+      <ion-col>
+        <div class="ml-2" *ngIf="FormControl.validar.invalid && FormControl.validar.touched">
+          <small class="text-danger" *ngIf="FormControl.validar.errors.required">
+            Este campo es obligatorio.
+          </small>
+        </div>
+      </ion-col>
+    </ion-row>
     <ion-item *ngIf="select.value === 'NOK'" lines="none" class="mb-1">
       <ion-label color="tertiary" position="stacked">Mensaje adicional</ion-label>
       <ion-textarea class="size-14" formControlName="textonok"

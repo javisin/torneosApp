@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PopoverController} from '@ionic/angular';
+import {AlertController, PopoverController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 
@@ -19,7 +19,8 @@ export class ConfirmResultadoComponent implements OnInit {
 
   constructor(private popoverController: PopoverController,
               private formBuilder: FormBuilder,
-              private torneoService: TorneoService) { }
+              private torneoService: TorneoService,
+              private alertController: AlertController) { }
 
   ngOnInit() {
     this.confirmResultForm = this.formBuilder.group({
@@ -29,13 +30,41 @@ export class ConfirmResultadoComponent implements OnInit {
       textonok: '',
     });
   }
-  async dismissPopover() {
-    await this.popoverController.dismiss();
+  async dismissPopover(status) {
+    await this.popoverController.dismiss(
+      {
+        notificacionStatus: status,
+      }
+    );
+  }
+  get FormControl() {
+    return this.confirmResultForm.controls;
   }
   onSubmit(form) {
+    this.confirmResultForm.markAllAsTouched();
     if (this.confirmResultForm.status === 'VALID') {
       this.torneoService.validateResultado(form).subscribe(
-        data => console.log(data)
+        async (res) => {
+          if (res.Error) {
+            const alert = await this.alertController.create({
+              header: 'Error',
+              message: res.Error,
+              buttons: ['OK'],
+              translucent: true,
+            });
+            await alert.present();
+            await this.dismissPopover('E');
+          } else {
+            const alert = await this.alertController.create({
+              header: 'Enviado',
+              message: 'Respuesta enviada.',
+              buttons: ['OK'],
+              translucent: true,
+            });
+            await alert.present();
+            await this.dismissPopover(form.validar);
+          }
+        },
       );
     }
   }
