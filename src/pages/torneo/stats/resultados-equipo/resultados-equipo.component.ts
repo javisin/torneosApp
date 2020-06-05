@@ -4,6 +4,7 @@ import {Resultado} from '../../../../services/torneo/resultado';
 import {ModalController} from '@ionic/angular';
 import {AddResultadoComponent} from '../add-resultado/add-resultado.component';
 import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resultados-equipo-modal.component';
+import {RefreshService} from '../../../../services/refresh/refresh.service';
 
 @Component({
   selector: 'app-resultados-equipo',
@@ -19,9 +20,14 @@ export class ResultadosEquipoComponent implements OnInit {
   public modality: string;
 
   constructor(private torneoService: TorneoService,
-              private modalController: ModalController) { }
+              private modalController: ModalController,
+              private refreshService: RefreshService) { }
 
   async ngOnInit() {
+    await this.getTorneoInfo();
+    this.refreshService.getSubject().subscribe(() => this.getTorneoInfo());
+  }
+  async getTorneoInfo() {
     if (this.idEquipo) {
       const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType)
         .pipe().toPromise();

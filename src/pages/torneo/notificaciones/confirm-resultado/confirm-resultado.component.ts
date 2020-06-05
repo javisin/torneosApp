@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AlertController, PopoverController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
+import {RefreshService} from '../../../../services/refresh/refresh.service';
 
 @Component({
   selector: 'app-confirm-resultado',
@@ -20,7 +21,8 @@ export class ConfirmResultadoComponent implements OnInit {
   constructor(private popoverController: PopoverController,
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private refreshService: RefreshService) { }
 
   ngOnInit() {
     this.confirmResultForm = this.formBuilder.group({
@@ -31,6 +33,9 @@ export class ConfirmResultadoComponent implements OnInit {
     });
   }
   async dismissPopover(status) {
+    if (status === 'OK') {
+      this.refreshService.emitValue();
+    }
     await this.popoverController.dismiss(
       {
         notificacionStatus: status,

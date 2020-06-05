@@ -6,6 +6,7 @@ import {AddNotificacionComponent} from '../add-notificacion/add-notificacion.com
 import {Resultado} from '../../../../services/torneo/resultado';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {ResultadosEquipoModalComponent} from '../resultados-equipo-modal/resultados-equipo-modal.component';
+import {RefreshService} from '../../../../services/refresh/refresh.service';
 
 @Component({
   selector: 'app-resultados',
@@ -27,11 +28,16 @@ export class ResultadosComponent implements OnInit {
               private popoverController: PopoverController,
               private modalController: ModalController,
               private localNotifications: LocalNotifications,
-              private platform: Platform) {
+              private platform: Platform,
+              private refreshService: RefreshService) {
     this.roundSubject = new BehaviorSubject<number>(null);
   }
 
   ngOnInit() {
+    this.getTorneo();
+    this.refreshService.getSubject().subscribe(() => this.getTorneo());
+  }
+  getTorneo() {
     if (this.platform.is('ios')) {
       this.options = {
         cssClass: 'ionic-w-60'
