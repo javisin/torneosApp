@@ -17,6 +17,7 @@ import {AddResultadoComponent} from './stats/add-resultado/add-resultado.compone
 import {ResultadosEquipoModalComponent} from './stats/resultados-equipo-modal/resultados-equipo-modal.component';
 import {TorneoPageRoutingModule} from './torneo-routing.module';
 import {ConfirmResultadoComponent} from './notificaciones/confirm-resultado/confirm-resultado.component';
+import {NotificacionListComponent} from './notificaciones/notificacion-list/notificacion-list.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import {ConfirmResultadoComponent} from './notificaciones/confirm-resultado/conf
     ReactiveFormsModule
   ],
   declarations: [TorneoPage, StatsPage, ResultadosComponent, ResultadosEquipoComponent, ClasificacionComponent,
-    HideHeaderDirective, AddNotificacionComponent, NotificacionesPage,
+    HideHeaderDirective, AddNotificacionComponent, NotificacionesPage, NotificacionListComponent,
     AddResultadoComponent, ResultadosEquipoModalComponent, ConfirmResultadoComponent],
   entryComponents: [AddNotificacionComponent, AddResultadoComponent,
     ResultadosEquipoModalComponent, ConfirmResultadoComponent]

@@ -17,13 +17,13 @@
 <form [formGroup]="confirmResultForm" (ngSubmit)="onSubmit(confirmResultForm.value)">
   <ion-content scroll-y="false">
     <ion-row>
-      <ion-col class="text-center color-primary" size="5">acodetto{{equipo1}}</ion-col>
-      <ion-col class="text-center color-primary" offset="2" size="5">viera{{equipo2}}</ion-col>
+      <ion-col class="text-center color-primary" size="5">{{equipo1}}</ion-col>
+      <ion-col class="text-center color-primary" offset="2" size="5">{{equipo2}}</ion-col>
     </ion-row>
     <ion-row class="justify-content-center">
-      <ion-col class="text-center" size="5">1{{result1}}</ion-col>
+      <ion-col class="text-center" size="5">{{result1}}</ion-col>
       <ion-col class="text-center" size="2">-</ion-col>
-      <ion-col class="text-center" size="5">2{{result2}}</ion-col>
+      <ion-col class="text-center" size="5">{{result2}}</ion-col>
     </ion-row>
     <ion-item lines="none">
       <ion-label class="size-14" color="tertiary">Aceptar resultado</ion-label>

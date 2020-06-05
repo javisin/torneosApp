@@ -19,6 +19,7 @@ export class TorneosPage implements OnInit {
   private user: User;
   public closedTorneos: boolean[];
   public invitations: any[];
+  private filter: string;
 
   constructor(private torneoService: TorneoService,
               private userService: UserService,
@@ -29,6 +30,7 @@ export class TorneosPage implements OnInit {
               private ionRouterOutlet: IonRouterOutlet
   ) {
     this.closedTorneos = [];
+    this.filter = '0';
   }
 
   ngOnInit() {
@@ -57,61 +59,55 @@ export class TorneosPage implements OnInit {
       message: 'Cargando competiciones...'
     });
     this.loading.present().then(async () => {
-      this.torneoService.getInvitaciones(this.user).subscribe(
-        async invitations => {
-          if (invitations.Error) {
-            const alert = await this.errorService.createErrorAlert(invitations.Error);
-            await this.loading.dismiss();
-            await alert.present();
-            return;
-          }
-          this.invitations = invitations;
-          this.torneoService.getTorneos(this.user).subscribe(
-            async torneos => {
-              if (torneos.Error) {
-                const alert = await this.errorService.createErrorAlert(torneos.Error);
-                await this.loading.dismiss();
-                await alert.present();
-                return;
-              }
-              this.torneos = torneos;
-              this.filteredTorneos = this.torneos.filter(torneo => torneo.activo === '1');
-              await this.loading.dismiss();
-            },
-            async error => {
-              const alert = await this.errorService.createErrorAlert(error.message);
-              await this.loading.dismiss();
-              await alert.present();
-            });
-        },
-        async error => {
-          const alert = await this.errorService.createErrorAlert(error.message);
-          await this.loading.dismiss();
-          await alert.present();
-        });
+      this.fetchContent();
     });
   }
-
-  async doRefresh(e) {
+  fetchContent(refreshEvent?) {
     this.torneoService.getInvitaciones(this.user).subscribe(
       async invitations => {
-        await this.errorService.checkErrors(invitations);
+        if (invitations.Error) {
+          const alert = await this.errorService.createErrorAlert(invitations.Error);
+          await this.loading.dismiss();
+          await alert.present();
+          return;
+        }
         this.invitations = invitations;
+        this.fetchTorneos(refreshEvent);
       },
       async error => {
         const alert = await this.errorService.createErrorAlert(error.message);
-        e.target.complete();
+        if (refreshEvent) {
+          refreshEvent.target.complete();
+        } else {
+          await this.loading.dismiss();
+        }
         await alert.present();
       });
+  }
+  fetchTorneos(refreshEvent) {
     this.torneoService.getTorneos(this.user).subscribe(
-      async torneo => {
-        await this.errorService.checkErrors(torneo);
-        this.torneos = torneo;
-        e.target.complete();
+      async torneos => {
+        if (torneos.Error) {
+          const alert = await this.errorService.createErrorAlert(torneos.Error);
+          await this.loading.dismiss();
+          await alert.present();
+          return;
+        }
+        this.torneos = torneos;
+        this.filteredTorneos = this.torneos.filter(torneo => torneo.activo !== this.filter);
+        if (refreshEvent) {
+          refreshEvent.target.complete();
+        } else {
+          await this.loading.dismiss();
+        }
       },
       async error => {
         const alert = await this.errorService.createErrorAlert(error.message);
-        e.target.complete();
+        if (refreshEvent) {
+          refreshEvent.target.complete();
+        } else {
+          await this.loading.dismiss();
+        }
         await alert.present();
       });
   }
@@ -123,8 +119,10 @@ export class TorneosPage implements OnInit {
   filterTorneos(e) {
     if (e.detail.value === 'all') {
       this.filteredTorneos = this.torneos;
+      this.filter = null;
     } else {
       this.filteredTorneos = this.torneos.filter(torneo => torneo.activo === '1');
+      this.filter = '0';
     }
   }
 
@@ -138,7 +136,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'NOK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => console.log(error),
+              error => this.errorService.createErrorAlert(error)
             );
           }
         }, {
@@ -146,7 +144,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'OK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => console.log(error),
+              error => this.errorService.createErrorAlert(error)
             );
           }
         }

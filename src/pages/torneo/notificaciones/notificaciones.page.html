@@ -3,45 +3,13 @@
   <h5 class="ion-margin text-white text-center">Notificaciones</h5>
 </div>
 <ion-content color="light">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
     <ion-refresher-content class="bg-light"
                            pullingIcon= null>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list *ngIf="notificaciones && notificaciones.length > 0; else noNotificaciones" class="bg-transparent ion-no-padding">
-    <ion-item-sliding *ngFor="let notificacion of notificaciones; let i = index">
-    <ion-item lines="full" >
-      <ion-label color="primary" class="notificacion-title mb-2" position="stacked">
-        {{notificacion.titulo}}
-      </ion-label>
-      <ion-note color="dark" class="size-14 mb-2">{{notificacion.descripcion}}</ion-note>
-      <ion-row class="w-100 align-items-center">
-        <ion-col size="6">
-          <ion-note class="size-14">
-            {{notificacion.timestamp * 1000 |date:'y-MM-dd HH:mm'}}
-          </ion-note>
-        </ion-col>
-        <ion-col size="6" class="text-center">
-          <ion-button *ngIf="notificacion.estadovalidacion === 'E'" (click)="confirmResultado(i)"
-                      class="mt-0">
-            Validar
-          </ion-button>
-          <ion-note color="tertiary" *ngIf="notificacion.estadovalidacion === 'OK'" class="size-14">
-            Resultado aceptado
-          </ion-note>
-          <ion-note color="tertiary" *ngIf="notificacion.estadovalidacion === 'NOK'" class="size-14">
-            Resultado rechazado
-          </ion-note>
-        </ion-col>
-      </ion-row>
-    </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <app-notificacion-list [title]="'No leídas'" [notificaciones] = unreadNotificaciones></app-notificacion-list>
+  <app-notificacion-list [title]="'Leídas'" [notificaciones] = readNotificaciones></app-notificacion-list>
   <ng-template #noNotificaciones>
     <div class="h-100 d-flex align-items-center justify-content-center">
       <p class="ion-text-center">Ninguna notificación disponible.</p>
