@@ -53,7 +53,7 @@ export class AppComponent {
   setUpLocalNotifications() {
     this.localNotifications.requestPermission().then(() => {
       this.localNotifications.on('click').subscribe(async notification => {
-        await this.router.navigate(['/torneos/torneo/', notification.data.categoria]);
+        await this.router.navigate(['/torneo/', notification.data.categoria]);
       });
     });
   }
@@ -93,7 +93,7 @@ export class AppComponent {
     // Method called when tapping on a notification
     PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        this.router.navigate([`torneos/torneo/${notification.notification.data.idTorneo}/notifications`]);
+        this.router.navigate([`/torneo/${notification.notification.data.idTorneo}/notifications`]);
       }
     );
   }

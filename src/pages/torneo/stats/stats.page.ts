@@ -89,7 +89,7 @@ export class StatsPage implements OnInit {
         {
           text: 'Confirmar',
           handler: (selection) => {
-            this.router.navigate([`/torneos/torneo/${selection.Categorías.value}`]);
+            this.router.navigate([`/torneo/${selection.Categorías.value}`]);
           }
         }
       ]

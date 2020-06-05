@@ -17,13 +17,17 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
-    path: 'torneos/torneo',
+    path: 'torneo',
     loadChildren: () => import('../pages/torneo/torneo.module').then(m => m.TorneoPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'registro',
     loadChildren: () => import('../pages/registro/registro.module').then(m => m.RegistroPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   },
 ];
 @NgModule({

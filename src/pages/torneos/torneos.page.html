@@ -35,7 +35,7 @@
                 {{torneo.nombreTorneo}}
             </ion-item>
             <div *ngIf="!closedTorneos[i]">
-                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['torneo/',categoria.id]"
+                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['/torneo/',categoria.id]"
                           class="w-85 ml-auto bg-medium">
                     {{categoria.nombre}}
                     <ion-badge *ngIf="categoria.numnotifica > 0" slot="end" color="danger">
