@@ -19,7 +19,7 @@ export class TorneosPage implements OnInit {
   private user: User;
   public closedTorneos: boolean[];
   public invitations: any[];
-  private filter: string;
+  public filter: string;
 
   constructor(private torneoService: TorneoService,
               private userService: UserService,
@@ -116,8 +116,8 @@ export class TorneosPage implements OnInit {
     this.closedTorneos[i] = !this.closedTorneos[i];
   }
 
-  filterTorneos(e) {
-    if (e.detail.value === 'all') {
+  filterTorneos(filter) {
+    if (filter === 'all') {
       this.filteredTorneos = this.torneos;
       this.filter = null;
     } else {

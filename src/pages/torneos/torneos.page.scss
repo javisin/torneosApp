@@ -8,3 +8,13 @@
 .size-20{
   font-size: 20px;
 }
+.border-selector-right{
+  border-color: var(--ion-color-primary) !important;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.border-selector-left{
+  border-color: var(--ion-color-primary) !important;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}

@@ -8,24 +8,31 @@
                                pullingIcon= null>
         </ion-refresher-content>
     </ion-refresher>
+
+    <ion-row class="justify-content-center py-3 bg-medium">
+        <ion-col size="3" (click)="filterTorneos('actives')"
+                 [ngClass]="{'bg-white color-primary' : !filter, 'nav-bg text-white' : filter === '0' }"
+                 class="text-center border border-selector-left">
+            Activos
+        </ion-col>
+        <ion-col size="3" (click)="filterTorneos('all')"
+                 [ngClass]="{'nav-bg text-white' : !filter, 'bg-white color-primary' : filter === '0' }"
+                 class="text-center border border-selector-right">
+            Todos
+        </ion-col>
+    </ion-row>
+
     <ion-list *ngIf="invitations && invitations.length > 0" class="bg-medium ion-no-padding">
         <ion-list-header class="color-primary size-20">Invitaciones ({{invitations.length}})</ion-list-header>
         <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
             {{invitation.titulo}}
-            <ion-button (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
+            <ion-button color="tertiary" (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
         </ion-item>
     </ion-list>
 
     <ion-list class="bg-medium ion-no-padding"
               *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
         <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
-        <div class="d-flex justify-content-start">
-            <ion-select value="active" (ionChange)="filterTorneos($event)" class="color-tertiary"
-                        interface="popover" placeholder="Mostrar">
-                <ion-select-option value="all">Todos</ion-select-option>
-                <ion-select-option value="active">Sólo activos</ion-select-option>
-            </ion-select>
-        </div>
 
         <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
             <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
