@@ -46,7 +46,6 @@ export class ClasificacionComponent implements OnInit {
           this.headers.push(key);
         }
       }
-      this.headers.splice(0, 2);
       this.positions = clasificacion.posiciones;
     });
   }
