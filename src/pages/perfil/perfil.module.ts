@@ -8,6 +8,7 @@ import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
 import {ComponentsModule} from '../../components/components.module';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import {ComponentsModule} from '../../components/components.module';
     ComponentsModule,
     ReactiveFormsModule
   ],
-  declarations: [PerfilPage]
+  declarations: [PerfilPage, ChangePasswordComponent]
 })
 export class PerfilPageModule {}
