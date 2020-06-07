@@ -17,6 +17,10 @@ export class MenuUsuarioComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {}
+  async goToProfile() {
+    await this.popoverController.dismiss();
+    await this.router.navigate(['/perfil']);
+  }
   async logOut() {
     await this.storage.remove('user');
     this.userService.setStorageUser();
