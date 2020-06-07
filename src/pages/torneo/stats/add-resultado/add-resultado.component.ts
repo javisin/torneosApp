@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
+import {RefreshService} from '../../../../services/refresh/refresh.service';
 
 @Component({
   selector: 'app-add-result',
@@ -23,23 +24,24 @@ export class AddResultadoComponent implements OnInit {
   constructor(private modalController: ModalController,
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private refreshService: RefreshService) { }
 
   ngOnInit() {
     if (this.type === '1') {
       this.resultForm = this.formBuilder.group({
         txtrdo11: ['', Validators.required],
-        txtrdo12: ['', Validators.required],
-        txtrdo13: ['', Validators.required],
-        txtrdo14: ['', Validators.required],
-        txtrdo15: ['', Validators.required],
-        txtdatos1: ['', Validators.required],
+        txtrdo12: '',
+        txtrdo13: '',
+        txtrdo14: '',
+        txtrdo15: '',
+        txtdatos1: '',
         txtrdo21: ['', Validators.required],
-        txtrdo22: ['', Validators.required],
-        txtrdo23: ['', Validators.required],
-        txtrdo24: ['', Validators.required],
-        txtrdo25: ['', Validators.required],
-        txtdatos2: ['', Validators.required],
+        txtrdo22: '',
+        txtrdo23: '',
+        txtrdo24: '',
+        txtrdo25: '',
+        txtdatos2: '',
         equipoganador: ['', Validators.required],
         idequipo1: this.idEquipo1,
         idequipo2: this.idEquipo2,
@@ -97,9 +99,10 @@ export class AddResultadoComponent implements OnInit {
             });
             await alert.present();
           } else {
+            this.refreshService.emitValue();
             const alert = await this.alertController.create({
               header: 'Enviado',
-              message: 'Solicitud enviada con éxito.',
+              message: 'Resultado guardado con éxito.',
               buttons: ['OK'],
               translucent: true,
             });

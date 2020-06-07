@@ -1,5 +1,5 @@
 <ion-list *ngIf="notificaciones" class="bg-transparent ion-no-padding">
-  <ion-list-header class="color-primary" lines="full">{{title}} ({{notificaciones.length}})</ion-list-header>
+  <ion-list-header class="color-primary size-17" lines="full">{{title}} ({{notificaciones.length}})</ion-list-header>
   <ion-item-sliding *ngFor="let notificacion of notificaciones; let i = index">
     <ion-item lines="full" >
       <ion-label color="primary" class="notificacion-title mb-2" position="stacked">
