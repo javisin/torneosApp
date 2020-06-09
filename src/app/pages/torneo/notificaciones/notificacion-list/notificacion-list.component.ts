@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Notificacion} from '../../../../services/notificacion/notificacion';
 import {ConfirmResultadoComponent} from '../confirm-resultado/confirm-resultado.component';
-import {ActivatedRoute} from '@angular/router';
 import {PopoverController} from '@ionic/angular';
 
 @Component({
