@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { NotificacionesPage } from './notificaciones.page';
 import {Storage} from '@ionic/storage';
 import {BehaviorSubject} from 'rxjs';
-import {NotificacionService} from '../../../services/notificacion/notificacion.service'
+import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 
 describe('NotificacionesPage', () => {
   let component: NotificacionesPage;
