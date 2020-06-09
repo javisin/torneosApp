@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LogInPageRoutingModule } from './log-in-routing.module';
 
 import { LogInPage } from './log-in.page';
-import {ComponentsModule} from '../../components/components.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -16,7 +16,7 @@ import {ComponentsModule} from '../../components/components.module';
         IonicModule,
         LogInPageRoutingModule,
         ReactiveFormsModule,
-        ComponentsModule
+        SharedModule
     ],
     exports: [
         LogInPage

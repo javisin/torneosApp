@@ -9,7 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ComponentsModule} from '../components/components.module';
+import {SharedModule} from './shared/shared.module';
 import {IonicStorageModule} from '@ionic/storage';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
@@ -23,7 +23,7 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ComponentsModule,
+    SharedModule,
     IonicStorageModule.forRoot()],
   providers: [
     StatusBar,

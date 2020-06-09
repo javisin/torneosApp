@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
-import {ComponentsModule} from '../../components/components.module';
+import {SharedModule} from '../../shared/shared.module';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
     FormsModule,
     IonicModule,
     PerfilPageRoutingModule,
-    ComponentsModule,
+    SharedModule,
     ReactiveFormsModule
   ],
   declarations: [PerfilPage, ChangePasswordComponent]

@@ -11,7 +11,7 @@ import {ResultadosEquipoComponent} from './stats/resultados-equipo/resultados-eq
 import {ClasificacionComponent} from './stats/clasificacion/clasificacion.component';
 import {HideHeaderDirective} from '../../directives/hide-header.directive';
 import {AddNotificacionComponent} from './stats/add-notificacion/add-notificacion.component';
-import {ComponentsModule} from '../../components/components.module';
+import {SharedModule} from '../../shared/shared.module';
 import {NotificacionesPage} from './notificaciones/notificaciones.page';
 import {AddResultadoComponent} from './stats/add-resultado/add-resultado.component';
 import {ResultadosEquipoModalComponent} from './stats/resultados-equipo-modal/resultados-equipo-modal.component';
@@ -25,7 +25,7 @@ import {NotificacionListComponent} from './notificaciones/notificacion-list/noti
     FormsModule,
     IonicModule,
     TorneoPageRoutingModule,
-    ComponentsModule,
+    SharedModule,
     ReactiveFormsModule
   ],
   declarations: [TorneoPage, StatsPage, ResultadosComponent, ResultadosEquipoComponent, ClasificacionComponent,

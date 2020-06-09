@@ -6,14 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { TorneosPageRoutingModule } from './torneos-routing.module';
 
 import { TorneosPage } from './torneos.page';
-import {ComponentsModule} from '../../components/components.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     TorneosPageRoutingModule,
-    ComponentsModule
+    SharedModule
   ],
   declarations: [TorneosPage]
 })

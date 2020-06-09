@@ -10,4 +10,4 @@ import {IonicModule} from '@ionic/angular';
   exports: [BarComponent, MenuUsuarioComponent],
   entryComponents: [MenuUsuarioComponent]
 })
-export class ComponentsModule {}
+export class SharedModule {}

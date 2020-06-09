@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {IonicStorageModule} from '@ionic/storage';
-import {UserService} from '../services/user/user.service';
+import {UserService} from './services/user/user.service';
 import {Observable, of} from 'rxjs';
 
 describe('AppComponent', () => {

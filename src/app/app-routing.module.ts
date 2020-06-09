@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from '../auth/auth.guard';
+import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,26 +8,26 @@ const routes: Routes = [
   },
   {
     path: 'log-in',
-    loadChildren: () => import('../pages/log-in/log-in.module').then(m => m.LogInPageModule),
+    loadChildren: () => import('./pages/log-in/log-in.module').then(m => m.LogInPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'torneos',
-    loadChildren: () => import('../pages/torneos/torneos.module').then(m => m.TorneosPageModule),
+    loadChildren: () => import('./pages/torneos/torneos.module').then(m => m.TorneosPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'torneo',
-    loadChildren: () => import('../pages/torneo/torneo.module').then(m => m.TorneoPageModule),
+    loadChildren: () => import('./pages/torneo/torneo.module').then(m => m.TorneoPageModule),
     canLoad: [AuthGuard]
   },
   {
     path: 'registro',
-    loadChildren: () => import('../pages/registro/registro.module').then(m => m.RegistroPageModule)
+    loadChildren: () => import('./pages/registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: 'perfil',
-    loadChildren: () => import('../pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
   },
 ];
 @NgModule({
