@@ -7,7 +7,7 @@ import {TorneoService} from '../../../services/torneo/torneo.service';
 import {Categoria} from '../../../services/torneo/categoria';
 import {ErrorService} from '../../../services/alert/error.service';
 @Component({
-  selector: 'app-torneos',
+  selector: 'app-stats',
   templateUrl: './stats.page.html',
   styleUrls: ['./stats.page.scss'],
 })

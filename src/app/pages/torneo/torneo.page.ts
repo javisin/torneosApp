@@ -6,7 +6,7 @@ import {NativePageTransitions, NativeTransitionOptions} from '@ionic-native/nati
 import {IonRouterOutlet} from '@ionic/angular';
 
 @Component({
-  selector: 'app-torneoo',
+  selector: 'app-torneo',
   templateUrl: './torneo.page.html',
   styleUrls: ['./torneo.page.scss'],
 })

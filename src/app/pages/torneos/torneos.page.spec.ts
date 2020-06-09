@@ -8,14 +8,21 @@ import {UserService} from '../../services/user/user.service';
 import {TorneoService} from '../../services/torneo/torneo.service';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {User} from '../../services/user/user';
+import {Storage} from '@ionic/storage';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TorneosPage', () => {
   let component: TorneosPage;
   let fixture: ComponentFixture<TorneosPage>;
   let userServiceStub: Partial<UserService>;
   let torneoServiceStub: Partial<TorneoService>;
+  let storageIonicMock: Partial<Storage>;
 
   beforeEach(async(() => {
+    storageIonicMock = {
+      get: () => new Promise<any>((resolve) => resolve('As2342fAfgsdr')),
+      set: () => new Promise<any>((resolve) => resolve('As2342fAfgsdr')),
+    };
     userServiceStub = {
       getUser(): BehaviorSubject<User> {
         return new BehaviorSubject(
@@ -52,10 +59,12 @@ describe('TorneosPage', () => {
       imports: [
         IonicModule,
         TorneosPageRoutingModule,
+        RouterTestingModule
       ],
       providers: [
         {provide: UserService, useValue: userServiceStub},
         {provide: TorneoService, useValue: torneoServiceStub},
+        {provide: Storage, useValue: storageIonicMock},
       ],
       declarations: [TorneosPage],
       schemas: [ NO_ERRORS_SCHEMA ]

@@ -21,13 +21,14 @@ describe('LogInPage', () => {
       set: () => new Promise<any>((resolve) => resolve('As2342fAfgsdr')),
     };
     userServiceStub = {
-      logIn(loginForm): Observable<User> {
+      logIn(): Observable<User> {
         const user = {
           login: 'ok',
           nombre: 'javi',
-          ape: 'tu padre',
+          ape: 'canario',
           nick: 'javisin',
           token: '123',
+          email: 'javitorneos@gmail.com'
         };
         return of(user);
       }

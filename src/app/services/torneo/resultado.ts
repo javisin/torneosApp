@@ -6,13 +6,12 @@ export interface Resultado {
   idequipo2: string;
   // nombreEquipo2: string;
   rdo2: string;
-  ganador: string;
   datospartido: string;
   fechapartido: string;
   horapartido: string;
   equipo2: string;
   equipo1: string;
-  Idpartido: string;
-  isScheduled: boolean;
-  idganador: string;
+  Idpartido: number;
+  isScheduled?: boolean;
+  idganador?: string;
 }

@@ -14,12 +14,12 @@ describe('MenuUsuarioComponent', () => {
 
   beforeEach(async(() => {
     userServiceStub = {
-      updateUser(value) {
+      setStorageUser() {
       }
     };
     storageIonicMock = {
-      get: () => new Promise<any>((resolve, reject) => resolve('As2342fAfgsdr')),
-      set: () => new Promise<any>((resolve, reject) => resolve('As2342fAfgsdr')),
+      get: () => new Promise<any>((resolve) => resolve('As2342fAfgsdr')),
+      set: () => new Promise<any>((resolve) => resolve('As2342fAfgsdr')),
     };
     TestBed.configureTestingModule({
       declarations: [ MenuUsuarioComponent ],

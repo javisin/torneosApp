@@ -5,7 +5,7 @@ export interface Jornada {
  totaljornadas?: string;
  fase?: string;
  totalfases?: string;
- observacionesjornada: string;
+ observacionesjornada?: string;
  modalidadvisual: string;
  resultados: Resultado[];
 }

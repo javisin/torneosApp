@@ -5,7 +5,7 @@ import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
 
 @Component({
-  selector: 'app-add-result',
+  selector: 'app-add-resultado',
   templateUrl: './add-resultado.component.html',
   styleUrls: ['./add-resultado.component.scss'],
 })
