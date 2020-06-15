@@ -46,46 +46,29 @@ export class RegistroPage implements OnInit {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.status === 'VALID') {
       this.userService.registerUser(form).subscribe(
-        async res => {
-          if (res.Error) {
-            const alert = await this.alertController.create({
-              header: 'Error',
-              message: res.Error,
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: async () => {
-                    await this.alertController.dismiss();
-                  }
-                },
-              ],
-              translucent: true,
-            });
-            await alert.present();
-          } else {
-            const alert = await this.alertController.create({
-              header: 'Confirmación de registro',
-              message: `Se ha enviado un correo de confirmación a ${form.email}.
-                Por favor, verifica tu correo para continuar.`,
-              buttons: [
-                {
-                  text: 'OK',
-                  role: 'cancel',
-                  handler: async () => {
-                    await this.alertController.dismiss();
-                    await this.router.navigate(['/log-in']);
-                  }
-                },
-              ],
-              translucent: true,
-            });
-            await alert.present();
-          }
+        async () => {
+          const alert = await this.alertController.create({
+            header: 'Confirmación de registro',
+            message: `Se ha enviado un correo de confirmación a ${form.email}.
+              Por favor, verifica tu correo para continuar.`,
+            buttons: [
+              {
+                text: 'OK',
+                role: 'cancel',
+                handler: async () => {
+                  await this.alertController.dismiss();
+                  await this.router.navigate(['/log-in']);
+                }
+              },
+            ],
+            translucent: true,
+          });
+          await alert.present();
         },
         async error => {
           const alert = await this.alertController.create({
             header: 'Error',
-            message: error,
+            message: error.error,
             buttons: [
               {
                 text: 'OK',
