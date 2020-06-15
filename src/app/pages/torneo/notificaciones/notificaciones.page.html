@@ -3,6 +3,7 @@
   <h5 class="ion-margin text-white text-center">Notificaciones</h5>
 </div>
 <ion-content color="light">
+
   <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
     <ion-refresher-content class="bg-light"
                            pullingIcon= null>
@@ -10,10 +11,5 @@
   </ion-refresher>
   <app-notificacion-list [title]="'No leídas'" [notificaciones] = unreadNotificaciones></app-notificacion-list>
   <app-notificacion-list [title]="'Leídas'" [notificaciones] = readNotificaciones></app-notificacion-list>
-  <ng-template #noNotificaciones>
-    <div class="h-100 d-flex align-items-center justify-content-center">
-      <p class="ion-text-center">Ninguna notificación disponible.</p>
-    </div>
-  </ng-template>
 
 </ion-content>
