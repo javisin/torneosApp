@@ -101,14 +101,7 @@
   <ng-container *ngIf="categoriaType === '2'">
     <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
               class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
-    <ion-select class="text-center border-secondary border-width-3 rounded bg-white px-3 py-1"
-                interface="popover" [interfaceOptions]="options"
-                (ionChange)="selectRound($event)" *ngIf="rounds"
-                [value]="round" >
-      <ion-select-option *ngFor="let value of rounds; let i = index" [value]="value">
-        {{rounds[i]}}
-      </ion-select-option>
-    </ion-select>
+    <span class="border-secondary border-width-3 rounded bg-white px-4 py-1 size-17">{{round}}</span>
     <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
               class="color-tertiary" size="large" name="arrow-forward-outline">
     </ion-icon>
