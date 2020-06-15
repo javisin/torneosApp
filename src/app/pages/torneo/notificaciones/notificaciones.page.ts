@@ -13,7 +13,7 @@ import {Notificacion} from '../../../services/notificacion/notificacion';
 })
 export class NotificacionesPage implements OnInit {
   public readNotificaciones: Notificacion[];
-  public unreadNotificaciones: any;
+  public unreadNotificaciones: Notificacion[];
   private user: User;
   private idCategoria: string;
 
