@@ -5,7 +5,14 @@
   <ng-container *ngIf="categoriaType === '2'; else eliminatoria">
     <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
               class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
-    <span class="border-secondary border-width-3 rounded bg-white px-4 py-1">{{round}}</span>
+    <ion-select class="text-center border-secondary border-width-3 rounded bg-white px-3 py-1"
+                interface="popover" [interfaceOptions]="options"
+                (ionChange)="selectRound($event)" *ngIf="rounds"
+                [value]="round" >
+      <ion-select-option *ngFor="let value of rounds; let i = index" [value]="value">
+        {{rounds[i]}}
+      </ion-select-option>
+    </ion-select>
     <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
               class="color-tertiary" size="large" name="arrow-forward-outline">
     </ion-icon>
@@ -13,10 +20,10 @@
   <ng-template #eliminatoria>
     <ion-select class="border-secondary border-width-3 rounded bg-white"
                 interface="popover" [interfaceOptions]="options"
-                (ionChange)="selectRound($event)" *ngIf="playOffRounds"
+                (ionChange)="selectRound($event)" *ngIf="rounds"
                 [value]="round" >
-      <ion-select-option *ngFor="let value of playOffRounds.values; let i = index" [value]="value">
-        {{playOffRounds.names[i]}}
+      <ion-select-option *ngFor="let value of rounds.values; let i = index" [value]="value">
+        {{rounds.names[i]}}
       </ion-select-option>
     </ion-select>
   </ng-template>
@@ -94,7 +101,14 @@
   <ng-container *ngIf="categoriaType === '2'">
     <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
               class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
-    <span class="border-secondary border-width-3 rounded bg-white px-4 py-1">{{round}}</span>
+    <ion-select class="text-center border-secondary border-width-3 rounded bg-white px-3 py-1"
+                interface="popover" [interfaceOptions]="options"
+                (ionChange)="selectRound($event)" *ngIf="rounds"
+                [value]="round" >
+      <ion-select-option *ngFor="let value of rounds; let i = index" [value]="value">
+        {{rounds[i]}}
+      </ion-select-option>
+    </ion-select>
     <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
               class="color-tertiary" size="large" name="arrow-forward-outline">
     </ion-icon>

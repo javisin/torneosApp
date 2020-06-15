@@ -21,7 +21,7 @@ export class ResultadosComponent implements OnInit {
   public totalRounds: number;
   private roundSubject: BehaviorSubject<number>;
   public modality: string;
-  public playOffRounds: any;
+  public rounds: any;
   public options: any;
 
   constructor(private torneoService: TorneoService,
@@ -37,6 +37,7 @@ export class ResultadosComponent implements OnInit {
     this.getTorneo();
     this.refreshService.getSubject().subscribe(() => this.getTorneo());
   }
+
   getTorneo() {
     if (this.platform.is('ios')) {
       this.options = {
@@ -51,6 +52,7 @@ export class ResultadosComponent implements OnInit {
       });
     });
   }
+
   checkScheduledNotifications() {
     this.results.map(async result => {
       if (await this.localNotifications.isScheduled(Number(result.Idpartido))) {
@@ -58,6 +60,7 @@ export class ResultadosComponent implements OnInit {
       }
     });
   }
+
   getRoundDetails(torneo) {
     if (this.categoriaType === '1') {
       this.modality = 'sets';
@@ -68,27 +71,37 @@ export class ResultadosComponent implements OnInit {
       this.modality = torneo.modalidadvisual;
       this.totalRounds = Number(torneo.totaljornadas);
       this.round = Number(torneo.jornada);
+      this.setLeagueRounds();
     }
   }
+
   setPlayOffRounds() {
-    this.playOffRounds = {
+    this.rounds = {
       names: ['Final', 'Semifinal', 'Cuartos de final', 'Octavos de final', '16avos de final'],
-      values: [ ...Array(this.totalRounds - 1).keys() ].map( i => i + 2),
+      values: [...Array(this.totalRounds - 1).keys()].map(i => i + 2),
     };
   }
+
+  setLeagueRounds() {
+    this.rounds = [...Array(this.totalRounds).keys()].map(i => i + 1);
+  }
+
   nextJornada() {
     if (this.round < this.totalRounds) {
-    this.roundSubject.next(this.round + 1);
+      this.roundSubject.next(this.round + 1);
     }
   }
+
   previousJornada() {
     if (this.round > 1) {
       this.roundSubject.next(this.round - 1);
     }
   }
+
   selectRound(event) {
     this.roundSubject.next(event.detail.value);
   }
+
   async createNotification(i) {
     const modal = await this.popoverController.create({
       component: AddNotificacionComponent,
@@ -108,6 +121,7 @@ export class ResultadosComponent implements OnInit {
     });
     return await modal.present();
   }
+
   async presentResultadosEquipoModal(idEquipo) {
     const modal = await this.modalController.create({
       component: ResultadosEquipoModalComponent,
