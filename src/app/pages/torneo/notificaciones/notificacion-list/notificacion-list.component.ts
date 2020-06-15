@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Notificacion} from '../../../../services/notificacion/notificacion';
 import {ConfirmResultadoComponent} from '../confirm-resultado/confirm-resultado.component';
 import {PopoverController} from '@ionic/angular';
+import {NotificacionService} from '../../../../services/notificacion/notificacion.service';
+import {ErrorService} from '../../../../services/alert/error.service';
 
 @Component({
   selector: 'app-notificacion-list',
@@ -12,7 +14,9 @@ export class NotificacionListComponent implements OnInit {
   @Input() notificaciones: Notificacion[];
   @Input() title: string;
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(private popoverController: PopoverController,
+              private notificacionService: NotificacionService,
+              private errorService: ErrorService) { }
 
   ngOnInit() {}
   async confirmResultado(i) {
@@ -32,6 +36,12 @@ export class NotificacionListComponent implements OnInit {
       this.notificaciones[i].estadovalidacion = details.data.notificacionStatus;
     });
     return await modal.present();
+  }
+  deleteNotification(i) {
+    this.notificacionService.deleteNotificacion(this.notificaciones[i].idnotificacion).subscribe(
+      () => this.notificaciones.splice(i, 1),
+      error => this.errorService.createErrorAlert(error)
+    );
   }
 
 }
