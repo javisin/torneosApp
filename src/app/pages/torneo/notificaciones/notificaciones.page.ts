@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
-import {ErrorService} from '../../../services/alert/error.service';
+import {AlertService} from '../../../services/alert/alert.service';
 import {ActivatedRoute} from '@angular/router';
 import {Notificacion} from '../../../services/notificacion/notificacion';
 
@@ -19,7 +19,7 @@ export class NotificacionesPage implements OnInit {
 
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
-              private errorService: ErrorService,
+              private errorService: AlertService,
               private route: ActivatedRoute) {
     this.unreadNotificaciones = [];
     this.readNotificaciones = [];
@@ -34,7 +34,6 @@ export class NotificacionesPage implements OnInit {
   fetchNotificaciones(refreshEvent?) {
     this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(
       async notificaciones => {
-        await this.errorService.checkErrors(notificaciones);
         if (notificaciones.length > 0) {
           this.readNotificaciones = notificaciones.filter(notificacion => notificacion.estado === '1');
           this.unreadNotificaciones = notificaciones.filter(notificacion => notificacion.estado === '0');

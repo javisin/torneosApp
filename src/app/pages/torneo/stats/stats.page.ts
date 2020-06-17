@@ -5,7 +5,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {UserService} from '../../../services/user/user.service';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {Categoria} from '../../../services/torneo/categoria';
-import {ErrorService} from '../../../services/alert/error.service';
+import {AlertService} from '../../../services/alert/alert.service';
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.page.html',
@@ -24,7 +24,7 @@ export class StatsPage implements OnInit {
               private screenOrientation: ScreenOrientation,
               private userService: UserService,
               private torneoService: TorneoService,
-              private errorService: ErrorService,
+              private alertService: AlertService,
               private pickerController: PickerController,
               private router: Router) {
     this.navIndex = 1;
@@ -41,7 +41,6 @@ export class StatsPage implements OnInit {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.torneoService.getCategoria(this.idCategoria).subscribe(
       async categoria => {
-        await this.errorService.checkErrors(categoria);
         this.categoriaDetails = categoria;
         this.categoriaType = categoria.tipo;
         this.idTorneo = categoria.idTorneo;
@@ -54,7 +53,7 @@ export class StatsPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error);
+        const alert = await this.alertService.createErrorAlert(error);
         await alert.present();
       });
   }

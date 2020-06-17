@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorService {
+export class AlertService {
 
   constructor(private alertController: AlertController,
               private userService: UserService,
@@ -32,12 +32,5 @@ export class ErrorService {
       ],
       translucent: true,
     });
-  }
-
-  async checkErrors(res) {
-    if (res.Error) {
-      const alert = await this.createErrorAlert(res.Error);
-      await alert.present();
-    }
   }
 }

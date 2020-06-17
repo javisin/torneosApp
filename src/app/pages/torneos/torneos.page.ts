@@ -4,7 +4,7 @@ import {AlertController, IonRouterOutlet, LoadingController} from '@ionic/angula
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
-import {ErrorService} from '../../services/alert/error.service';
+import {AlertService} from '../../services/alert/alert.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
@@ -25,7 +25,7 @@ export class TorneosPage implements OnInit {
               private userService: UserService,
               private loadingController: LoadingController,
               private alertController: AlertController,
-              private errorService: ErrorService,
+              private alertService: AlertService,
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet
   ) {
@@ -65,17 +65,11 @@ export class TorneosPage implements OnInit {
   fetchContent(refreshEvent?) {
     this.torneoService.getInvitaciones(this.user).subscribe(
       async invitations => {
-        if (invitations.Error) {
-          const alert = await this.errorService.createErrorAlert(invitations.Error);
-          await this.loading.dismiss();
-          await alert.present();
-          return;
-        }
         this.invitations = invitations;
         this.fetchTorneos(refreshEvent);
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.message);
+        const alert = await this.alertService.createErrorAlert(error.message);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -87,12 +81,6 @@ export class TorneosPage implements OnInit {
   fetchTorneos(refreshEvent) {
     this.torneoService.getTorneos(this.user).subscribe(
       async torneos => {
-        if (torneos.Error) {
-          const alert = await this.errorService.createErrorAlert(torneos.Error);
-          await this.loading.dismiss();
-          await alert.present();
-          return;
-        }
         this.torneos = torneos;
         this.filteredTorneos = this.torneos.filter(torneo => torneo.activo !== this.filter);
         if (refreshEvent) {
@@ -102,7 +90,7 @@ export class TorneosPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.message);
+        const alert = await this.alertService.createErrorAlert(error.message);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -136,7 +124,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'NOK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.errorService.createErrorAlert(error)
+              error => this.alertService.createErrorAlert(error)
             );
           }
         }, {
@@ -144,7 +132,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'OK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.errorService.createErrorAlert(error)
+              error => this.alertService.createErrorAlert(error)
             );
           }
         }

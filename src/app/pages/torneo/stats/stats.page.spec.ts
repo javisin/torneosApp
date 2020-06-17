@@ -7,14 +7,14 @@ import {TorneoService} from '../../../services/torneo/torneo.service';
 import {BehaviorSubject} from 'rxjs';
 import {User} from '../../../services/user/user';
 import {UserService} from '../../../services/user/user.service';
-import {ErrorService} from '../../../services/alert/error.service';
+import {AlertService} from '../../../services/alert/alert.service';
 
 describe('StatsPage', () => {
   let component: StatsPage;
   let fixture: ComponentFixture<StatsPage>;
   let torneoServiceStub: Partial<TorneoService>;
   let userServiceStub: Partial<UserService>;
-  let errorServiceStub: Partial<ErrorService>;
+  let errorServiceStub: Partial<AlertService>;
 
   torneoServiceStub = {
     getCategoria(): BehaviorSubject<any> {
@@ -52,7 +52,7 @@ describe('StatsPage', () => {
       providers: [
         {provide: UserService, useValue: userServiceStub},
         {provide: TorneoService, useValue: torneoServiceStub},
-        {provide: ErrorService, useValue: errorServiceStub},
+        {provide: AlertService, useValue: errorServiceStub},
       ]
     }).compileComponents();
 

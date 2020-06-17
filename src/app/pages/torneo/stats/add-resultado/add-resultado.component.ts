@@ -3,6 +3,7 @@ import {AlertController, ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
+import {AlertService} from '../../../../services/alert/alert.service';
 
 @Component({
   selector: 'app-add-resultado',
@@ -24,6 +25,7 @@ export class AddResultadoComponent implements OnInit {
   constructor(private modalController: ModalController,
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
+              private alertService: AlertService,
               private alertController: AlertController,
               private refreshService: RefreshService) { }
 
@@ -88,27 +90,18 @@ export class AddResultadoComponent implements OnInit {
   async onSubmit(form) {
     if (this.resultForm.status === 'VALID') {
       this.torneoService.setResult(form, this.type).subscribe(
-        async (res) => {
+        async () => {
           await this.dismissModal();
-          if (res.Error) {
-            const alert = await this.alertController.create({
-              header: 'Error',
-              message: res.Error,
-              buttons: ['OK'],
-              translucent: true,
-            });
-            await alert.present();
-          } else {
-            this.refreshService.emitValue();
-            const alert = await this.alertController.create({
-              header: 'Enviado',
-              message: 'Resultado guardado con éxito.',
-              buttons: ['OK'],
-              translucent: true,
-            });
-            await alert.present();
-          }
+          this.refreshService.emitValue();
+          const alert = await this.alertController.create({
+            header: 'Enviado',
+            message: 'Resultado guardado con éxito.',
+            buttons: ['OK'],
+            translucent: true,
+          });
+          await alert.present();
         },
+        error => this.alertService.createErrorAlert(error)
       );
     } else {
       const alert = await this.alertController.create({

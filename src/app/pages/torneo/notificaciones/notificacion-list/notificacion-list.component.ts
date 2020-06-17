@@ -3,7 +3,7 @@ import {Notificacion} from '../../../../services/notificacion/notificacion';
 import {ConfirmResultadoComponent} from '../confirm-resultado/confirm-resultado.component';
 import {PopoverController} from '@ionic/angular';
 import {NotificacionService} from '../../../../services/notificacion/notificacion.service';
-import {ErrorService} from '../../../../services/alert/error.service';
+import {AlertService} from '../../../../services/alert/alert.service';
 
 @Component({
   selector: 'app-notificacion-list',
@@ -16,7 +16,7 @@ export class NotificacionListComponent implements OnInit {
 
   constructor(private popoverController: PopoverController,
               private notificacionService: NotificacionService,
-              private errorService: ErrorService) { }
+              private alertService: AlertService) { }
 
   ngOnInit() {}
   async confirmResultado(i) {
@@ -40,7 +40,7 @@ export class NotificacionListComponent implements OnInit {
   deleteNotification(i) {
     this.notificacionService.deleteNotificacion(this.notificaciones[i].idnotificacion).subscribe(
       () => this.notificaciones.splice(i, 1),
-      error => this.errorService.createErrorAlert(error)
+      error => this.alertService.createErrorAlert(error)
     );
   }
 

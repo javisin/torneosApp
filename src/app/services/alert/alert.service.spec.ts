@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ErrorService } from './error.service';
+import { AlertService } from './alert.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Storage} from '@ionic/storage';
 import {RouterTestingModule} from '@angular/router/testing';
 
-describe('ErrorService', () => {
+describe('AlertService', () => {
   let storageIonicMock: Partial<Storage>;
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('ErrorService', () => {
   });
 
   it('should be created', () => {
-    const service: ErrorService = TestBed.get(ErrorService);
+    const service: AlertService = TestBed.get(AlertService);
     expect(service).toBeTruthy();
   });
 });

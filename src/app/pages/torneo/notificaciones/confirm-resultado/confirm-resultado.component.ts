@@ -3,6 +3,7 @@ import {AlertController, PopoverController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
+import {AlertService} from '../../../../services/alert/alert.service';
 
 @Component({
   selector: 'app-confirm-resultado',
@@ -22,6 +23,7 @@ export class ConfirmResultadoComponent implements OnInit {
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
               private alertController: AlertController,
+              private alertService: AlertService,
               private refreshService: RefreshService) { }
 
   ngOnInit() {
@@ -49,17 +51,7 @@ export class ConfirmResultadoComponent implements OnInit {
     this.confirmResultForm.markAllAsTouched();
     if (this.confirmResultForm.status === 'VALID') {
       this.torneoService.validateResultado(form).subscribe(
-        async (res) => {
-          if (res.Error) {
-            const alert = await this.alertController.create({
-              header: 'Error',
-              message: res.Error,
-              buttons: ['OK'],
-              translucent: true,
-            });
-            await alert.present();
-            await this.dismissPopover('E');
-          } else {
+        async () => {
             const alert = await this.alertController.create({
               header: 'Enviado',
               message: 'Respuesta enviada.',
@@ -68,8 +60,8 @@ export class ConfirmResultadoComponent implements OnInit {
             });
             await alert.present();
             await this.dismissPopover(form.validar);
-          }
         },
+        async error => await this.alertService.createErrorAlert(error)
       );
     }
   }
