@@ -20,7 +20,10 @@ export class NotificacionesPage implements OnInit {
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
               private errorService: ErrorService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+    this.unreadNotificaciones = [];
+    this.readNotificaciones = [];
+  }
 
   ngOnInit() {
     this.idCategoria = this.route.snapshot.parent.params.id;

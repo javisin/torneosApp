@@ -31,7 +31,7 @@ export class NotificacionService {
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
-    form.append('notificaciones', idNotificacion);
-    return this.http.post(`${this.url}/readnotificaciones.php`, form);
+    form.append('notificacion', idNotificacion);
+    return this.http.post(`${this.url}/borranotificaciones.php`, form);
   }
 }
