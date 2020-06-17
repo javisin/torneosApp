@@ -18,20 +18,22 @@ export class ResultadosEquipoComponent implements OnInit {
   @Input() categoriaType: string;
   public results: Resultado[];
   public modality: string;
+  public canAddResult: boolean;
 
   constructor(private torneoService: TorneoService,
               private modalController: ModalController,
               private refreshService: RefreshService) { }
 
   async ngOnInit() {
-    await this.getTorneoInfo();
-    this.refreshService.getSubject().subscribe(() => this.getTorneoInfo());
+    await this.getResults();
+    this.refreshService.getSubject().subscribe(() => this.getResults());
   }
-  async getTorneoInfo() {
+  async getResults() {
     if (this.idEquipo) {
       const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType)
         .pipe().toPromise();
       this.results = info.resultados;
+      this.canAddResult = info.puedeactualizar === 'Si';
       if (this.categoriaType === '1') {
         this.modality = 'sets';
       } else {
