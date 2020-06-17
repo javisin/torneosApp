@@ -30,21 +30,19 @@ export class LogInPage implements OnInit {
 
   onSubmit(form) {
     this.userService.logIn(form).subscribe(
-      async res => this.checkLogin(res));
-  }
-  async checkLogin(res) {
-    if (res.login === 'ok') {
-      await this.storage.set('user', res);
-      this.userService.setStorageUser();
-      await this.router.navigate(['./torneos']);
-    } else {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'El usuario o la contraseña son incorrectos.',
-        buttons: ['OK'],
-        translucent: true,
+      async user => {
+        await this.storage.set('user', user);
+        this.userService.setStorageUser();
+        await this.router.navigate(['./torneos']);
+      },
+      async error => {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: error.error,
+          buttons: ['OK'],
+          translucent: true,
+        });
+        await alert.present();
       });
-      await alert.present();
-    }
   }
 }

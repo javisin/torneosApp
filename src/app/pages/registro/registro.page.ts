@@ -4,6 +4,7 @@ import {UserService} from '../../services/user/user.service';
 import {AlertController} from '@ionic/angular';
 import { MustMatch } from '../../helpers/mustMatch.validator';
 import {Router} from '@angular/router';
+import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-registro',
@@ -17,6 +18,7 @@ export class RegistroPage implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private userService: UserService,
+      private alertService: AlertService,
       private router: Router,
       private alertController: AlertController
   ) {
@@ -66,19 +68,7 @@ export class RegistroPage implements OnInit {
           await alert.present();
         },
         async error => {
-          const alert = await this.alertController.create({
-            header: 'Error',
-            message: error.error,
-            buttons: [
-              {
-                text: 'OK',
-                handler: async () => {
-                  await this.alertController.dismiss();
-                }
-              },
-            ],
-            translucent: true,
-          });
+          const alert = await this.alertService.createErrorAlert(error.error, error.status);
           await alert.present();
         },
       );

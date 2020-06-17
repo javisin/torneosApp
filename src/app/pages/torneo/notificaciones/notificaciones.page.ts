@@ -19,7 +19,7 @@ export class NotificacionesPage implements OnInit {
 
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
-              private errorService: AlertService,
+              private alertService: AlertService,
               private route: ActivatedRoute) {
     this.unreadNotificaciones = [];
     this.readNotificaciones = [];
@@ -46,7 +46,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error);
+        const alert = await this.alertService.createErrorAlert(error.error, error.status);
         await alert.present();
       });
   }
@@ -58,7 +58,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error);
+        const alert = await this.alertService.createErrorAlert(error.error, error.status);
         await alert.present();
       }
     );

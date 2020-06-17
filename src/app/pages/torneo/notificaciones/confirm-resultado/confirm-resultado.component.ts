@@ -61,7 +61,10 @@ export class ConfirmResultadoComponent implements OnInit {
             await alert.present();
             await this.dismissPopover(form.validar);
         },
-        async error => await this.alertService.createErrorAlert(error)
+        async error => {
+          const alert = await this.alertService.createErrorAlert(error.error, error.status);
+          await alert.present();
+        }
       );
     }
   }

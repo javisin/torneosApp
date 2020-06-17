@@ -53,7 +53,7 @@ export class StatsPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error);
+        const alert = await this.alertService.createErrorAlert(error.error, error.status);
         await alert.present();
       });
   }

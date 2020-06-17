@@ -92,7 +92,6 @@ export class AddResultadoComponent implements OnInit {
       this.torneoService.setResult(form, this.type).subscribe(
         async () => {
           await this.dismissModal();
-          this.refreshService.emitValue();
           const alert = await this.alertController.create({
             header: 'Enviado',
             message: 'Resultado guardado con éxito.',
@@ -100,8 +99,12 @@ export class AddResultadoComponent implements OnInit {
             translucent: true,
           });
           await alert.present();
+          this.refreshService.emitValue();
         },
-        error => this.alertService.createErrorAlert(error)
+        async error => {
+          const alert = await this.alertService.createErrorAlert(error.error, error.status);
+          await alert.present();
+        }
       );
     } else {
       const alert = await this.alertController.create({

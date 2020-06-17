@@ -14,7 +14,7 @@ export class AlertService {
               private storage: Storage,
               private router: Router) { }
 
-  async createErrorAlert(error: string) {
+  async createErrorAlert(error: string, status: number) {
     return await this.alertController.create({
       header: 'Error',
       message: error,
@@ -23,10 +23,11 @@ export class AlertService {
           text: 'OK',
           role: 'cancel',
           handler: async () => {
-            await this.storage.remove('user');
-            this.userService.setStorageUser();
-            await this.router.navigate(['/log-in']);
-            await this.alertController.dismiss();
+            if (status === 401) {
+              await this.storage.remove('user');
+              this.userService.setStorageUser();
+              await this.router.navigate(['/log-in']);
+            }
           }
         },
       ],

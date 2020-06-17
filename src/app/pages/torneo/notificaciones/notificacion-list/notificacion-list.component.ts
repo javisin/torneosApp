@@ -40,7 +40,7 @@ export class NotificacionListComponent implements OnInit {
   deleteNotification(i) {
     this.notificacionService.deleteNotificacion(this.notificaciones[i].idnotificacion).subscribe(
       () => this.notificaciones.splice(i, 1),
-      error => this.alertService.createErrorAlert(error)
+      error => this.alertService.createErrorAlert(error.error, error.status)
     );
   }
 
