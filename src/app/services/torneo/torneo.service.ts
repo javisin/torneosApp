@@ -19,13 +19,22 @@ export class TorneoService {
               private userService: UserService) {
     this.url = Global.url;
   }
-  getTorneos(user): Observable<any> {
-    return this.http.get<any>
-    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}&soloactivos=N`);
+  getTorneos(user): Observable<Torneo[]> {
+    return this.http.get<Torneo[]>
+    (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}`);
   }
   getCategoria(idTorneo): Observable<Categoria> {
     const user = this.userService.getUser().getValue();
     return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
+  }
+  getOpenedTorneos(): Observable<Categoria> {
+    const user = this.userService.getUser().getValue();
+    return this.http.get<Categoria>(`${this.url}/gettorneosinscripcion.php?usuario=${user.email}&token=${user.token}`);
+  }
+  getEquiposCategoria(idCategoria): Observable<any> {
+    const user = this.userService.getUser().getValue();
+    return this.http.get<Categoria>(
+      `${this.url}/getequiposcategoria.php?usuario=${user.email}&token=${user.token}&idcategoria=${idCategoria}`);
   }
   getResultados(idTorneo, type, jornada): Observable<Jornada> {
     if (type === '1') {
