@@ -24,21 +24,21 @@ export class ClasificacionComponent implements OnInit {
               private refreshService: RefreshService) {
     this.headers = [];
   }
-  ngOnInit() {
+  ngOnInit(): void {
     this.setOrientation();
-    this.fetchPositions();
+    this.fetchClasificacion();
     this.refreshService.getSubject().subscribe(() => {
-      this.fetchPositions();
+      this.fetchClasificacion();
     });
   }
-  setOrientation() {
+  setOrientation(): void {
     this.portraitOrientation = this.screenOrientation.type.includes('portrait');
     this.screenOrientation.onChange().subscribe(() => {
       this.portraitOrientation = this.screenOrientation.type.includes('portrait');
       this.changeRef.detectChanges();
     });
   }
-  fetchPositions() {
+  fetchClasificacion(): void {
     this.torneoService.getClasificacion(this.idCategoria).subscribe(clasificacion => {
       this.headers = [];
       for (const key in clasificacion.posiciones[0]) {
@@ -49,7 +49,7 @@ export class ClasificacionComponent implements OnInit {
       this.positions = clasificacion.posiciones;
     });
   }
-  async toggleOrientation() {
+  async toggleOrientation(): Promise<void>  {
     const orientation = this.screenOrientation.type.includes('portrait') ? 'landscape' : 'portrait';
     await this.screenOrientation.lock(orientation);
     setTimeout(async () => await this.screenOrientation.unlock(), 5000);

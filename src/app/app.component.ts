@@ -37,7 +37,7 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  initializeApp() {
+  initializeApp(): void {
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -50,14 +50,14 @@ export class AppComponent {
       await this.screenOrientation.lock('portrait');
     });
   }
-  setUpLocalNotifications() {
+  setUpLocalNotifications(): void {
     this.localNotifications.requestPermission().then(() => {
       this.localNotifications.on('click').subscribe(async notification => {
         await this.router.navigate(['/torneo/', notification.data.categoria]);
       });
     });
   }
-  setUpPushNotifications() {
+  setUpPushNotifications(): void {
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting

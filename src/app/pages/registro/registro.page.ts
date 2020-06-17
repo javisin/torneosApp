@@ -25,7 +25,7 @@ export class RegistroPage implements OnInit {
     this.seePassword = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -44,7 +44,7 @@ export class RegistroPage implements OnInit {
   toggleSeePassword(): void {
     this.seePassword = !this.seePassword;
   }
-  onSubmit(form) {
+  onSubmit(form): void {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.status === 'VALID') {
       this.userService.registerUser(form).subscribe(

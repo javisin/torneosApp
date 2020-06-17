@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Notificacion} from './notificacion';
 import {UserService} from '../user/user.service';
+import {User} from '../user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +16,18 @@ export class NotificacionService {
               private userService: UserService) {
     this.url = Global.url;
   }
-  getNotificaciones(user, idTorneo): Observable<Notificacion[]> {
+  getNotificaciones(user: User, idTorneo: string): Observable<Notificacion[]> {
     return this.http.get<Notificacion[]>(
       `${this.url}/getnotificaciones.php?usuario=${user.email}&token=${user.token}&idTorneo=${idTorneo}`);
   }
-  readNotificaciones(user, notificaciones): Observable<any> {
+  readNotificaciones(user: User, notificacionesIds: string[]): Observable<any> {
     const form = new FormData();
     form.append('usuario', user.email);
     form.append('token', user.token);
-    form.append('notificaciones', JSON.stringify(notificaciones));
+    form.append('notificaciones', JSON.stringify(notificacionesIds));
     return this.http.post(`${this.url}/readnotificaciones.php`, form);
   }
-  deleteNotificacion(idNotificacion): Observable<any> {
+  deleteNotificacion(idNotificacion: string): Observable<any> {
     const form = new FormData();
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);

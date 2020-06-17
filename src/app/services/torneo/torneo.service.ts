@@ -19,11 +19,11 @@ export class TorneoService {
               private userService: UserService) {
     this.url = Global.url;
   }
-  getTorneos(user): Observable<Torneo[]> {
+  getTorneos(user: User): Observable<Torneo[]> {
     return this.http.get<Torneo[]>
     (`${this.url}/gettorneoslist.php?usuario=${user.email}&token=${user.token}`);
   }
-  getCategoria(idTorneo): Observable<Categoria> {
+  getCategoria(idTorneo: string): Observable<Categoria> {
     const user = this.userService.getUser().getValue();
     return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
   }
@@ -31,13 +31,13 @@ export class TorneoService {
     const user = this.userService.getUser().getValue();
     return this.http.get<Categoria>(`${this.url}/gettorneosinscripcion.php?usuario=${user.email}&token=${user.token}`);
   }
-  getEquiposCategoria(idCategoria): Observable<any> {
+  getEquiposCategoria(idCategoria: string): Observable<any> {
     const user = this.userService.getUser().getValue();
     return this.http.get<Categoria>(
       `${this.url}/getequiposcategoria.php?usuario=${user.email}&token=${user.token}&idcategoria=${idCategoria}`);
   }
-  getResultados(idTorneo, type, jornada): Observable<Jornada> {
-    if (type === '1') {
+  getJornada(idTorneo: string, categoriaType: string, jornada: number): Observable<Jornada> {
+    if (categoriaType === '1') {
       const params = jornada ? `torneo=${idTorneo}&fase=${jornada}` : `torneo=${idTorneo}`;
       return this.http.get<Jornada>(`${this.url}/getrdoseliminatoria.php?${params}`);
     } else {
@@ -45,17 +45,17 @@ export class TorneoService {
       return this.http.get<Jornada>(`${this.url}/getrdosliga.php?${params}`);
     }
   }
-  getMisResultados(idTorneo, idEquipo, categoriaType): Observable<Jornada> {
+  getMisResultados(idTorneo: string, idEquipo: string, categoriaType: string): Observable<Jornada> {
     const user = this.userService.getUser().getValue();
     const endpoint = categoriaType === '1' ? 'getrdoseliminatoriaequipo.php' : 'getrdosligaequipo.php';
     return this.http.get<Jornada>(
       `${this.url}/${endpoint}?usuario=${user.email}&torneo=${idTorneo}&idequipo=${idEquipo}`);
   }
-  getCategorias(idTorneo): Observable<Categoria[]> {
+  getCategorias(idTorneo: string): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.url}/getcategorias.php?torneo=${idTorneo}`);
   }
-  getClasificacion(idTorneo): Observable<any> {
-    return this.http.get(`${this.url}/getclasifica.php?torneo=${idTorneo}`);
+  getClasificacion(idCategoria: string): Observable<any> {
+    return this.http.get(`${this.url}/getclasifica.php?torneo=${idCategoria}`);
   }
   getInvitaciones(user: User): Observable<any> {
     return this.http.get(`${this.url}/getinvitaciones.php?usuario=${user.email}&token=${user.token}`);
@@ -69,15 +69,15 @@ export class TorneoService {
     form.append('respuesta', response);
     return this.http.post(`${this.url}/respondeinvitacion.php`, form);
   }
-  setResult(resultForm, type): Observable<any> {
+  setResult(resultForm: any, categoriaType: string): Observable<any> {
     const form = objectToForm(resultForm);
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);
     form.append('token', user.token);
-    const endpoint = type === '1' ? 'grabardoeliminatoria.php' : 'grabardoliga.php';
+    const endpoint = categoriaType === '1' ? 'grabardoeliminatoria.php' : 'grabardoliga.php';
     return this.http.post(`${this.url}/${endpoint}`, form);
   }
-  validateResultado(validateForm): Observable<any> {
+  validateResultado(validateForm: any): Observable<any> {
     const form = objectToForm(validateForm);
     const user = this.userService.getUser().getValue();
     form.append('usuario', user.email);

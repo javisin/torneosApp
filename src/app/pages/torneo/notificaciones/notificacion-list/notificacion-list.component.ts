@@ -19,7 +19,7 @@ export class NotificacionListComponent implements OnInit {
               private alertService: AlertService) { }
 
   ngOnInit() {}
-  async confirmResultado(i) {
+  async confirmResultado(i): Promise<void> {
     const modal = await this.popoverController.create({
       component: ConfirmResultadoComponent,
       componentProps: {
@@ -37,7 +37,7 @@ export class NotificacionListComponent implements OnInit {
     });
     return await modal.present();
   }
-  deleteNotification(i) {
+  deleteNotification(i): void {
     this.notificacionService.deleteNotificacion(this.notificaciones[i].idnotificacion).subscribe(
       () => this.notificaciones.splice(i, 1),
       error => this.alertService.createErrorAlert(error.error, error.status)

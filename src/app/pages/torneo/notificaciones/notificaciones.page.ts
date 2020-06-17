@@ -25,13 +25,13 @@ export class NotificacionesPage implements OnInit {
     this.readNotificaciones = [];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.user = this.userService.getUser().getValue();
     this.fetchNotificaciones();
   }
 
-  fetchNotificaciones(refreshEvent?) {
+  fetchNotificaciones(refreshEvent?): void {
     this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(
       async notificaciones => {
         if (notificaciones.length > 0) {
@@ -50,7 +50,7 @@ export class NotificacionesPage implements OnInit {
         await alert.present();
       });
   }
-  readUnreadNotificaciones(notificacionesIds: string[], refreshEvent?) {
+  readUnreadNotificaciones(notificacionesIds: string[], refreshEvent?): void {
     this.notificacionService.readNotificaciones(this.user, notificacionesIds).subscribe(
       () => {
         if (refreshEvent) {

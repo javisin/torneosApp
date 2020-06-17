@@ -26,7 +26,7 @@ export class ConfirmResultadoComponent implements OnInit {
               private alertService: AlertService,
               private refreshService: RefreshService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.confirmResultForm = this.formBuilder.group({
       idpartido: this.idPartido,
       idcategoria: this.idCategoria,
@@ -34,7 +34,7 @@ export class ConfirmResultadoComponent implements OnInit {
       textonok: '',
     });
   }
-  async dismissPopover(status) {
+  async dismissPopover(status: string): Promise<void> {
     if (status === 'OK') {
       this.refreshService.emitValue();
     }
@@ -47,7 +47,7 @@ export class ConfirmResultadoComponent implements OnInit {
   get FormControl() {
     return this.confirmResultForm.controls;
   }
-  onSubmit(form) {
+  onSubmit(form): void {
     this.confirmResultForm.markAllAsTouched();
     if (this.confirmResultForm.status === 'VALID') {
       this.torneoService.validateResultado(form).subscribe(

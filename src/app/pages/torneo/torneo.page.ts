@@ -19,7 +19,7 @@ export class TorneoPage implements OnInit {
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const user = this.userService.getUser().getValue();
       this.notificacionService.getNotificaciones(user, params.id).subscribe(notificaciones => {
@@ -27,7 +27,7 @@ export class TorneoPage implements OnInit {
       });
     });
   }
-  ionViewWillLeave() {
+  ionViewWillLeave(): void {
     if (this.ionRouterOutlet.getLastUrl() === '/torneos') {
       const options: NativeTransitionOptions = {
         direction: 'right',

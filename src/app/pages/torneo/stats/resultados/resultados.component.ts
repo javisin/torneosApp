@@ -33,27 +33,27 @@ export class ResultadosComponent implements OnInit {
     this.roundSubject = new BehaviorSubject<number>(null);
   }
 
-  ngOnInit() {
-    this.getTorneo();
-    this.refreshService.getSubject().subscribe(() => this.getTorneo());
+  ngOnInit(): void {
+    this.fetchJornada();
+    this.refreshService.getSubject().subscribe(() => this.fetchJornada());
   }
 
-  getTorneo() {
+  fetchJornada(): void {
     if (this.platform.is('ios')) {
       this.options = {
         cssClass: 'ionic-w-60'
       };
     }
     this.roundSubject.subscribe(round => {
-      this.torneoService.getResultados(this.idCategoria, this.categoriaType, round).subscribe(torneo => {
-        this.results = torneo.resultados;
+      this.torneoService.getJornada(this.idCategoria, this.categoriaType, round).subscribe(jornada => {
+        this.results = jornada.resultados;
         this.checkScheduledNotifications();
-        this.getRoundDetails(torneo);
+        this.fetchRoundDetails(jornada);
       });
     });
   }
 
-  checkScheduledNotifications() {
+  checkScheduledNotifications(): void {
     this.results.map(async result => {
       if (await this.localNotifications.isScheduled(Number(result.Idpartido))) {
         result.isScheduled = true;
@@ -61,28 +61,28 @@ export class ResultadosComponent implements OnInit {
     });
   }
 
-  getRoundDetails(torneo) {
+  fetchRoundDetails(jornada): void {
     if (this.categoriaType === '1') {
       this.modality = 'sets';
-      this.totalRounds = Number(torneo.totalfases);
-      this.round = Number(torneo.fase);
+      this.totalRounds = Number(jornada.totalfases);
+      this.round = Number(jornada.fase);
       this.setPlayOffRounds();
     } else {
-      this.modality = torneo.modalidadvisual;
-      this.totalRounds = Number(torneo.totaljornadas);
-      this.round = Number(torneo.jornada);
+      this.modality = jornada.modalidadvisual;
+      this.totalRounds = Number(jornada.totaljornadas);
+      this.round = Number(jornada.jornada);
       this.setLeagueRounds();
     }
   }
 
-  setPlayOffRounds() {
+  setPlayOffRounds(): void {
     this.rounds = {
       names: ['Final', 'Semifinal', 'Cuartos de final', 'Octavos de final', '16avos de final'],
       values: [...Array(this.totalRounds - 1).keys()].map(i => i + 2),
     };
   }
 
-  setLeagueRounds() {
+  setLeagueRounds(): void {
     this.rounds = [...Array(this.totalRounds).keys()].map(i => i + 1);
   }
 
@@ -92,17 +92,17 @@ export class ResultadosComponent implements OnInit {
     }
   }
 
-  previousJornada() {
+  previousJornada(): void {
     if (this.round > 1) {
       this.roundSubject.next(this.round - 1);
     }
   }
 
-  selectRound(event) {
+  selectRound(event): void {
     this.roundSubject.next(event.detail.value);
   }
 
-  async createNotification(i) {
+  async createNotification(i: number) {
     const modal = await this.popoverController.create({
       component: AddNotificacionComponent,
       componentProps: {
@@ -122,7 +122,7 @@ export class ResultadosComponent implements OnInit {
     return await modal.present();
   }
 
-  async presentResultadosEquipoModal(idEquipo) {
+  async presentResultadosEquipoModal(idEquipo: string) {
     const modal = await this.modalController.create({
       component: ResultadosEquipoModalComponent,
       componentProps: {

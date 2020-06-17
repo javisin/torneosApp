@@ -21,14 +21,14 @@ export class LogInPage implements OnInit {
     private storage: Storage) {
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.loginForm = this.formBuilder.group({
       user: '',
       password: ''
     });
   }
 
-  onSubmit(form) {
+  onSubmit(form): void {
     this.userService.logIn(form).subscribe(
       async user => {
         await this.storage.set('user', user);

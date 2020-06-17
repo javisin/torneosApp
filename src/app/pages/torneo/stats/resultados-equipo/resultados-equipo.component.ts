@@ -24,11 +24,11 @@ export class ResultadosEquipoComponent implements OnInit {
               private modalController: ModalController,
               private refreshService: RefreshService) { }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     await this.getResults();
     this.refreshService.getSubject().subscribe(() => this.getResults());
   }
-  async getResults() {
+  async getResults(): Promise<void> {
     if (this.idEquipo) {
       const info = await this.torneoService.getMisResultados(this.idCategoria, this.idEquipo, this.categoriaType)
         .pipe().toPromise();
@@ -41,7 +41,7 @@ export class ResultadosEquipoComponent implements OnInit {
       }
     }
   }
-  async presentAddResultModal(i) {
+  async presentAddResultModal(i: number) {
     const modal = await this.modalController.create({
       component: AddResultadoComponent,
       componentProps: {
@@ -58,7 +58,7 @@ export class ResultadosEquipoComponent implements OnInit {
     });
     return await modal.present();
   }
-  async presentResultadosEquipoModal(idEquipo) {
+  async presentResultadosEquipoModal(idEquipo: string) {
     if (!this.modal) {
       const modal = await this.modalController.create({
         component: ResultadosEquipoModalComponent,

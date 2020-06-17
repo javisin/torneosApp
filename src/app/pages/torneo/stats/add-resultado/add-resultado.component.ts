@@ -29,7 +29,7 @@ export class AddResultadoComponent implements OnInit {
               private alertController: AlertController,
               private refreshService: RefreshService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.type === '1') {
       this.resultForm = this.formBuilder.group({
         txtrdo11: ['', Validators.required],
@@ -84,10 +84,10 @@ export class AddResultadoComponent implements OnInit {
       }
     }
   }
-  async dismissModal() {
+  async dismissModal(): Promise<void>  {
     await this.modalController.dismiss();
   }
-  async onSubmit(form) {
+  async onSubmit(form): Promise<void>  {
     if (this.resultForm.status === 'VALID') {
       this.torneoService.setResult(form, this.type).subscribe(
         async () => {

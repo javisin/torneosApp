@@ -14,7 +14,7 @@ export class AlertService {
               private storage: Storage,
               private router: Router) { }
 
-  async createErrorAlert(error: string, status: number) {
+  async createErrorAlert(error: string, status: number): Promise<HTMLIonAlertElement> {
     return await this.alertController.create({
       header: 'Error',
       message: error,

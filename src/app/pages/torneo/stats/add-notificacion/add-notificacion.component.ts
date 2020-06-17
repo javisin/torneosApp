@@ -24,7 +24,7 @@ export class AddNotificacionComponent implements OnInit {
     this.isScheduled = false;
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     if (this.fecha !== '') {
       if (Date.now() > this.getDateTime(this.fecha)) {
         this.finished = true;
@@ -35,16 +35,16 @@ export class AddNotificacionComponent implements OnInit {
       }
     }
   }
-  async dismissPopover() {
+  async dismissPopover(): Promise<void>  {
    await this.popoverController.dismiss({
      isScheduled: this.isScheduled,
     });
   }
-  async cancelNotification() {
+  async cancelNotification(): Promise<void>  {
     await this.localNotifications.cancel(this.idPartido);
     await this.dismissPopover();
   }
-  async createNotification() {
+  async createNotification(): Promise<void>  {
     const value = this.segment.value;
     const matchTime = this.getDateTime(this.fecha);
     let text: string;

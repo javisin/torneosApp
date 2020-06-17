@@ -33,7 +33,7 @@ export class TorneosPage implements OnInit {
     this.filter = '0';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userService.getUser().subscribe(async user => {
       if (user !== null) {
         this.user = user;
@@ -41,7 +41,7 @@ export class TorneosPage implements OnInit {
       }
     });
   }
-  ionViewWillLeave() {
+  ionViewWillLeave(): void {
     if (this.ionRouterOutlet.getLastUrl().includes('/torneos/torneo')) {
       const options: NativeTransitionOptions = {
         direction: 'left',
@@ -54,7 +54,7 @@ export class TorneosPage implements OnInit {
     }
   }
 
-  async loadContent() {
+  async loadContent(): Promise<void> {
     this.loading = await this.loadingController.create({
       message: 'Cargando competiciones...'
     });
@@ -62,7 +62,11 @@ export class TorneosPage implements OnInit {
       this.fetchContent();
     });
   }
-  fetchContent(refreshEvent?) {
+  fetchContent(refreshEvent?): void {
+    this.fetchNotificaciones(refreshEvent);
+    this.fetchTorneos(refreshEvent);
+  }
+  fetchNotificaciones(refreshEvent?): void {
     this.torneoService.getInvitaciones(this.user).subscribe(
       async invitations => {
         this.invitations = invitations;
@@ -78,7 +82,7 @@ export class TorneosPage implements OnInit {
         await alert.present();
       });
   }
-  fetchTorneos(refreshEvent) {
+  fetchTorneos(refreshEvent?): void {
     this.torneoService.getTorneos(this.user).subscribe(
       async torneos => {
         this.torneos = torneos;
@@ -100,11 +104,11 @@ export class TorneosPage implements OnInit {
       });
   }
 
-  toggleTorneo(i) {
+  toggleTorneo(i: number): void {
     this.closedTorneos[i] = !this.closedTorneos[i];
   }
 
-  filterTorneos(filter) {
+  filterTorneos(filter: string): void {
     if (filter === 'all') {
       this.filteredTorneos = this.torneos;
       this.filter = null;
@@ -114,7 +118,7 @@ export class TorneosPage implements OnInit {
     }
   }
 
-  async presentAlertConfirm(i) {
+  async presentAlertConfirm(i: number) {
     const alert = await this.alertController.create({
       header: 'Invitación',
       message: this.invitations[i].descripcion,

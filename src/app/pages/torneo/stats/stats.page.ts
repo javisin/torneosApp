@@ -29,15 +29,15 @@ export class StatsPage implements OnInit {
               private router: Router) {
     this.navIndex = 1;
   }
-  async ionViewWillEnter() {
+  async ionViewWillEnter(): Promise<void> {
     await this.slides.update();
     this.screenOrientation.unlock();
   }
-  async ionViewWillLeave() {
+  async ionViewWillLeave(): Promise<void> {
     await this.screenOrientation.lock('portrait');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.torneoService.getCategoria(this.idCategoria).subscribe(
       async categoria => {
@@ -57,7 +57,7 @@ export class StatsPage implements OnInit {
         await alert.present();
       });
   }
-  checkJornadaActiva(jornada: string) {
+  checkJornadaActiva(jornada: string): void {
     const interval  = setInterval(() => {
       setTimeout(() => clearInterval(interval), 5000);
       if (document.getElementById(jornada)) {
@@ -66,19 +66,19 @@ export class StatsPage implements OnInit {
       }
     }, 100);
   }
-  changeSlideIndex() {
+  changeSlideIndex(): void {
     this.slides.getActiveIndex().then(index => {
       this.navIndex = index;
     });
   }
-  async changeSlide(index: number) {
+  async changeSlide(index: number): Promise<void> {
     await this.slides.slideTo(index);
   }
-  async openPicker() {
+  async openPicker(): Promise<void> {
     const picker = await this.pickerController.create({
       columns: [{
         name: 'Categorías',
-        options: await this.getCategorias()
+        options: await this.getCategoriasForPicker()
       }],
       buttons: [
         {
@@ -95,7 +95,7 @@ export class StatsPage implements OnInit {
     });
     await picker.present();
   }
-  async getCategorias() {
+  async getCategoriasForPicker(): Promise<{text: string, value: string}[]> {
     const categorias = await this.torneoService.getCategorias(this.idTorneo).pipe().toPromise();
     return categorias.map(categoria => {
       return {

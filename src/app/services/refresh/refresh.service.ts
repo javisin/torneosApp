@@ -14,7 +14,7 @@ export class RefreshService {
   getSubject(): Subject<boolean> {
     return this.refreshSubject;
   }
-  emitValue() {
+  emitValue(): void {
     this.refreshSubject.next(true);
   }
 }
