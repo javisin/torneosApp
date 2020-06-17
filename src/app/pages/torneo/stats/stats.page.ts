@@ -77,7 +77,7 @@ export class StatsPage implements OnInit {
   async openPicker(): Promise<void> {
     const picker = await this.pickerController.create({
       columns: [{
-        name: 'Categorías',
+        name: 'categorias',
         options: await this.getCategoriasForPicker()
       }],
       buttons: [
@@ -88,7 +88,7 @@ export class StatsPage implements OnInit {
         {
           text: 'Confirmar',
           handler: (selection) => {
-            this.router.navigate([`/torneo/${selection.Categorías.value}`]);
+            this.router.navigate([`/torneo/${selection.categorias.value}`]);
           }
         }
       ]
