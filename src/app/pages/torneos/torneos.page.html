@@ -36,7 +36,7 @@
         <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
 
         <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
-            <ion-item class="medium-dark ion-no-padding" lines="full" (click)="toggleTorneo(i)">
+            <ion-item class="ion-no-padding" lines="full" (click)="toggleTorneo(i)">
                 <ion-icon slot="start" color="light"
                           [name]="!closedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
                 </ion-icon>

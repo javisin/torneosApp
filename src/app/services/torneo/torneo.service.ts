@@ -36,6 +36,24 @@ export class TorneoService {
     return this.http.get<Categoria>(
       `${this.url}/getequiposcategoria.php?usuario=${user.email}&token=${user.token}&idcategoria=${idCategoria}`);
   }
+  requestInscription(idCategoria, idEquipo): Observable<any> {
+    const user = this.userService.getUser().getValue();
+    const form = new FormData();
+    form.append('usuario', user.email);
+    form.append('token', user.token);
+    form.append('idcategoria', idCategoria);
+    form.append('idequipo', idEquipo);
+    return this.http.post(`${this.url}/inscribejugador.php`, form);
+  }
+  requestNewTeamInscription(idCategoria, nameEquipo): Observable<any> {
+    const user = this.userService.getUser().getValue();
+    const form = new FormData();
+    form.append('usuario', user.email);
+    form.append('token', user.token);
+    form.append('idcategoria', idCategoria);
+    form.append('nombreequipo', nameEquipo);
+    return this.http.post(`${this.url}/inscribejugador.php`, form);
+  }
   getJornada(idTorneo: string, categoriaType: string, jornada: number): Observable<Jornada> {
     if (categoriaType === '1') {
       const params = jornada ? `torneo=${idTorneo}&fase=${jornada}` : `torneo=${idTorneo}`;

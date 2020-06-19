@@ -1,0 +1,28 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Elegir equipo
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="newEquipoForm" (ngSubmit)="onSubmit(newEquipoForm.value)">
+    <ion-item>
+      <ion-label position="stacked">Nuevo equipo</ion-label>
+      <ion-input formControlName="nombreEquipo" type="text" placeholder="Nombre del equipo"></ion-input>
+      <ion-button type="submit">Inscribirse</ion-button>
+    </ion-item>
+  </form>
+  <ion-list>
+    <ion-list-header>Equipos existentes</ion-list-header>
+    <ion-item *ngFor="let equipo of equipos"
+              (click)="requestInscription(equipo.id, equipo.nombreequipo)">
+      {{equipo.nombreequipo}}
+    </ion-item>
+  </ion-list>
+</ion-content>

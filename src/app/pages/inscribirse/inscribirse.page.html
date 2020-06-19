@@ -1,0 +1,36 @@
+<app-bar></app-bar>
+<div class="nav-bg">
+  <h5 class="ion-margin text-white text-center">Torneos abiertos</h5>
+</div>
+<ion-content color="light">
+<!--  <ion-refresher slot="fixed" (ionRefresh)="($event)">-->
+<!--    <ion-refresher-content class="bg-light"-->
+<!--                           pullingIcon= null>-->
+<!--    </ion-refresher-content>-->
+<!--  </ion-refresher>-->
+
+  <ion-list class="bg-medium ion-no-padding"
+            *ngIf="torneos && torneos.length > 0, else noTorneos">
+
+    <ng-container *ngFor="let torneo of torneos; let i = index">
+      <ion-item lines="full">
+        {{torneo.nombretorneo}}
+      </ion-item>
+      <div>
+        <ion-item *ngFor="let categoria of torneo.categorias" lines="none"
+                  class="w-85 ml-auto bg-medium">
+          {{categoria.nombre}}
+          <ion-button slot="end" (click)="presentEquiposModal(categoria.id)">
+            Inscribirse
+          </ion-button>
+        </ion-item>
+      </div>
+    </ng-container>
+
+  </ion-list>
+  <ng-template #noTorneos>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      <p class="ion-text-center">No estás inscrito en ningún torneo activo con la funcionalidad app.</p>
+    </div>
+  </ng-template>
+</ion-content>
