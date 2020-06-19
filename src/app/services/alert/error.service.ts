@@ -7,14 +7,14 @@ import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class ErrorService {
 
   constructor(private alertController: AlertController,
               private userService: UserService,
               private storage: Storage,
               private router: Router) { }
 
-  async createErrorAlert(error: string, status: number): Promise<HTMLIonAlertElement> {
+  async createErrorAlert(error: string): Promise<HTMLIonAlertElement> {
     return await this.alertController.create({
       header: 'Error',
       message: error,
@@ -23,7 +23,7 @@ export class AlertService {
           text: 'OK',
           role: 'cancel',
           handler: async () => {
-            if (status === 401) {
+            if (error === 'Usuario o token incorrecto') {
               await this.storage.remove('user');
               this.userService.setStorageUser();
               await this.router.navigate(['/log-in']);

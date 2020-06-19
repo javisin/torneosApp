@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
-import {AlertService} from '../../../services/alert/alert.service';
+import {ErrorService} from '../../../services/alert/error.service';
 import {ActivatedRoute} from '@angular/router';
 import {Notificacion} from '../../../services/notificacion/notificacion';
 
@@ -19,7 +19,7 @@ export class NotificacionesPage implements OnInit {
 
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
-              private alertService: AlertService,
+              private errorService: ErrorService,
               private route: ActivatedRoute) {
     this.unreadNotificaciones = [];
     this.readNotificaciones = [];
@@ -46,7 +46,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error.error, error.status);
+        const alert = await this.errorService.createErrorAlert(error.error);
         await alert.present();
       });
   }
@@ -58,7 +58,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error.error, error.status);
+        const alert = await this.errorService.createErrorAlert(error.error);
         await alert.present();
       }
     );

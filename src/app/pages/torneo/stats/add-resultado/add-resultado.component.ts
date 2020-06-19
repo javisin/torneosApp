@@ -3,7 +3,7 @@ import {AlertController, ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
-import {AlertService} from '../../../../services/alert/alert.service';
+import {ErrorService} from '../../../../services/alert/error.service';
 
 @Component({
   selector: 'app-add-resultado',
@@ -25,7 +25,7 @@ export class AddResultadoComponent implements OnInit {
   constructor(private modalController: ModalController,
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
-              private alertService: AlertService,
+              private errorService: ErrorService,
               private alertController: AlertController,
               private refreshService: RefreshService) { }
 
@@ -102,7 +102,7 @@ export class AddResultadoComponent implements OnInit {
           this.refreshService.emitValue();
         },
         async error => {
-          const alert = await this.alertService.createErrorAlert(error.error, error.status);
+          const alert = await this.errorService.createErrorAlert(error.error);
           await alert.present();
         }
       );

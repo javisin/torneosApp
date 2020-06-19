@@ -4,7 +4,7 @@ import {AlertController, IonRouterOutlet, LoadingController} from '@ionic/angula
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
-import {AlertService} from '../../services/alert/alert.service';
+import {ErrorService} from '../../services/alert/error.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
@@ -25,7 +25,7 @@ export class TorneosPage implements OnInit {
               private userService: UserService,
               private loadingController: LoadingController,
               private alertController: AlertController,
-              private alertService: AlertService,
+              private errorService: ErrorService,
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet
   ) {
@@ -64,7 +64,6 @@ export class TorneosPage implements OnInit {
   }
   fetchContent(refreshEvent?): void {
     this.fetchNotificaciones(refreshEvent);
-    this.fetchTorneos(refreshEvent);
   }
   fetchNotificaciones(refreshEvent?): void {
     this.torneoService.getInvitaciones(this.user).subscribe(
@@ -73,7 +72,7 @@ export class TorneosPage implements OnInit {
         this.fetchTorneos(refreshEvent);
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error.error, error.status);
+        const alert = await this.errorService.createErrorAlert(error.error);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -94,7 +93,7 @@ export class TorneosPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.alertService.createErrorAlert(error.error, error.status);
+        const alert = await this.errorService.createErrorAlert(error.error);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -128,7 +127,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'NOK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.alertService.createErrorAlert(error.error, error.status)
+              error => this.errorService.createErrorAlert(error.error)
             );
           }
         }, {
@@ -136,7 +135,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'OK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.alertService.createErrorAlert(error.error, error.status)
+              error => this.errorService.createErrorAlert(error.error)
             );
           }
         }

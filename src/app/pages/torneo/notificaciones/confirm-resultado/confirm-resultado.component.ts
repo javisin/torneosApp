@@ -3,7 +3,7 @@ import {AlertController, PopoverController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
-import {AlertService} from '../../../../services/alert/alert.service';
+import {ErrorService} from '../../../../services/alert/error.service';
 
 @Component({
   selector: 'app-confirm-resultado',
@@ -23,7 +23,7 @@ export class ConfirmResultadoComponent implements OnInit {
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
               private alertController: AlertController,
-              private alertService: AlertService,
+              private errorService: ErrorService,
               private refreshService: RefreshService) { }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class ConfirmResultadoComponent implements OnInit {
             await this.dismissPopover(form.validar);
         },
         async error => {
-          const alert = await this.alertService.createErrorAlert(error.error, error.status);
+          const alert = await this.errorService.createErrorAlert(error.error);
           await alert.present();
         }
       );
