@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TorneoService} from '../../services/torneo/torneo.service';
-import {ModalController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {ErrorService} from '../../services/alert/error.service';
 import {EquiposListComponent} from './equipos-list/equipos-list.component';
 
@@ -11,15 +11,42 @@ import {EquiposListComponent} from './equipos-list/equipos-list.component';
 })
 export class InscribirsePage implements OnInit {
   public torneos: any;
+  private loading: HTMLIonLoadingElement;
 
   constructor(private torneoService: TorneoService,
               private modalController: ModalController,
+              private loadingController: LoadingController,
               private errorService: ErrorService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.loadContent();
+  }
+  async loadContent(): Promise<void> {
+    this.loading = await this.loadingController.create({
+      message: 'Cargando competiciones abiertas...'
+    });
+    this.loading.present().then(async () => {
+      this.fetchTorneos();
+    });
+  }
+  fetchTorneos(refreshEvent?) {
     this.torneoService.getOpenedTorneos().subscribe(
-      torneos => this.torneos = torneos,
-      error => this.errorService.createErrorAlert(error.error)
+      async torneos => {
+        this.torneos = torneos;
+        if (refreshEvent) {
+          refreshEvent.target.complete();
+        } else {
+          await this.loading.dismiss();
+        }
+      },
+      async error => {
+        await this.errorService.createErrorAlert(error.error);
+        if (refreshEvent) {
+          refreshEvent.target.complete();
+        } else {
+          await this.loading.dismiss();
+        }
+      }
     );
   }
   async presentEquiposModal(idCategoria) {

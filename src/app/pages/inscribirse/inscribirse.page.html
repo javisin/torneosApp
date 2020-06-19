@@ -1,13 +1,13 @@
 <app-bar></app-bar>
 <div class="nav-bg">
-  <h5 class="ion-margin text-white text-center">Torneos abiertos</h5>
+  <h5 class="ion-margin text-white text-center">Torneos de inscripción abierta</h5>
 </div>
 <ion-content color="light">
-<!--  <ion-refresher slot="fixed" (ionRefresh)="($event)">-->
-<!--    <ion-refresher-content class="bg-light"-->
-<!--                           pullingIcon= null>-->
-<!--    </ion-refresher-content>-->
-<!--  </ion-refresher>-->
+  <ion-refresher slot="fixed" (ionRefresh)="fetchTorneos($event)">
+    <ion-refresher-content class="bg-light"
+                           pullingIcon= null>
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-list class="bg-medium ion-no-padding"
             *ngIf="torneos && torneos.length > 0, else noTorneos">
