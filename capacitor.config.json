@@ -1,6 +1,6 @@
 {
   "appId": "com.TodoTorneos.TTapp",
-  "appName": "TTapp",
+  "appName": "TodoTorneos",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
