@@ -59,11 +59,8 @@ export class TorneosPage implements OnInit {
       message: 'Cargando competiciones...'
     });
     this.loading.present().then(async () => {
-      this.fetchContent();
+      this.fetchNotificaciones();
     });
-  }
-  fetchContent(refreshEvent?): void {
-    this.fetchNotificaciones(refreshEvent);
   }
   fetchNotificaciones(refreshEvent?): void {
     this.torneoService.getInvitaciones(this.user).subscribe(

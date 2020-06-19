@@ -3,7 +3,7 @@
     <h5 class="ion-margin text-white text-center">Mis torneos</h5>
 </div>
 <ion-content color="light">
-    <ion-refresher slot="fixed" (ionRefresh)="fetchContent($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
         <ion-refresher-content class="bg-light"
                                pullingIcon= null>
         </ion-refresher-content>
@@ -55,8 +55,13 @@
 
     </ion-list>
     <ng-template #noTorneos>
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <p class="ion-text-center">No estás inscrito en ningún torneo activo con la funcionalidad app.</p>
+        <div class="h-100 d-flex align-items-center">
+            <div class="w-100">
+                <p class="d-flex justify-content-center">No estás inscrito en ningún torneo.</p>
+                <a class="d-flex justify-content-center" routerLink="/inscribirse">
+                    Ver torneos con inscripción abierta
+                </a>
+            </div>
         </div>
     </ng-template>
 </ion-content>
