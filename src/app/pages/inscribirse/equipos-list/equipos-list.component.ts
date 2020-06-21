@@ -14,13 +14,17 @@ export class EquiposListComponent implements OnInit {
   @Input() idCategoria: any;
   public equipos: any;
   public newEquipoForm: FormGroup;
+  public canInscribe: boolean;
+  public showForm: boolean;
 
   constructor(private torneoService: TorneoService,
               private modalController: ModalController,
               private formBuilder: FormBuilder,
               private errorService: ErrorService,
               private alertController: AlertController,
-              private refreshService: RefreshService) { }
+              private refreshService: RefreshService) {
+    this.showForm = false;
+  }
 
   ngOnInit() {
     this.newEquipoForm = this.formBuilder.group({
@@ -31,7 +35,14 @@ export class EquiposListComponent implements OnInit {
   }
   fetchEquiposCategoria() {
     this.torneoService.getEquiposCategoria(this.idCategoria).subscribe(
-      categoriaInfo => this.equipos = categoriaInfo.equipos
+      categoriaInfo => {
+        this.equipos = categoriaInfo.equipos;
+        this.canInscribe = categoriaInfo.permitirinscripcion === 'Si';
+      },
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error.error);
+        await alert.present();
+      }
     );
   }
   async dismissModal() {
@@ -43,8 +54,14 @@ export class EquiposListComponent implements OnInit {
         await this.presentSuccessAlert(nombreEquipo);
         this.refreshService.emitValue();
       },
-      error => this.errorService.createErrorAlert(error.error)
+      async error => {
+        const alert = await this.errorService.createErrorAlert(error.error);
+        await alert.present();
+      }
     );
+  }
+  showNewEquipoForm() {
+    this.showForm = true;
   }
   onSubmit(form) {
     if (this.newEquipoForm.status === 'VALID') {
@@ -53,7 +70,10 @@ export class EquiposListComponent implements OnInit {
           await this.presentSuccessAlert(form.nombreEquipo);
           this.refreshService.emitValue();
         },
-        error => this.errorService.createErrorAlert(error.error)
+        async error => {
+          const alert = await this.errorService.createErrorAlert(error.error);
+          await alert.present();
+        }
       );
     }
   }

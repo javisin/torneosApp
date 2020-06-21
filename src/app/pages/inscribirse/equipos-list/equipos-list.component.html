@@ -11,18 +11,36 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="newEquipoForm" (ngSubmit)="onSubmit(newEquipoForm.value)">
-    <ion-item>
-      <ion-label position="stacked">Nuevo equipo</ion-label>
-      <ion-input formControlName="nombreEquipo" type="text" placeholder="Nombre del equipo"></ion-input>
-      <ion-button type="submit">Inscribirse</ion-button>
-    </ion-item>
-  </form>
-  <ion-list>
-    <ion-list-header>Equipos existentes</ion-list-header>
-    <ion-item *ngFor="let equipo of equipos"
-              (click)="requestInscription(equipo.id, equipo.nombreequipo)">
-      {{equipo.nombreequipo}}
-    </ion-item>
-  </ion-list>
+  <ng-container *ngIf="canInscribe; else alreadyInscribed">
+    <ion-row *ngIf="!showForm" class="align-items-center ion-margin-start mt-2">
+      <div (click)="showNewEquipoForm()">
+        <span class="color-primary font-weight-bold">
+      Nuevo equipo
+      </span>
+        <ion-icon class="size-17" name="add-circle-outline" color="primary"></ion-icon>
+      </div>
+    </ion-row>
+
+    <form *ngIf="showForm" [formGroup]="newEquipoForm" (ngSubmit)="onSubmit(newEquipoForm.value)">
+      <ion-item lines="none">
+        <ion-label class="size-17" position="floating">Nuevo equipo</ion-label>
+        <ion-input formControlName="nombreEquipo" type="text" placeholder="Nombre del equipo..."></ion-input>
+      </ion-item>
+      <ion-button class="ion-margin-start" size="small" type="submit">Inscribirse</ion-button>
+    </form>
+    <ion-list class="ion-no-padding">
+      <ion-item *ngFor="let equipo of equipos"
+                (click)="requestInscription(equipo.id, equipo.nombreequipo)">
+        <ion-label class="size-17" position="stacked">
+          {{equipo.nombreequipo}}
+        </ion-label>
+        <ion-note class="size-14">{{equipo.jugadores}}</ion-note>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-template #alreadyInscribed>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      Ya estás inscrito en este torneo
+    </div>
+  </ng-template>
 </ion-content>

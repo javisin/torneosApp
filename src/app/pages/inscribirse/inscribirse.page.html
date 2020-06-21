@@ -17,12 +17,10 @@
         {{torneo.nombretorneo}}
       </ion-item>
       <div>
-        <ion-item *ngFor="let categoria of torneo.categorias" lines="none"
+        <ion-item *ngFor="let categoria of torneo.categorias" lines="none" detail="true"
+                  (click)="presentEquiposModal(categoria.id)"
                   class="w-85 ml-auto bg-medium">
           {{categoria.nombre}}
-          <ion-button slot="end" (click)="presentEquiposModal(categoria.id)">
-            Inscribirse
-          </ion-button>
         </ion-item>
       </div>
     </ng-container>
