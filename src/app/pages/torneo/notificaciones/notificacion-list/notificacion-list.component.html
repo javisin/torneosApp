@@ -2,7 +2,7 @@
   <ion-list-header class="color-primary size-17" lines="full">{{title}} ({{notificaciones.length}})</ion-list-header>
   <ion-item-sliding *ngFor="let notificacion of notificaciones; let i = index">
     <ion-item lines="full" >
-      <ion-label color="primary" class="notificacion-title mb-2" position="stacked">
+      <ion-label color="primary" class="size-17 mb-2" position="stacked">
         {{notificacion.titulo}}
       </ion-label>
       <ion-note color="dark" class="size-14 mb-2">{{notificacion.descripcion}}</ion-note>
