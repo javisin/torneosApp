@@ -8,6 +8,7 @@ import { LogInPageRoutingModule } from './log-in-routing.module';
 
 import { LogInPage } from './log-in.page';
 import {SharedModule} from '../../shared/shared.module';
+import {RestablecerPasswordComponent} from './restablecer-password/restablecer-password.component';
 
 @NgModule({
     imports: [
@@ -21,6 +22,6 @@ import {SharedModule} from '../../shared/shared.module';
     exports: [
         LogInPage
     ],
-    declarations: [LogInPage]
+    declarations: [LogInPage, RestablecerPasswordComponent]
 })
 export class LogInPageModule {}

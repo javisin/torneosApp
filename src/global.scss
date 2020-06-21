@@ -95,6 +95,9 @@ span{
 .blue-gradient-content{
   --background: linear-gradient(to right, rgb(83, 114, 172), rgb(46, 63, 95));
 }
+.bg-blue-gradient{
+  background-image: linear-gradient(to right, rgb(83, 114, 172), rgb(46, 63, 95));
+}
 .border-set{
   border-top: 1px solid #dee2e6;
 }

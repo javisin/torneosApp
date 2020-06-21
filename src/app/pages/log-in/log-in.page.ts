@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ModalController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+import {RestablecerPasswordComponent} from './restablecer-password/restablecer-password.component';
 
 @Component({
   selector: 'app-log-in',
@@ -18,7 +19,8 @@ export class LogInPage implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private storage: Storage) {
+    private storage: Storage,
+    private modalController: ModalController) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -44,5 +46,11 @@ export class LogInPage implements OnInit {
         });
         await alert.present();
       });
+  }
+  async presentOlvidarPasswordModal() {
+    const modal = await this.modalController.create({
+      component: RestablecerPasswordComponent,
+    });
+    return await modal.present();
   }
 }
