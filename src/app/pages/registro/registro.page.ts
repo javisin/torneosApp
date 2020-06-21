@@ -47,6 +47,7 @@ export class RegistroPage implements OnInit {
   onSubmit(form): void {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.status === 'VALID') {
+      delete form.confirmPassword;
       this.userService.registerUser(form).subscribe(
         async () => {
           const alert = await this.alertController.create({
