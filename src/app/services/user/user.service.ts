@@ -31,6 +31,23 @@ export class UserService {
     const form = objectToForm(registerForm);
     return this.http.post<any>(`${this.url}/registra421.php`, form);
   }
+  recoverPassword(email: string) {
+    const form = new FormData();
+    form.append('usuario', email);
+    return this.http.post<any>(`${this.url}/recordarpwd.php`, form);
+  }
+  updateUser(updateForm: any) {
+    const form = objectToForm(updateForm);
+    form.append('usuario', this.currentUser.getValue().email);
+    form.append('token', this.currentUser.getValue().token);
+    return this.http.post<any>(`${this.url}/cambiaperfil.php`, form);
+  }
+  changePassword(changePasswordForm) {
+    const form = objectToForm(changePasswordForm);
+    form.append('usuario', this.currentUser.getValue().email);
+    form.append('token', this.currentUser.getValue().token);
+    return this.http.post<any>(`${this.url}/cambiapwd.php`, form);
+  }
   getUser(): BehaviorSubject<User> {
     return this.currentUser;
   }

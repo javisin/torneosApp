@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ChangePasswordComponent } from './change-password.component';
+import { CambiarPasswordComponent } from './cambiar-password.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
 describe('ChangePasswordComponent', () => {
-  let component: ChangePasswordComponent;
-  let fixture: ComponentFixture<ChangePasswordComponent>;
+  let component: CambiarPasswordComponent;
+  let fixture: ComponentFixture<CambiarPasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordComponent ],
+      declarations: [ CambiarPasswordComponent ],
       imports: [IonicModule.forRoot(),
         ReactiveFormsModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ChangePasswordComponent);
+    fixture = TestBed.createComponent(CambiarPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

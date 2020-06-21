@@ -8,7 +8,7 @@ import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
 import {SharedModule} from '../../shared/shared.module';
-import {ChangePasswordComponent} from './change-password/change-password.component';
+import {CambiarPasswordComponent} from './cambiar-password/cambiar-password.component';
 
 @NgModule({
   imports: [
@@ -19,6 +19,6 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
     SharedModule,
     ReactiveFormsModule
   ],
-  declarations: [PerfilPage, ChangePasswordComponent]
+  declarations: [PerfilPage, CambiarPasswordComponent]
 })
 export class PerfilPageModule {}
