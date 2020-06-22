@@ -18,7 +18,6 @@ export class TorneoPage implements OnInit {
               private notificacionService: NotificacionService,
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet) { }
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const user = this.userService.getUser().getValue();

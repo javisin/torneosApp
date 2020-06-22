@@ -15,7 +15,6 @@ export class MenuUsuarioComponent implements OnInit {
               private popoverController: PopoverController,
               private storage: Storage,
               private userService: UserService) { }
-
   ngOnInit() {}
   async goToProfile() {
     await this.popoverController.dismiss();

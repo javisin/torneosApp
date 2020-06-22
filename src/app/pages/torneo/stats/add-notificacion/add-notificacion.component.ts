@@ -23,7 +23,6 @@ export class AddNotificacionComponent implements OnInit {
     this.finished = false;
     this.isScheduled = false;
   }
-
   async ngOnInit(): Promise<void> {
     if (this.fecha !== '') {
       if (Date.now() > this.getDateTime(this.fecha)) {

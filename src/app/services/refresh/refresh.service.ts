@@ -10,7 +10,6 @@ export class RefreshService {
   constructor() {
     this.refreshSubject = new Subject<boolean>();
   }
-
   getSubject(): Subject<boolean> {
     return this.refreshSubject;
   }

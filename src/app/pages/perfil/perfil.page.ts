@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertController, ModalController} from '@ionic/angular';
 import {CambiarPasswordComponent} from './cambiar-password/cambiar-password.component';
 import {UserService} from '../../services/user/user.service';
-import {ErrorService} from '../../services/alert/error.service';
+import {ErrorService} from '../../services/error/error.service';
 
 @Component({
   selector: 'app-perfil',
@@ -22,7 +22,6 @@ export class PerfilPage implements OnInit {
               private alertController: AlertController,
               private userService: UserService,
               private errorService: ErrorService) { }
-
   async ngOnInit() {
     this.user = await this.ionicStorage.get('user');
     this.updateUserForm = this.formBuilder.group({

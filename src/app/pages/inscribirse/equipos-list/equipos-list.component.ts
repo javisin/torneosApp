@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {AlertController, ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 import {RefreshService} from '../../../services/refresh/refresh.service';
 
 @Component({

@@ -13,11 +13,9 @@ export class ResultadosEquipoModalComponent implements OnInit {
 
   constructor(private modalController: ModalController) {
   }
-
   ngOnInit() {
   }
   async dismissModal(): Promise<void> {
     await this.modalController.dismiss();
   }
-
 }

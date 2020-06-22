@@ -71,5 +71,4 @@ export class ResultadosEquipoComponent implements OnInit {
       return await modal.present();
     }
   }
-
 }

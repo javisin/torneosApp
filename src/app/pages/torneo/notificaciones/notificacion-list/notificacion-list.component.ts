@@ -3,7 +3,7 @@ import {Notificacion} from '../../../../services/notificacion/notificacion';
 import {ConfirmResultadoComponent} from '../confirm-resultado/confirm-resultado.component';
 import {PopoverController} from '@ionic/angular';
 import {NotificacionService} from '../../../../services/notificacion/notificacion.service';
-import {ErrorService} from '../../../../services/alert/error.service';
+import {ErrorService} from '../../../../services/error/error.service';
 
 @Component({
   selector: 'app-notificacion-list',
@@ -17,7 +17,6 @@ export class NotificacionListComponent implements OnInit {
   constructor(private popoverController: PopoverController,
               private notificacionService: NotificacionService,
               private errorService: ErrorService) { }
-
   ngOnInit() {}
   async confirmResultado(i): Promise<void> {
     const modal = await this.popoverController.create({
@@ -43,5 +42,4 @@ export class NotificacionListComponent implements OnInit {
       error => this.errorService.createErrorAlert(error.error)
     );
   }
-
 }

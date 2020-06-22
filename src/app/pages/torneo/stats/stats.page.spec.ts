@@ -7,7 +7,7 @@ import {TorneoService} from '../../../services/torneo/torneo.service';
 import {BehaviorSubject} from 'rxjs';
 import {User} from '../../../services/user/user';
 import {UserService} from '../../../services/user/user.service';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 
 describe('StatsPage', () => {
   let component: StatsPage;

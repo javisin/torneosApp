@@ -13,7 +13,6 @@ export class ErrorService {
               private userService: UserService,
               private storage: Storage,
               private router: Router) { }
-
   async createErrorAlert(error: string): Promise<HTMLIonAlertElement> {
     return await this.alertController.create({
       header: 'Error',

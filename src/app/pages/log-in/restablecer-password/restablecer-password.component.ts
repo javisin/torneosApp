@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user/user.service';
 import {AlertController, ModalController} from '@ionic/angular';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 
 @Component({
   selector: 'app-olvidar-password',

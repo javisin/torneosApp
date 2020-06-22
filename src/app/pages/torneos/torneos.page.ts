@@ -4,7 +4,7 @@ import {AlertController, IonRouterOutlet, LoadingController} from '@ionic/angula
 import {UserService} from '../../services/user/user.service';
 import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
-import {ErrorService} from '../../services/alert/error.service';
+import {ErrorService} from '../../services/error/error.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
@@ -32,7 +32,6 @@ export class TorneosPage implements OnInit {
     this.closedTorneos = [];
     this.filter = '0';
   }
-
   ngOnInit(): void {
     this.userService.getUser().subscribe(async user => {
       if (user !== null) {
@@ -53,7 +52,6 @@ export class TorneosPage implements OnInit {
       this.nativePageTransitions.slide(options);
     }
   }
-
   async loadContent(): Promise<void> {
     this.loading = await this.loadingController.create({
       message: 'Cargando competiciones...'
@@ -99,11 +97,9 @@ export class TorneosPage implements OnInit {
         await alert.present();
       });
   }
-
   toggleTorneo(i: number): void {
     this.closedTorneos[i] = !this.closedTorneos[i];
   }
-
   filterTorneos(filter: string): void {
     if (filter === 'all') {
       this.filteredTorneos = this.torneos;
@@ -113,7 +109,6 @@ export class TorneosPage implements OnInit {
       this.filter = '0';
     }
   }
-
   async presentAlertConfirm(i: number) {
     const alert = await this.alertController.create({
       header: 'Invitación',

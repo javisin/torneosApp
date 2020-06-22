@@ -22,14 +22,12 @@ export class LogInPage implements OnInit {
     private storage: Storage,
     private modalController: ModalController) {
   }
-
   async ngOnInit(): Promise<void> {
     this.loginForm = this.formBuilder.group({
       user: '',
       password: ''
     });
   }
-
   onSubmit(form): void {
     this.userService.logIn(form).subscribe(
       async user => {

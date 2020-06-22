@@ -3,7 +3,7 @@ import {AlertController, ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MustMatch} from '../../../helpers/mustMatch.validator';
 import {UserService} from '../../../services/user/user.service';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 
 @Component({
   selector: 'app-change-password',

@@ -1,67 +1,67 @@
 <app-bar></app-bar>
 <div class="nav-bg">
-    <h5 class="ion-margin text-white text-center">Mis torneos</h5>
+  <h5 class="ion-margin text-white text-center">Mis torneos</h5>
 </div>
 <ion-content color="light">
-    <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
-        <ion-refresher-content class="bg-light"
-                               pullingIcon= null>
-        </ion-refresher-content>
-    </ion-refresher>
+  <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
+    <ion-refresher-content class="bg-light"
+                           pullingIcon= null>
+    </ion-refresher-content>
+  </ion-refresher>
 
-    <ion-row *ngIf="filteredTorneos && filteredTorneos.length > 0"
-             class="justify-content-center py-3 bg-medium">
-        <ion-col size="3" (click)="filterTorneos('actives')"
-                 [ngClass]="{'bg-white color-primary' : !filter, 'nav-bg text-white' : filter === '0' }"
-                 class="text-center border border-selector-left">
-            Activos
-        </ion-col>
-        <ion-col size="3" (click)="filterTorneos('all')"
-                 [ngClass]="{'nav-bg text-white' : !filter, 'bg-white color-primary' : filter === '0' }"
-                 class="text-center border border-selector-right">
-            Todos
-        </ion-col>
-    </ion-row>
+  <ion-row *ngIf="filteredTorneos && filteredTorneos.length > 0"
+           class="justify-content-center py-3 bg-medium">
+    <ion-col size="3" (click)="filterTorneos('actives')"
+             [ngClass]="{'bg-white color-primary' : !filter, 'nav-bg text-white' : filter === '0' }"
+             class="text-center border border-selector-left">
+      Activos
+    </ion-col>
+    <ion-col size="3" (click)="filterTorneos('all')"
+             [ngClass]="{'nav-bg text-white' : !filter, 'bg-white color-primary' : filter === '0' }"
+             class="text-center border border-selector-right">
+      Todos
+    </ion-col>
+  </ion-row>
 
-    <ion-list *ngIf="invitations && invitations.length > 0" class="bg-medium ion-no-padding">
-        <ion-list-header class="color-primary size-20">Invitaciones ({{invitations.length}})</ion-list-header>
-        <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
-            {{invitation.titulo}}
-            <ion-button color="tertiary" (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
+  <ion-list *ngIf="invitations && invitations.length > 0" class="bg-medium ion-no-padding">
+    <ion-list-header class="color-primary size-20">Invitaciones ({{invitations.length}})</ion-list-header>
+    <ion-item lines="full" *ngFor="let invitation of invitations; let i = index">
+      {{invitation.titulo}}
+      <ion-button color="tertiary" (click)="presentAlertConfirm(i)" slot="end">Responder</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list class="bg-medium ion-no-padding"
+            *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
+    <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
+
+    <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
+      <ion-item class="ion-no-padding" lines="full" (click)="toggleTorneo(i)">
+        <ion-icon slot="start" color="light"
+                  [name]="!closedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
+        </ion-icon>
+        {{torneo.nombreTorneo}}
+      </ion-item>
+      <div *ngIf="!closedTorneos[i]">
+        <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['/torneo/',categoria.id]"
+                  class="w-85 ml-auto bg-medium">
+          {{categoria.nombre}}
+          <ion-badge *ngIf="categoria.numnotifica > 0" slot="end" color="danger">
+            {{categoria.numnotifica}}
+          </ion-badge>
         </ion-item>
-    </ion-list>
+      </div>
+    </ng-container>
 
-    <ion-list class="bg-medium ion-no-padding"
-              *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
-        <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
-
-        <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
-            <ion-item class="ion-no-padding" lines="full" (click)="toggleTorneo(i)">
-                <ion-icon slot="start" color="light"
-                          [name]="!closedTorneos[i] ? 'chevron-down-outline' : 'chevron-forward-outline'">
-                </ion-icon>
-                {{torneo.nombreTorneo}}
-            </ion-item>
-            <div *ngIf="!closedTorneos[i]">
-                <ion-item *ngFor="let categoria of torneo.categorias" lines="none" [routerLink]="['/torneo/',categoria.id]"
-                          class="w-85 ml-auto bg-medium">
-                    {{categoria.nombre}}
-                    <ion-badge *ngIf="categoria.numnotifica > 0" slot="end" color="danger">
-                        {{categoria.numnotifica}}
-                    </ion-badge>
-                </ion-item>
-            </div>
-        </ng-container>
-
-    </ion-list>
-    <ng-template #noTorneos>
-        <div class="h-100 d-flex align-items-center">
-            <div class="w-100">
-                <p class="d-flex justify-content-center">No estás inscrito en ningún torneo.</p>
-                <a class="d-flex justify-content-center" routerLink="/inscribirse">
-                    Ver torneos con inscripción abierta
-                </a>
-            </div>
-        </div>
-    </ng-template>
+  </ion-list>
+  <ng-template #noTorneos>
+    <div class="h-100 d-flex align-items-center">
+      <div class="w-100">
+        <p class="d-flex justify-content-center">No estás inscrito en ningún torneo.</p>
+        <a class="d-flex justify-content-center" routerLink="/inscribirse">
+          Ver torneos con inscripción abierta
+        </a>
+      </div>
+    </div>
+  </ng-template>
 </ion-content>

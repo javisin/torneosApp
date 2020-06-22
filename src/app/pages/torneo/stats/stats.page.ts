@@ -5,7 +5,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {UserService} from '../../../services/user/user.service';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {Categoria} from '../../../services/torneo/categoria';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.page.html',
@@ -36,7 +36,6 @@ export class StatsPage implements OnInit {
   async ionViewWillLeave(): Promise<void> {
     await this.screenOrientation.lock('portrait');
   }
-
   ngOnInit(): void {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.torneoService.getCategoria(this.idCategoria).subscribe(
@@ -104,5 +103,4 @@ export class StatsPage implements OnInit {
       };
     });
   }
-
 }

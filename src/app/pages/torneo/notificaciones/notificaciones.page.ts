@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacion/notificacion.service';
 import {UserService} from '../../../services/user/user.service';
 import {User} from '../../../services/user/user';
-import {ErrorService} from '../../../services/alert/error.service';
+import {ErrorService} from '../../../services/error/error.service';
 import {ActivatedRoute} from '@angular/router';
 import {Notificacion} from '../../../services/notificacion/notificacion';
 
@@ -24,13 +24,11 @@ export class NotificacionesPage implements OnInit {
     this.unreadNotificaciones = [];
     this.readNotificaciones = [];
   }
-
   ngOnInit(): void {
     this.idCategoria = this.route.snapshot.parent.params.id;
     this.user = this.userService.getUser().getValue();
     this.fetchNotificaciones();
   }
-
   fetchNotificaciones(refreshEvent?): void {
     this.notificacionService.getNotificaciones(this.user, this.idCategoria).subscribe(
       async notificaciones => {

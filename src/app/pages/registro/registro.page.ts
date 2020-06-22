@@ -4,7 +4,7 @@ import {UserService} from '../../services/user/user.service';
 import {AlertController} from '@ionic/angular';
 import { MustMatch } from '../../helpers/mustMatch.validator';
 import {Router} from '@angular/router';
-import {ErrorService} from '../../services/alert/error.service';
+import {ErrorService} from '../../services/error/error.service';
 
 @Component({
   selector: 'app-registro',

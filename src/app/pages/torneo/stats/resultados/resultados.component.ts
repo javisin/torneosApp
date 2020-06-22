@@ -32,12 +32,10 @@ export class ResultadosComponent implements OnInit {
               private refreshService: RefreshService) {
     this.roundSubject = new BehaviorSubject<number>(null);
   }
-
   ngOnInit(): void {
     this.fetchJornada();
     this.refreshService.getSubject().subscribe(() => this.fetchJornada());
   }
-
   fetchJornada(): void {
     if (this.platform.is('ios')) {
       this.options = {
@@ -52,7 +50,6 @@ export class ResultadosComponent implements OnInit {
       });
     });
   }
-
   checkScheduledNotifications(): void {
     this.results.map(async result => {
       if (await this.localNotifications.isScheduled(Number(result.Idpartido))) {
@@ -60,7 +57,6 @@ export class ResultadosComponent implements OnInit {
       }
     });
   }
-
   fetchRoundDetails(jornada): void {
     if (this.categoriaType === '1') {
       this.modality = 'sets';
@@ -74,34 +70,28 @@ export class ResultadosComponent implements OnInit {
       this.setLeagueRounds();
     }
   }
-
   setPlayOffRounds(): void {
     this.rounds = {
       names: ['Final', 'Semifinal', 'Cuartos de final', 'Octavos de final', '16avos de final'],
       values: [...Array(this.totalRounds - 1).keys()].map(i => i + 2),
     };
   }
-
   setLeagueRounds(): void {
     this.rounds = [...Array(this.totalRounds).keys()].map(i => i + 1);
   }
-
   nextJornada() {
     if (this.round < this.totalRounds) {
       this.roundSubject.next(this.round + 1);
     }
   }
-
   previousJornada(): void {
     if (this.round > 1) {
       this.roundSubject.next(this.round - 1);
     }
   }
-
   selectRound(event): void {
     this.roundSubject.next(event.detail.value);
   }
-
   async createNotification(i: number) {
     const modal = await this.popoverController.create({
       component: AddNotificacionComponent,
@@ -121,7 +111,6 @@ export class ResultadosComponent implements OnInit {
     });
     return await modal.present();
   }
-
   async presentResultadosEquipoModal(idEquipo: string) {
     const modal = await this.modalController.create({
       component: ResultadosEquipoModalComponent,

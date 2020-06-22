@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TorneoService} from '../../services/torneo/torneo.service';
 import {LoadingController, ModalController} from '@ionic/angular';
-import {ErrorService} from '../../services/alert/error.service';
+import {ErrorService} from '../../services/error/error.service';
 import {EquiposListComponent} from './equipos-list/equipos-list.component';
 
 @Component({
@@ -17,7 +17,6 @@ export class InscribirsePage implements OnInit {
               private modalController: ModalController,
               private loadingController: LoadingController,
               private errorService: ErrorService) { }
-
   async ngOnInit() {
     await this.loadContent();
   }

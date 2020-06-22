@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PopoverController} from '@ionic/angular';
 import {MenuUsuarioComponent} from '../menu-usuario/menu-usuario.component';
 
@@ -7,12 +7,9 @@ import {MenuUsuarioComponent} from '../menu-usuario/menu-usuario.component';
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.scss'],
 })
-export class BarComponent implements OnInit {
+export class BarComponent {
 
   constructor(public popoverController: PopoverController) { }
-
-  ngOnInit() {
-  }
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: MenuUsuarioComponent,
