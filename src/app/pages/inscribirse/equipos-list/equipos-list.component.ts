@@ -48,34 +48,24 @@ export class EquiposListComponent implements OnInit {
   async dismissModal() {
     await this.modalController.dismiss();
   }
-  requestInscription(idEquipo, nombreEquipo) {
-    this.torneoService.requestInscription(this.idCategoria, idEquipo).subscribe(
-      async () => {
-        await this.presentSuccessAlert(nombreEquipo);
-        this.refreshService.emitValue();
-      },
-      async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
-        await alert.present();
-      }
-    );
-  }
-  showNewEquipoForm() {
-    this.showForm = true;
-  }
-  onSubmit(form) {
-    if (this.newEquipoForm.status === 'VALID') {
-      this.torneoService.requestNewTeamInscription(this.idCategoria, form.nombreEquipo).subscribe(
-        async () => {
-          await this.presentSuccessAlert(form.nombreEquipo);
-          this.refreshService.emitValue();
+  async presentConfirmAlert(nombreEquipo: string, handlerFunction) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar inscripción',
+      message: `¿Estás seguro de que quieres inscribirte con el equipo ${nombreEquipo}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
         },
-        async error => {
-          const alert = await this.errorService.createErrorAlert(error.error);
-          await alert.present();
-        }
-      );
-    }
+        {
+          text: 'Aceptar',
+          handler: () => {
+            handlerFunction();
+          }
+        },
+      ],
+    });
+    await alert.present();
   }
   async presentSuccessAlert(nombreEquipo) {
     const alert = await this.alertController.create({
@@ -90,6 +80,39 @@ export class EquiposListComponent implements OnInit {
       translucent: true,
     });
     await alert.present();
+  }
+  async requestInscription(idEquipo, nombreEquipo) {
+    await this.presentConfirmAlert(nombreEquipo, () => {
+      this.torneoService.requestInscription(this.idCategoria, idEquipo).subscribe(
+        async () => {
+          await this.presentSuccessAlert(nombreEquipo);
+          this.refreshService.emitValue();
+        },
+        async error => {
+          const alert = await this.errorService.createErrorAlert(error.error);
+          await alert.present();
+        }
+      );
+    });
+  }
+  showNewEquipoForm() {
+    this.showForm = true;
+  }
+  async onSubmit(form) {
+    if (this.newEquipoForm.status === 'VALID') {
+      await this.presentConfirmAlert(form.nombreEquipo, () => {
+        this.torneoService.requestNewTeamInscription(this.idCategoria, form.nombreEquipo).subscribe(
+          async () => {
+            await this.presentSuccessAlert(form.nombreEquipo);
+            this.refreshService.emitValue();
+          },
+          async error => {
+            const alert = await this.errorService.createErrorAlert(error.error);
+            await alert.present();
+          }
+        );
+      });
+    }
   }
 
 }
