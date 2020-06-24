@@ -44,7 +44,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         await alert.present();
       });
   }
@@ -56,7 +56,7 @@ export class NotificacionesPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         await alert.present();
       }
     );
