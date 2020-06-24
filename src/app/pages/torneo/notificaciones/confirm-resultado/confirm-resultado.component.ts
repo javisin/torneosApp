@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AlertController, PopoverController} from '@ionic/angular';
+import {AlertController, PopoverController, ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
@@ -23,6 +23,7 @@ export class ConfirmResultadoComponent implements OnInit {
               private formBuilder: FormBuilder,
               private torneoService: TorneoService,
               private alertController: AlertController,
+              private toastController: ToastController,
               private errorService: ErrorService,
               private refreshService: RefreshService) { }
   ngOnInit(): void {
@@ -51,14 +52,13 @@ export class ConfirmResultadoComponent implements OnInit {
     if (this.confirmResultForm.status === 'VALID') {
       this.torneoService.validateResultado(form).subscribe(
         async () => {
-            const alert = await this.alertController.create({
-              header: 'Enviado',
-              message: 'Respuesta enviada.',
-              buttons: ['OK'],
-              translucent: true,
-            });
-            await alert.present();
-            await this.dismissPopover(form.validar);
+          await this.dismissPopover(form.validar);
+          const toast = await this.toastController.create({
+            message: 'Respuesta enviada.',
+            duration: 2000,
+            position: 'top'
+          });
+          await toast.present();
         },
         async error => {
           await this.dismissPopover('E');

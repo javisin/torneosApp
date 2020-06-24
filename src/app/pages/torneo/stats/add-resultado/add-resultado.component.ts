@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AlertController, ModalController} from '@ionic/angular';
+import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TorneoService} from '../../../../services/torneo/torneo.service';
 import {RefreshService} from '../../../../services/refresh/refresh.service';
@@ -27,6 +27,7 @@ export class AddResultadoComponent implements OnInit {
               private torneoService: TorneoService,
               private errorService: ErrorService,
               private alertController: AlertController,
+              private toastController: ToastController,
               private refreshService: RefreshService) { }
   ngOnInit(): void {
     if (this.type === '1') {
@@ -91,14 +92,13 @@ export class AddResultadoComponent implements OnInit {
       this.torneoService.setResult(form, this.type).subscribe(
         async () => {
           await this.dismissModal();
-          const alert = await this.alertController.create({
-            header: 'Enviado',
-            message: 'Resultado guardado con éxito.',
-            buttons: ['OK'],
-            translucent: true,
-          });
-          await alert.present();
           this.refreshService.emitValue();
+          const toast = await this.toastController.create({
+            message: 'Resultado guardado.',
+            duration: 2000,
+            position: 'top'
+          });
+          await toast.present();
         },
         async error => {
           const alert = await this.errorService.createErrorAlert(error.error, error.status);
