@@ -24,7 +24,7 @@ export class UserService {
     const form = objectToForm(loginForm);
     const SOType = this.SO === 'android' ? '1' : '2';
     form.append('so', SOType);
-    form.append('id', 'test');
+    form.append('id', this.pushToken);
     return this.http.post<User>(`${this.url}/solologin.php`, form);
   }
   registerUser(registerForm: any): Observable<any> {
