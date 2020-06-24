@@ -101,11 +101,17 @@ span{
 .border-set{
   border-top: 1px solid #dee2e6;
 }
+.ionic-w-95{
+  --width:95%;
+}
 .ionic-w-80{
   --width:80%;
 }
 .ionic-w-60{
   --width:60%;
+}
+.ionic-h-90{
+  --height:90%;
 }
 .toolbar-height{
   height: 56px;

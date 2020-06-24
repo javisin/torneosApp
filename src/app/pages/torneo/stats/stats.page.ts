@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {IonSlides, PickerController} from '@ionic/angular';
+import {IonSlides, PickerController, Platform, PopoverController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {UserService} from '../../../services/user/user.service';
 import {TorneoService} from '../../../services/torneo/torneo.service';
 import {Categoria} from '../../../services/torneo/categoria';
 import {ErrorService} from '../../../services/error/error.service';
+import {SelectCategoriaComponent} from './select-categoria/select-categoria.component';
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.page.html',
@@ -26,6 +27,8 @@ export class StatsPage implements OnInit {
               private torneoService: TorneoService,
               private errorService: ErrorService,
               private pickerController: PickerController,
+              private popoverController: PopoverController,
+              private platform: Platform,
               private router: Router) {
     this.navIndex = 1;
   }
@@ -52,7 +55,7 @@ export class StatsPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         await alert.present();
       });
   }
@@ -72,6 +75,24 @@ export class StatsPage implements OnInit {
   }
   async changeSlide(index: number): Promise<void> {
     await this.slides.slideTo(index);
+  }
+  async selectCategorias() {
+    if (this.platform.is('android')) {
+      await this.presentPopover();
+    } else {
+      await this.openPicker();
+    }
+  }
+  async presentPopover(): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: SelectCategoriaComponent,
+      componentProps: {
+        idTorneo: this.idTorneo
+      },
+      cssClass: 'ionic-h-90 ionic-w-95',
+      translucent: true
+    });
+    return await popover.present();
   }
   async openPicker(): Promise<void> {
     const picker = await this.pickerController.create({

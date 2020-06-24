@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Elige una categoría
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissPopover()">
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-list>
+  <ion-item *ngFor="let categoria of categorias" lines="none" [routerLink]="['/torneo/', categoria.id]">
+    {{categoria.nombre}}
+  </ion-item>
+</ion-list>
+
