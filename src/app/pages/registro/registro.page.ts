@@ -69,7 +69,7 @@ export class RegistroPage implements OnInit {
           await alert.present();
         },
         async error => {
-          const alert = await this.errorService.createErrorAlert(error.error);
+          const alert = await this.errorService.createErrorAlert(error.error, error.status);
           await alert.present();
         },
       );

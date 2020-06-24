@@ -67,7 +67,7 @@ export class TorneosPage implements OnInit {
         this.fetchTorneos(refreshEvent);
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -88,7 +88,7 @@ export class TorneosPage implements OnInit {
         }
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {
@@ -119,7 +119,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'NOK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.errorService.createErrorAlert(error.error)
+              error => this.errorService.createErrorAlert(error.error, error.status)
             );
           }
         }, {
@@ -127,7 +127,7 @@ export class TorneosPage implements OnInit {
           handler: () => {
             this.torneoService.responseInvitacion(this.invitations[i].id, 'OK').subscribe(
               () => this.invitations.splice(i, 1),
-              error => this.errorService.createErrorAlert(error.error)
+              error => this.errorService.createErrorAlert(error.error, error.status)
             );
           }
         }

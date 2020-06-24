@@ -50,7 +50,7 @@ export class RestablecerPasswordComponent implements OnInit {
           await alert.present();
         },
         async error => {
-          const alert = await this.errorService.createErrorAlert(error);
+          const alert = await this.errorService.createErrorAlert(error.error, error.status);
           await alert.present();
         });
     }

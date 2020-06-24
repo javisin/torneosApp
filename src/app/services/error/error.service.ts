@@ -13,7 +13,7 @@ export class ErrorService {
               private userService: UserService,
               private storage: Storage,
               private router: Router) { }
-  async createErrorAlert(error: string): Promise<HTMLIonAlertElement> {
+  async createErrorAlert(error: string, status: number): Promise<HTMLIonAlertElement> {
     return await this.alertController.create({
       header: 'Error',
       message: error,
@@ -22,7 +22,7 @@ export class ErrorService {
           text: 'OK',
           role: 'cancel',
           handler: async () => {
-            if (error === 'Usuario o token incorrecto') {
+            if (status === 401) {
               await this.storage.remove('user');
               this.userService.setStorageUser();
               await this.router.navigate(['/log-in']);

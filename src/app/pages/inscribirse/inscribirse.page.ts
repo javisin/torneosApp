@@ -39,7 +39,7 @@ export class InscribirsePage implements OnInit {
         }
       },
       async error => {
-        await this.errorService.createErrorAlert(error.error);
+        await this.errorService.createErrorAlert(error.error, error.status);
         if (refreshEvent) {
           refreshEvent.target.complete();
         } else {

@@ -40,7 +40,7 @@ export class EquiposListComponent implements OnInit {
         this.canInscribe = categoriaInfo.permitirinscripcion === 'Si';
       },
       async error => {
-        const alert = await this.errorService.createErrorAlert(error.error);
+        const alert = await this.errorService.createErrorAlert(error.error, error.status);
         await alert.present();
       }
     );
@@ -89,7 +89,7 @@ export class EquiposListComponent implements OnInit {
           this.refreshService.emitValue();
         },
         async error => {
-          const alert = await this.errorService.createErrorAlert(error.error);
+          const alert = await this.errorService.createErrorAlert(error.error, error.status);
           await alert.present();
         }
       );
@@ -107,7 +107,7 @@ export class EquiposListComponent implements OnInit {
             this.refreshService.emitValue();
           },
           async error => {
-            const alert = await this.errorService.createErrorAlert(error.error);
+            const alert = await this.errorService.createErrorAlert(error.error, error.status);
             await alert.present();
           }
         );

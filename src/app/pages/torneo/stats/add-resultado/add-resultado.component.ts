@@ -101,7 +101,7 @@ export class AddResultadoComponent implements OnInit {
           this.refreshService.emitValue();
         },
         async error => {
-          const alert = await this.errorService.createErrorAlert(error.error);
+          const alert = await this.errorService.createErrorAlert(error.error, error.status);
           await alert.present();
         }
       );
