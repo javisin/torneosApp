@@ -66,6 +66,8 @@
       <ion-col>
         <ion-item color="none" class="text-white">
           <ion-input placeholder="Nombre de usuario" formControlName="nick"></ion-input>
+          <ion-icon (click)="presentInfoPopOver($event)"
+                    name="information-circle-outline"></ion-icon>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -84,7 +86,7 @@
       <ion-col>
         <ion-item color="none" class="text-white">
           <ion-input placeholder="Contraseña" [type]="getSeePassword() ? 'text' : 'password'" formControlName="password"></ion-input>
-          <ion-icon (click)="toggleSeePassword()" slot="end"
+          <ion-icon (click)="toggleSeePassword()"
                     [name]="getSeePassword() ? 'eye-off-outline' : 'eye-outline'">
           </ion-icon>
         </ion-item>

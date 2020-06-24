@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user/user.service';
-import {AlertController} from '@ionic/angular';
+import {AlertController, PopoverController} from '@ionic/angular';
 import { MustMatch } from '../../helpers/mustMatch.validator';
 import {Router} from '@angular/router';
 import {ErrorService} from '../../services/error/error.service';
+import {NickInfoComponent} from './nick-info/nick-info.component';
 
 @Component({
   selector: 'app-registro',
@@ -20,7 +21,8 @@ export class RegistroPage implements OnInit {
       private userService: UserService,
       private errorService: ErrorService,
       private router: Router,
-      private alertController: AlertController
+      private alertController: AlertController,
+      private popoverController: PopoverController
   ) {
     this.seePassword = false;
   }
@@ -43,6 +45,15 @@ export class RegistroPage implements OnInit {
   }
   toggleSeePassword(): void {
     this.seePassword = !this.seePassword;
+  }
+  async presentInfoPopOver(e: Event) {
+    const popover = await this.popoverController.create({
+      component: NickInfoComponent,
+      translucent: true,
+      cssClass: 'ionic-w-60',
+      event: e
+    });
+    return await popover.present();
   }
   onSubmit(form): void {
     this.registerForm.markAllAsTouched();
