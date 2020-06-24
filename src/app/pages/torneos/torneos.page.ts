@@ -6,6 +6,7 @@ import {Torneo} from '../../services/torneo/torneo';
 import {User} from '../../services/user/user';
 import {ErrorService} from '../../services/error/error.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import {RefreshService} from '../../services/refresh/refresh.service';
 
 @Component({
   selector: 'app-torneos',
@@ -26,6 +27,7 @@ export class TorneosPage implements OnInit {
               private loadingController: LoadingController,
               private alertController: AlertController,
               private errorService: ErrorService,
+              private refreshService: RefreshService,
               private nativePageTransitions: NativePageTransitions,
               private ionRouterOutlet: IonRouterOutlet
   ) {
@@ -38,6 +40,9 @@ export class TorneosPage implements OnInit {
         this.user = user;
         await this.loadContent();
       }
+    });
+    this.refreshService.getSubject().subscribe(() => {
+      this.fetchNotificaciones();
     });
   }
   ionViewWillLeave(): void {

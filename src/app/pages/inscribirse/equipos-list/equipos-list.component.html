@@ -11,7 +11,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ng-container>
+  <ng-container *ngIf="canInscribe; else alreadyInscribed">
     <ion-row *ngIf="!showForm" class="align-items-center ion-margin-start mt-2">
       <div (click)="showNewEquipoForm()">
         <span class="color-primary font-weight-bold">
