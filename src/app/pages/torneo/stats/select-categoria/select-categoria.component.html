@@ -11,7 +11,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-list>
-  <ion-item *ngFor="let categoria of categorias" lines="none" [routerLink]="['/torneo/', categoria.id]">
+  <ion-item *ngFor="let categoria of categorias" lines="none" (click)="navigateToCategoria(categoria.id)">
     {{categoria.nombre}}
   </ion-item>
 </ion-list>
