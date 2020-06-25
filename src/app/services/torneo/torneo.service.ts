@@ -25,7 +25,7 @@ export class TorneoService {
   }
   getCategoria(idTorneo: string): Observable<Categoria> {
     const user = this.userService.getUser().getValue();
-    return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=s${user.token}&idtorneo=${idTorneo}`);
+    return this.http.get<Categoria>(`${this.url}/getcategoria.php?usuario=${user.email}&token=${user.token}&idtorneo=${idTorneo}`);
   }
   getOpenedTorneos(): Observable<Categoria> {
     const user = this.userService.getUser().getValue();

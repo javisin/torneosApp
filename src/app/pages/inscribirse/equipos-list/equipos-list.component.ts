@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TorneoService} from '../../../services/torneo/torneo.service';
-import {AlertController, ModalController} from '@ionic/angular';
+import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ErrorService} from '../../../services/error/error.service';
 import {RefreshService} from '../../../services/refresh/refresh.service';
@@ -22,6 +22,7 @@ export class EquiposListComponent implements OnInit {
               private formBuilder: FormBuilder,
               private errorService: ErrorService,
               private alertController: AlertController,
+              private toastController: ToastController,
               private refreshService: RefreshService) {
     this.showForm = false;
   }
@@ -51,7 +52,7 @@ export class EquiposListComponent implements OnInit {
   async presentConfirmAlert(nombreEquipo: string, handlerFunction) {
     const alert = await this.alertController.create({
       header: 'Confirmar inscripción',
-      message: `¿Estás seguro de que quieres inscribirte con el equipo ${nombreEquipo}?`,
+      message: `¿Estás seguro de que quieres inscribirte con el equipo "${nombreEquipo}"?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -67,25 +68,20 @@ export class EquiposListComponent implements OnInit {
     });
     await alert.present();
   }
-  async presentSuccessAlert(nombreEquipo) {
-    const alert = await this.alertController.create({
-      header: 'Jugador inscrito',
-      message: `Te has inscrito con éxito en la categoría con el equipo ${nombreEquipo}`,
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel',
-        },
-      ],
-      translucent: true,
+  async presentSuccessToast(nombreEquipo) {
+    const toast = await this.toastController.create({
+      message: `Te has inscrito en la categoría con el equipo "${nombreEquipo}"`,
+      duration: 2000,
+      position: 'top'
     });
-    await alert.present();
+    await toast.present();
   }
   async requestInscription(idEquipo, nombreEquipo) {
     await this.presentConfirmAlert(nombreEquipo, () => {
       this.torneoService.requestInscription(this.idCategoria, idEquipo).subscribe(
         async () => {
-          await this.presentSuccessAlert(nombreEquipo);
+          await this.dismissModal();
+          await this.presentSuccessToast(nombreEquipo);
           this.refreshService.emitValue();
         },
         async error => {
@@ -103,7 +99,8 @@ export class EquiposListComponent implements OnInit {
       await this.presentConfirmAlert(form.nombreEquipo, () => {
         this.torneoService.requestNewTeamInscription(this.idCategoria, form.nombreEquipo).subscribe(
           async () => {
-            await this.presentSuccessAlert(form.nombreEquipo);
+            await this.dismissModal();
+            await this.presentSuccessToast(form.nombreEquipo);
             this.refreshService.emitValue();
           },
           async error => {
