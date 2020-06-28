@@ -14,7 +14,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<form [formGroup]="confirmResultForm" (ngSubmit)="onSubmit(confirmResultForm.value)">
+<form #formGroupDirective = "ngForm" [formGroup]="confirmResultForm" (ngSubmit)="onSubmit(confirmResultForm.value)">
   <ion-content scroll-y="false">
     <ion-row>
       <ion-col class="text-center color-primary" size="5">{{equipo1}}</ion-col>
@@ -34,7 +34,7 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <div class="ml-2" *ngIf="FormControl.validar.invalid && FormControl.validar.touched">
+        <div class="ml-2" *ngIf="FormControl.validar.invalid && formGroupDirective.submitted">
           <small class="text-danger" *ngIf="FormControl.validar.errors.required">
             Este campo es obligatorio.
           </small>

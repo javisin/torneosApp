@@ -48,7 +48,6 @@ export class ConfirmResultadoComponent implements OnInit {
     return this.confirmResultForm.controls;
   }
   onSubmit(form): void {
-    this.confirmResultForm.markAllAsTouched();
     if (this.confirmResultForm.status === 'VALID') {
       this.torneoService.validateResultado(form).subscribe(
         async () => {
