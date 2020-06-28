@@ -3,6 +3,9 @@
   <h5 class="ion-margin text-white text-center">Perfil</h5>
 </div>
 <ion-content>
+  <p *ngIf="user" class="size-17 color-primary ion-margin-horizontal mb-0 mt-2">
+    {{user.nick}}
+  </p>
   <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit(updateUserForm.value)" *ngIf="user">
     <ion-row>
       <ion-col size="6">
