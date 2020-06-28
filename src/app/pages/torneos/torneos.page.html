@@ -1,6 +1,6 @@
 <app-bar></app-bar>
 <div class="nav-bg">
-  <h5 class="ion-margin text-white text-center">Mis torneos</h5>
+  <h5 class="ion-margin text-white text-center">Mis competiciones</h5>
 </div>
 <ion-content color="light">
   <ion-refresher slot="fixed" (ionRefresh)="fetchNotificaciones($event)">
@@ -33,7 +33,7 @@
 
   <ion-list class="bg-medium ion-no-padding"
             *ngIf="filteredTorneos && filteredTorneos.length > 0, else noTorneos">
-    <ion-list-header class="color-primary size-20">Torneos</ion-list-header>
+    <ion-list-header class="color-primary size-20">Categorías</ion-list-header>
 
     <ng-container *ngFor="let torneo of filteredTorneos; let i = index">
       <ion-item class="ion-no-padding" lines="full" (click)="toggleTorneo(i)">

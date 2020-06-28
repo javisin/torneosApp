@@ -77,19 +77,21 @@ export class EquiposListComponent implements OnInit {
     await toast.present();
   }
   async requestInscription(idEquipo, nombreEquipo) {
-    await this.presentConfirmAlert(nombreEquipo, () => {
-      this.torneoService.requestInscription(this.idCategoria, idEquipo).subscribe(
-        async () => {
-          await this.dismissModal();
-          await this.presentSuccessToast(nombreEquipo);
-          this.refreshService.emitValue();
-        },
-        async error => {
-          const alert = await this.errorService.createErrorAlert(error.error, error.status);
-          await alert.present();
-        }
-      );
-    });
+    if (this.canInscribe) {
+      await this.presentConfirmAlert(nombreEquipo, () => {
+        this.torneoService.requestInscription(this.idCategoria, idEquipo).subscribe(
+          async () => {
+            await this.dismissModal();
+            await this.presentSuccessToast(nombreEquipo);
+            this.refreshService.emitValue();
+          },
+          async error => {
+            const alert = await this.errorService.createErrorAlert(error.error, error.status);
+            await alert.present();
+          }
+        );
+      });
+    }
   }
   showNewEquipoForm() {
     this.showForm = true;
