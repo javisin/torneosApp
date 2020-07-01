@@ -13,6 +13,7 @@ import {ErrorService} from '../../../../services/error/error.service';
 export class ConfirmResultadoComponent implements OnInit {
   @Input() idPartido: string;
   @Input() idCategoria: string;
+  @Input() idValidacion: string;
   @Input() equipo1: string;
   @Input() equipo2: string;
   @Input() result1: string;
@@ -30,6 +31,7 @@ export class ConfirmResultadoComponent implements OnInit {
     this.confirmResultForm = this.formBuilder.group({
       idpartido: this.idPartido,
       idcategoria: this.idCategoria,
+      idvalidacion: this.idValidacion,
       validar: ['', Validators.required],
       textonok: '',
     });
