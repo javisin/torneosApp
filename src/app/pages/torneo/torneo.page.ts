@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {NativePageTransitions, NativeTransitionOptions} from '@ionic-native/native-page-transitions/ngx';
 import {IonRouterOutlet} from '@ionic/angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-torneo',
@@ -17,7 +18,8 @@ export class TorneoPage implements OnInit {
               private userService: UserService,
               private notificacionService: NotificacionService,
               private nativePageTransitions: NativePageTransitions,
-              private ionRouterOutlet: IonRouterOutlet) { }
+              private ionRouterOutlet: IonRouterOutlet,
+              private screenOrientation: ScreenOrientation) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const user = this.userService.getUser().getValue();
@@ -27,6 +29,7 @@ export class TorneoPage implements OnInit {
     });
   }
   ionViewWillLeave(): void {
+    this.screenOrientation.lock('portrait');
     if (this.ionRouterOutlet.getLastUrl() === '/torneos') {
       const options: NativeTransitionOptions = {
         direction: 'right',

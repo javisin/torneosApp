@@ -36,8 +36,8 @@ export class StatsPage implements OnInit {
     await this.slides.update();
     this.screenOrientation.unlock();
   }
-  async ionViewWillLeave(): Promise<void> {
-    await this.screenOrientation.lock('portrait');
+  ionViewWillLeave(): void {
+    this.screenOrientation.lock('portrait');
   }
   ngOnInit(): void {
     this.idCategoria = this.route.snapshot.parent.params.id;
