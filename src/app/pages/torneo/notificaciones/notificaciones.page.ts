@@ -5,6 +5,7 @@ import {User} from '../../../services/user/user';
 import {ErrorService} from '../../../services/error/error.service';
 import {ActivatedRoute} from '@angular/router';
 import {Notificacion} from '../../../services/notificacion/notificacion';
+import { RefreshService } from 'src/app/services/refresh/refresh.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -20,7 +21,8 @@ export class NotificacionesPage implements OnInit {
   constructor(private notificacionService: NotificacionService,
               private userService: UserService,
               private errorService: ErrorService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private refreshService: RefreshService) {
     this.unreadNotificaciones = [];
     this.readNotificaciones = [];
   }
@@ -54,6 +56,7 @@ export class NotificacionesPage implements OnInit {
         if (refreshEvent) {
           refreshEvent.target.complete();
         }
+        this.refreshService.emitValue();
       },
       async error => {
         const alert = await this.errorService.createErrorAlert(error.error, error.status);
