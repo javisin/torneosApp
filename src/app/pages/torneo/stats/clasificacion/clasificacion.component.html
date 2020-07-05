@@ -1,37 +1,47 @@
-<section *ngIf="portraitOrientation; else landscape">
-  <table class="table-sticky table my-2">
-    <thead>
+<ng-container *ngIf="positions && positions.length > 0; else noClasification">
+  <section *ngIf="portraitOrientation; else landscape">
+    <table class="table-sticky table my-2">
+      <thead>
       <tr>
-<!--        Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>-->
+        <!--        Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>-->
         <th (click)="toggleOrientation()"><img class="icon-size" src="../../../../../assets/icon/mobile-phone.svg" alt="Rotate phone"></th>
         <th *ngFor="let header of headers.slice(0,3)">{{header}}</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr *ngFor="let position of positions; let i = index">
         <td class="border-right bg-light">{{i + 1}}</td>
         <td class="bg-light">{{position.Equipo}}</td>
         <td *ngFor="let header of headers.slice(1,3)">{{position[header]}}</td>
       </tr>
-    </tbody>
-  </table>
-</section>
+      </tbody>
+    </table>
+  </section>
 
-<ng-template #landscape>
-  <table class="table-sticky table light my-2">
-    <thead>
+  <ng-template #landscape>
+    <table class="table-sticky table light my-2">
+      <thead>
       <tr>
-          <th (click)="toggleOrientation()"><img class="icon-size" src="../../../../../assets/icon/mobile-phone.svg" alt="Rotate phone"></th>
-          <th *ngFor="let header of headers">{{header}}</th>
+        <th (click)="toggleOrientation()"><img class="icon-size" src="../../../../../assets/icon/mobile-phone.svg" alt="Rotate phone"></th>
+        <th *ngFor="let header of headers">{{header}}</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr *ngFor="let position of positions; let i = index">
-          <td class="border-right bg-light">{{i + 1}}</td>
-          <td class="bg-light">{{position.Equipo}}</td>
-          <td *ngFor="let header of headers.slice(1,headers.length)">{{position[header]}}</td>
+        <td class="border-right bg-light">{{i + 1}}</td>
+        <td class="bg-light">{{position.Equipo}}</td>
+        <td *ngFor="let header of headers.slice(1,headers.length)">{{position[header]}}</td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
+  </ng-template>
+</ng-container>
+
+<ng-template #noClasification>
+  <div *ngIf="positions" class="h-100 d-flex align-items-center justify-content-center">
+    <p>No hay clasificación disponible</p>
+  </div>
 </ng-template>
+
+
