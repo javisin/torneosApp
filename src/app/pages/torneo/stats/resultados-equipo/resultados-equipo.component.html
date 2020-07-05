@@ -1,102 +1,110 @@
-<div *ngIf="modality === 'sets'; else horizontal" class="bg-white mb-3">
-  <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
-    <ion-row [id]="i + 1">
-      <ion-col size="6" class="ion-text-start">
+<ng-container *ngIf="results && results.length > 0; else noResults">
+  <div *ngIf="modality === 'sets'; else horizontal" class="bg-white mb-3">
+    <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
+      <ion-row [id]="i + 1">
+        <ion-col size="6" class="ion-text-start">
                 <span class="color-tertiary">
                 Jornada {{i + 1}}
                 </span>
-      </ion-col>
-      <ion-col (click)="presentAddResultModal(i)"
-               *ngIf="!modal && result.rdo1 === '' && result.rdo2 === '' && canAddResult"
-               size="6" class="ion-text-end">
+        </ion-col>
+        <ion-col (click)="presentAddResultModal(i)"
+                 *ngIf="!modal && result.rdo1 === '' && result.rdo2 === '' && canAddResult"
+                 size="6" class="ion-text-end">
                 <span class="color-primary font-weight-bold">
                 Añadir resultado
                 </span>
-      </ion-col>
-    </ion-row>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="my-2">
-      <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
+      <ion-row class="my-2">
+        <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
                 <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo1}">
                     {{result.equipo1}}
                 </span>
-      </ion-col>
-      <ion-col offset="1" size="4">
-        <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo1}}</span>
-        </div>
-      </ion-col>
-    </ion-row>
+        </ion-col>
+        <ion-col offset="1" size="4">
+          <div class="resultadosSet px-2 text-left border-secondary">
+            <span>{{result.rdo1}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="my-2">
-      <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
+      <ion-row class="my-2">
+        <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
                 <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo2}">
                     {{result.equipo2}}
                 </span>
-      </ion-col>
-      <ion-col offset="1" size="4">
-        <div class="resultadosSet px-2 text-left border-secondary">
-          <span>{{result.rdo2}} </span>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ng-container *ngIf="!result.rdo1 && !result.rdo2">
-      <ion-row class="justify-content-center">
-        <ion-col class="size-14 date-color">
-          {{result.fechapartido}} {{result.horapartido}}
+        </ion-col>
+        <ion-col offset="1" size="4">
+          <div class="resultadosSet px-2 text-left border-secondary">
+            <span>{{result.rdo2}} </span>
+          </div>
         </ion-col>
       </ion-row>
-      <ion-row class="justify-content-center">
-        <ion-col class="size-14 date-color no-overflow">
-          {{result.datospartido}}
-        </ion-col>
-      </ion-row>
-    </ng-container>
-  </div>
-
-</div>
-<ng-template #horizontal>
-  <table style="table-layout:fixed;" class="table light">
-    <tbody class="size-14">
-    <ng-container *ngFor="let result of results; let i = index">
-      <tr [id]="i + 1">
-        <ng-container *ngIf="!modal && result.rdo1 === '' && result.rdo2 === '' && canAddResult;
-                else noAddResult">
-          <td colspan="1" class="top-row text-left color-tertiary">Jornada {{i + 1}}</td>
-          <td (click)="presentAddResultModal(i)" colspan="2"
-              class="top-row text-right color-primary font-weight-bold">
-            Añadir resultado
-          </td>
-        </ng-container>
-        <ng-template #noAddResult>
-          <td colspan="3" class="top-row text-left color-tertiary">Jornada {{i + 1}}</td>
-        </ng-template>
-      </tr>
-      <tr class="no-border-top">
-        <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team">
-          {{result.equipo1}}
-        </td>
-        <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
-        <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team">
-          {{result.equipo2}}
-        </td>
-      </tr>
       <ng-container *ngIf="!result.rdo1 && !result.rdo2">
-        <tr class="no-border-top">
-          <td colspan="3" class="py-0 date-color size-14 text-center">
+        <ion-row class="justify-content-center">
+          <ion-col class="size-14 date-color">
             {{result.fechapartido}} {{result.horapartido}}
-          </td>
+          </ion-col>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-col class="size-14 date-color no-overflow">
+            {{result.datospartido}}
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </div>
+
+  </div>
+  <ng-template #horizontal>
+    <table style="table-layout:fixed;" class="table light">
+      <tbody class="size-14">
+      <ng-container *ngFor="let result of results; let i = index">
+        <tr [id]="i + 1">
+          <ng-container *ngIf="!modal && result.rdo1 === '' && result.rdo2 === '' && canAddResult;
+                else noAddResult">
+            <td colspan="1" class="top-row text-left color-tertiary">Jornada {{i + 1}}</td>
+            <td (click)="presentAddResultModal(i)" colspan="2"
+                class="top-row text-right color-primary font-weight-bold">
+              Añadir resultado
+            </td>
+          </ng-container>
+          <ng-template #noAddResult>
+            <td colspan="3" class="top-row text-left color-tertiary">Jornada {{i + 1}}</td>
+          </ng-template>
         </tr>
         <tr class="no-border-top">
-          <td colspan="3" class="no-overflow py-0 date-color size-14 text-center">
-            {{result.datospartido}}
+          <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team">
+            {{result.equipo1}}
+          </td>
+          <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
+          <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team">
+            {{result.equipo2}}
           </td>
         </tr>
+        <ng-container *ngIf="!result.rdo1 && !result.rdo2">
+          <tr class="no-border-top">
+            <td colspan="3" class="py-0 date-color size-14 text-center">
+              {{result.fechapartido}} {{result.horapartido}}
+            </td>
+          </tr>
+          <tr class="no-border-top">
+            <td colspan="3" class="no-overflow py-0 date-color size-14 text-center">
+              {{result.datospartido}}
+            </td>
+          </tr>
+        </ng-container>
       </ng-container>
-    </ng-container>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </ng-template>
+</ng-container>
+<ng-template #noResults>
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <p>No participas en ningún partido</p>
+  </div>
 </ng-template>
+
 
 <table *ngIf="!results && idEquipo" class="table light">
   <tbody class="size-14">
@@ -188,6 +196,3 @@
   </tr>
   </tbody>
 </table>
-<div *ngIf="!idEquipo" class="d-flex h-75 align-items-center justify-content-center">
-  <h5>No participas en esta categoría</h5>
-</div>

@@ -1,8 +1,8 @@
 export interface Resultado {
-  idequipo1: number;
+  idequipo1: string;
   // nombreEquipo1: string;
   rdo1: string;
-  idequipo2: number;
+  idequipo2: string;
   // nombreEquipo2: string;
   rdo2: string;
   datospartido: string;

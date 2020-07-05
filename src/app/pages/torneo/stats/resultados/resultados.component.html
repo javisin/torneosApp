@@ -1,77 +1,103 @@
-<p class="text-center color-tertiary my-2">
-  {{categoriaType === '1' ? 'Fase': 'Jornada'}}
-</p>
-<div class="text-center d-flex align-content-center justify-content-center">
+<ng-container *ngIf="results && results.length > 0; else noResults">
+  <p class="text-center color-tertiary my-2">
+    {{categoriaType === '1' ? 'Fase': 'Jornada'}}
+  </p>
+  <div class="text-center d-flex align-content-center justify-content-center">
 
-  <ng-container *ngIf="categoriaType === '2'; else eliminatoria">
-    <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
-              class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
-    <ion-select class="text-center border-secondary border-width-3 rounded bg-white px-3 py-1"
-                interface="popover" [interfaceOptions]="options"
-                (ionChange)="selectRound($event)" *ngIf="rounds"
-                [value]="round" >
-      <ion-select-option *ngFor="let round of rounds; let i = index" [value]="round">
-        {{round}}
-      </ion-select-option>
-    </ion-select>
-    <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
-              class="color-tertiary" size="large" name="arrow-forward-outline">
-    </ion-icon>
-  </ng-container>
+    <ng-container *ngIf="categoriaType === '2'; else eliminatoria">
+      <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
+                class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
+      <ion-select class="text-center border-secondary border-width-3 rounded bg-white px-3 py-1"
+                  interface="popover" [interfaceOptions]="options"
+                  (ionChange)="selectRound($event)" *ngIf="rounds"
+                  [value]="round" >
+        <ion-select-option *ngFor="let round of rounds; let i = index" [value]="round">
+          {{round}}
+        </ion-select-option>
+      </ion-select>
+      <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
+                class="color-tertiary" size="large" name="arrow-forward-outline">
+      </ion-icon>
+    </ng-container>
 
-  <ng-template #eliminatoria>
-    <ion-select class="border-secondary border-width-3 rounded bg-white"
-                interface="popover" [interfaceOptions]="options"
-                (ionChange)="selectRound($event)" *ngIf="rounds"
-                [value]="round" >
-      <ion-select-option *ngFor="let value of rounds.values; let i = index" [value]="value">
-        {{rounds.names[i]}}
-      </ion-select-option>
-    </ion-select>
-  </ng-template>
-</div>
-<div class="bg-white my-3">
+    <ng-template #eliminatoria>
+      <ion-select class="border-secondary border-width-3 rounded bg-white"
+                  interface="popover" [interfaceOptions]="options"
+                  (ionChange)="selectRound($event)" *ngIf="rounds"
+                  [value]="round" >
+        <ion-select-option *ngFor="let value of rounds.values; let i = index" [value]="value">
+          {{rounds.names[i]}}
+        </ion-select-option>
+      </ion-select>
+    </ng-template>
+  </div>
+  <div class="bg-white my-3">
 
-  <div *ngIf="modality === 'sets'; else horizontal">
-    <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
-      <ion-row>
-        <ion-col size="8" class="text-left size-14 date-color">
-          {{result.fechapartido}}
-        </ion-col>
-        <ion-col class="text-right">
-          <ion-icon (click)="createNotification(i)"
-                    class="medium-icon text-right"
-                    [color]="result.isScheduled ? 'warning' : 'medium'"
-                    [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
-          </ion-icon>
-        </ion-col>
-      </ion-row>
-      <ion-row class="my-2">
-        <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
+    <div *ngIf="modality === 'sets'; else horizontal">
+      <div *ngFor="let result of results; let i = index" class="border-set p-2 no-padding-cols">
+        <ion-row>
+          <ion-col size="8" class="text-left size-14 date-color">
+            {{result.fechapartido}}
+          </ion-col>
+          <ion-col class="text-right">
+            <ion-icon (click)="createNotification(i)"
+                      class="medium-icon text-right"
+                      [color]="result.isScheduled ? 'warning' : 'medium'"
+                      [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row class="my-2">
+          <ion-col (click)="presentResultadosEquipoModal(result.idequipo1)" size="6" class="ion-text-right">
           <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo1}">
               {{result.equipo1}}
           </span>
-        </ion-col>
-        <ion-col class="ion-align-self-center" offset="1" size="4">
-          <div class="resultadosSet px-2 text-left border-secondary">
-            <span>{{result.rdo1}}</span>
-          </div>
-        </ion-col>
-      </ion-row>
+          </ion-col>
+          <ion-col class="ion-align-self-center" offset="1" size="4">
+            <div class="resultadosSet px-2 text-left border-secondary">
+              <span>{{result.rdo1}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
 
-      <ion-row  class="my-2">
-        <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
+        <ion-row  class="my-2">
+          <ion-col (click)="presentResultadosEquipoModal(result.idequipo2)" size="6" class="ion-text-right">
           <span [ngClass]="{'color-primary font-weight-bolder': result.idganador === result.idequipo2}">
               {{result.equipo2}}
           </span>
-        </ion-col>
-        <ion-col class="ion-align-self-center" offset="1" size="4">
-          <div class="resultadosSet px-2 text-left border-secondary">
-            <span>{{result.rdo2}}</span>
-          </div>
-        </ion-col>
-      </ion-row>
+          </ion-col>
+          <ion-col class="ion-align-self-center" offset="1" size="4">
+            <div class="resultadosSet px-2 text-left border-secondary">
+              <span>{{result.rdo2}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
     </div>
+    <ng-template #horizontal>
+      <table class="table light my-3">
+        <tbody class="size-14">
+        <ng-container *ngFor="let result of results; let i = index">
+          <tr>
+            <td class="date-color size-14 text-left">{{result.fechapartido}}</td>
+            <td colspan="2" class="w-100 pb-0 pt-1 text-right">
+              <ion-icon (click)="createNotification(i)"
+                        class="medium-icon"
+                        [color]="result.isScheduled ? 'warning' : 'medium'"
+                        [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
+              </ion-icon>
+            </td>
+          </tr>
+          <tr class="no-border-top">
+            <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team pt-0">{{result.equipo1}}</td>
+            <td class="result pt-0"><span class="rounded py-1 px-2 back-light">{{result.rdo1}}-{{result.rdo2}}</span></td>
+            <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team pt-0">{{result.equipo2}}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </ng-template>
+
   </div>
   <ng-template #horizontal>
     <table class="table light my-3">
@@ -97,15 +123,20 @@
     </table>
   </ng-template>
 
-</div>
+  <div class="text-center d-flex align-content-center justify-content-center mb-3">
+    <ng-container *ngIf="categoriaType === '2'">
+      <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
+                class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
+      <span class="border-secondary border-width-3 rounded bg-white px-4 py-1 size-17">{{round}}</span>
+      <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
+                class="color-tertiary" size="large" name="arrow-forward-outline">
+      </ion-icon>
+    </ng-container>
+  </div>
+</ng-container>
 
-<div class="text-center d-flex align-content-center justify-content-center mb-3">
-  <ng-container *ngIf="categoriaType === '2'">
-    <ion-icon (click)="previousJornada()" [class.opacity-medium]="round <= 1"
-              class="color-tertiary" size="large" name="arrow-back-outline"></ion-icon>
-    <span class="border-secondary border-width-3 rounded bg-white px-4 py-1 size-17">{{round}}</span>
-    <ion-icon (click)="nextJornada()" [class.opacity-medium]="round === totalRounds"
-              class="color-tertiary" size="large" name="arrow-forward-outline">
-    </ion-icon>
-  </ng-container>
-</div>
+<ng-template #noResults>
+  <div *ngIf="results" class="h-100 d-flex align-items-center justify-content-center">
+    <p>No hay ningún partido programado</p>
+  </div>
+</ng-template>
