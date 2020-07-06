@@ -23,7 +23,6 @@ export class StatsPage implements OnInit {
   public categoriaType: string;
   constructor(private route: ActivatedRoute,
               private screenOrientation: ScreenOrientation,
-              private userService: UserService,
               private torneoService: TorneoService,
               private errorService: ErrorService,
               private pickerController: PickerController,

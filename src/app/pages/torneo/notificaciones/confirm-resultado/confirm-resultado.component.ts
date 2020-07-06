@@ -37,7 +37,7 @@ export class ConfirmResultadoComponent implements OnInit {
     });
   }
   async dismissPopover(status: string): Promise<void> {
-    if (status === 'OK') {
+    if (status === 'NOK') {
       this.refreshService.emitValue();
     }
     await this.popoverController.dismiss(
