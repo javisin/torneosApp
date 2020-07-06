@@ -51,6 +51,9 @@ export class ConfirmResultadoComponent implements OnInit {
   }
   onSubmit(form): void {
     if (this.confirmResultForm.status === 'VALID') {
+      if(form.textonok) {
+        form.textonok.trim();
+      }
       this.torneoService.validateResultado(form).subscribe(
         async () => {
           await this.dismissPopover(form.validar);
