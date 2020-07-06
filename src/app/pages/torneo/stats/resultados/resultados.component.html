@@ -75,12 +75,12 @@
       </div>
     </div>
     <ng-template #horizontal>
-      <table class="table light my-3">
+      <table class="table results light my-3">
         <tbody class="size-14">
         <ng-container *ngFor="let result of results; let i = index">
           <tr>
             <td colspan="2" class="date-color pb-0 pt-1 size-14 text-left">{{result.fechapartido}} {{result.horapartido}}</td>
-            <td class="w-100 pb-0 pt-1 text-right">
+            <td class="pb-0 pt-1 text-right">
               <ion-icon *ngIf="result.isScheduled; else noScheduled" (click)="createNotification(i)"
                         class="medium-icon"
                         color="warning"
@@ -97,7 +97,7 @@
           </tr>
           <tr class="no-border-top">
             <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team pt-0">{{result.equipo1}}</td>
-            <td class="result pt-0"><span class="rounded py-1 px-2 back-light">{{result.rdo1}}-{{result.rdo2}}</span></td>
+            <td class="result pt-0"><span class="rounded py-1 px-2 back-light">{{result.rdo1}} - {{result.rdo2}}</span></td>
             <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team pt-0">{{result.equipo2}}</td>
           </tr>
         </ng-container>

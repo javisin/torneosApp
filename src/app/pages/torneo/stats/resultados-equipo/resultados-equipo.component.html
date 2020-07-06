@@ -57,7 +57,7 @@
 
   </div>
   <ng-template #horizontal>
-    <table style="table-layout:fixed;" class="table light">
+    <table class="table results light">
       <tbody class="size-14">
       <ng-container *ngFor="let result of results; let i = index">
         <tr [id]="i + 1">
@@ -77,7 +77,7 @@
           <td (click)="presentResultadosEquipoModal(result.idequipo1)" class="local-team">
             {{result.equipo1}}
           </td>
-          <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}}-{{result.rdo2}}</span></td>
+          <td class="result"><span class="rounded py-1 px-2">{{result.rdo1}} - {{result.rdo2}}</span></td>
           <td (click)="presentResultadosEquipoModal(result.idequipo2)" class="visitor-team">
             {{result.equipo2}}
           </td>
