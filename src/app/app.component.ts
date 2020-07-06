@@ -75,10 +75,9 @@ export class AppComponent {
     );
     PushNotifications.addListener('pushNotificationReceived',
       async (notification: PushNotification) => {
-        console.log('woopi')
         const toast = await this.toastController.create({
           message: `${notification.title}: ${notification.body}`,
-          duration: 2000,
+          duration: 3000,
           position: 'top'
         });
         await toast.present();
