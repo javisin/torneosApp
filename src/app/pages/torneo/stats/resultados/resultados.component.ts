@@ -102,6 +102,7 @@ export class ResultadosComponent implements OnInit {
         fecha: this.results[i].fechapartido,
         hora: this.results[i].horapartido,
         idCategoria: this.idCategoria,
+        isScheduled: this.results[i].isScheduled,
       },
       cssClass: 'ionic-w-80',
     });

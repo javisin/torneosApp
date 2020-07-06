@@ -14,8 +14,8 @@ export class AddNotificacionComponent implements OnInit {
   @Input() fecha: string;
   @Input() hora: string;
   @Input() idCategoria: string;
+  @Input() isScheduled: boolean;
   @ViewChild(IonSegment) segment: IonSegment;
-  public isScheduled: boolean;
   public anticipationMessage: string;
   public finished: boolean;
   private matchTime: number;
@@ -23,7 +23,6 @@ export class AddNotificacionComponent implements OnInit {
               private popoverController: PopoverController
               ) {
     this.finished = false;
-    this.isScheduled = false;
   }
   async ngOnInit(): Promise<void> {
     this.matchTime = this.getDateTime(this.fecha, this.hora);
@@ -31,7 +30,7 @@ export class AddNotificacionComponent implements OnInit {
       if (Date.now() > this.matchTime) {
         this.finished = true;
       } else {
-        if (await this.localNotifications.isScheduled(this.idPartido)) {
+        if (this.isScheduled) {
           this.anticipationMessage = await this.getAnticipationMessage();
         }
       }
