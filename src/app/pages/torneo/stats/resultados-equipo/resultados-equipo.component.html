@@ -100,7 +100,7 @@
   </ng-template>
 </ng-container>
 <ng-template #noResults>
-  <div class="h-100 d-flex align-items-center justify-content-center">
+  <div *ngIf="results" class="h-100 d-flex align-items-center justify-content-center">
     <p>No participas en ningún partido</p>
   </div>
 </ng-template>
