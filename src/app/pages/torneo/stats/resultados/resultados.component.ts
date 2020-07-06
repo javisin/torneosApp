@@ -106,9 +106,7 @@ export class ResultadosComponent implements OnInit {
       cssClass: 'ionic-w-80',
     });
     modal.onDidDismiss().then(details => {
-      if (details.data.isScheduled) {
-        this.results[i].isScheduled = true;
-      }
+      this.results[i].isScheduled = details.data.isScheduled;
     });
     return await modal.present();
   }

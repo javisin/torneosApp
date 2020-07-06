@@ -81,11 +81,18 @@
           <tr>
             <td colspan="2" class="date-color pb-0 pt-1 size-14 text-left">{{result.fechapartido}} {{result.horapartido}}</td>
             <td class="w-100 pb-0 pt-1 text-right">
-              <ion-icon (click)="createNotification(i)"
+              <ion-icon *ngIf="result.isScheduled; else noScheduled" (click)="createNotification(i)"
                         class="medium-icon"
-                        [color]="result.isScheduled ? 'warning' : 'medium'"
-                        [name]="result.isScheduled ? 'notifications' : 'notifications-outline'">
+                        color="warning"
+                        name="notifications">
               </ion-icon>
+              <ng-template #noScheduled>
+                <ion-icon (click)="createNotification(i)"
+                          class="medium-icon"
+                          color="secondary"
+                          name="notifications-outline">
+                </ion-icon>
+              </ng-template>
             </td>
           </tr>
           <tr class="no-border-top">

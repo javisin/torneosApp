@@ -44,6 +44,7 @@ export class AddNotificacionComponent implements OnInit {
   }
   async cancelNotification(): Promise<void>  {
     await this.localNotifications.cancel(this.idPartido);
+    this.isScheduled = false;
     await this.dismissPopover();
   }
   async createNotification(): Promise<void>  {
