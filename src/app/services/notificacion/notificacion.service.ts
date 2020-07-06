@@ -16,9 +16,9 @@ export class NotificacionService {
               private userService: UserService) {
     this.url = Global.url;
   }
-  getNotificaciones(user: User, idTorneo: string): Observable<Notificacion[]> {
+  getNotificaciones(user: User, idCategoria: string): Observable<Notificacion[]> {
     return this.http.get<Notificacion[]>(
-      `${this.url}/getnotificaciones.php?usuario=${user.email}&token=${user.token}&idTorneo=${idTorneo}`);
+      `${this.url}/getnotificaciones.php?usuario=${user.email}&token=${user.token}&idcategoria=${idCategoria}`);
   }
   readNotificaciones(user: User, notificacionesIds: string[]): Observable<any> {
     const form = new FormData();
