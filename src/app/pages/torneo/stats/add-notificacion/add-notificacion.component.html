@@ -30,6 +30,7 @@
   <div *ngIf="fecha; else noDate">
     <div *ngIf="!finished; else finishedMessage" >
       <p class="text-center text-secondary">{{fecha}}</p>
+      <p class="text-center text-secondary">{{hora}}</p>
       <p *ngIf="anticipationMessage; else create" class="mt-3 mx-1 text-center font-weight-bolder">
         Notificación ya programada para {{anticipationMessage}} del partido.
       </p>

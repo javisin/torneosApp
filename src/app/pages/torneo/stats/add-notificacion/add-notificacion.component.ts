@@ -12,11 +12,13 @@ export class AddNotificacionComponent implements OnInit {
   @Input() equipo1: string;
   @Input() equipo2: string;
   @Input() fecha: string;
+  @Input() hora: string;
   @Input() idCategoria: string;
   @ViewChild(IonSegment) segment: IonSegment;
   public isScheduled: boolean;
   public anticipationMessage: string;
   public finished: boolean;
+  private matchTime: number;
   constructor(private localNotifications: LocalNotifications,
               private popoverController: PopoverController
               ) {
@@ -24,8 +26,9 @@ export class AddNotificacionComponent implements OnInit {
     this.isScheduled = false;
   }
   async ngOnInit(): Promise<void> {
+    this.matchTime = this.getDateTime(this.fecha, this.hora);
     if (this.fecha !== '') {
-      if (Date.now() > this.getDateTime(this.fecha)) {
+      if (Date.now() > this.matchTime) {
         this.finished = true;
       } else {
         if (await this.localNotifications.isScheduled(this.idPartido)) {
@@ -45,26 +48,25 @@ export class AddNotificacionComponent implements OnInit {
   }
   async createNotification(): Promise<void>  {
     const value = this.segment.value;
-    const matchTime = this.getDateTime(this.fecha);
     let text: string;
     let anticipation: string;
     let notificationDate: Date;
     switch (value) {
       case 'none': {
         text = `Comienzo del partido`;
-        notificationDate = new Date(matchTime);
+        notificationDate = new Date(this.matchTime);
         anticipation = 'none';
         break;
       }
       case 'hour': {
         text = `Una hora para el partido`;
-        notificationDate = new Date(matchTime - 3600000);
+        notificationDate = new Date(this.matchTime - 3600000);
         anticipation = 'hour';
         break;
       }
       case 'day': {
         text = `Un día para el partido`;
-        notificationDate = new Date(matchTime - 3600000 * 24);
+        notificationDate = new Date(this.matchTime - 3600000 * 24);
         anticipation = 'day';
         break;
       }
@@ -79,9 +81,10 @@ export class AddNotificacionComponent implements OnInit {
     this.isScheduled = true;
     await this.dismissPopover();
   }
-  getDateTime(stringDate: string): number {
-    const [year, month, day] = stringDate.split('-');
-    return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+  getDateTime(date: string, time: string): number {
+    const [year, month, day] = date.split('-');
+    const [hour, minute] = time.split(':');
+    return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute)).getTime();
   }
   async getAnticipationMessage(): Promise<string> {
     const notification = await this.localNotifications.get(this.idPartido);
